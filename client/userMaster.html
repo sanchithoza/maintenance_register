@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        Product Price List
+    </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" src="http://localhost:9000/ui/header"></script>
+</head>
+
+<body>
+    <nav id="navBar" class="navbar navbar-expand-md bg-dark navbar-dark">
+
+    </nav>
+    <div class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card overflow-auto">
+                    <div class="card-header">
+                        <div class="row" style="padding: 8px; ">
+                            <div class="col-md-6">
+                                <h4>User Master</h4>
+                            </div>
+                            <div class="col-md-6" style="text-align: right;">
+                                <!-- Button trigger modal -->
+                                <a id="addUser" type="button" class="btn btn-primary">
+                            Add New User
+                                </a>
+                                <!----------------------------->
+                                <!-- Add Product Modal Modal -->
+                                <!----------------------------
+                                <div class="modal fade" id="productMasterModal" tabindex="-1" aria-labelledby="productMasterModalLabel" data-bs-backdrop="static" aria-hidden="true">
+
+                                </div>
+                                --------------------------->
+                                <!-- Add Product Modal Modal -->
+                                <!----------------------------->
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <table id="userRegister" class="table table-responsive">
+                            <thead>
+                                <tr>
+                                    <th>edit/delete</th>
+                                    <th>Role</th>
+                                    <th>User Name</th>
+                                    <th>Mobile Number</th>
+                                    <th>Email</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="card-footer">Footer</div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        $(document).ready(async function() {
+            let organization_id = sessionStorage.getItem("organization_id")
+            $.get(`${url}/master/users/${organization_id}`, function(data) {
+                var length = data.length;
+                console.log(data);
+                var table = $('#userRegister').DataTable();
+                table.clear()
+                for (var i = 0; i < length; i++) {
+                    $('#userRegister').dataTable().fnAddData([
+                        `<a onclick='editUser("${data[i].id}");' href='#' id="editUser">edit</a>/<a  href='#' onclick='deleteUser("${data[i].id}");'>delete</a>`,
+                        data[i].role,
+                        data[i].user_name,
+                        data[i].mobile,
+                        data[i].email
+                    ]);
+                }
+            });
+            //----------------------------
+            //add product modal events
+            //---------------------------
+            $('#addUser').click(() => {
+                window.location.href = `${url}/ui/addUser`;
+            });
+        });
+
+        function deleteUser(id) {
+            if (confirm("Are You Sure You Wnt to delete this ?")) {
+
+                $.ajax({
+                    type: "DELETE",
+                    contentType: "application/json",
+                    url: `${url}/master/deleteUser/${id}`,
+                    dataType: 'json',
+                    success: async function(data) {
+                        window.location.href = `${url}/ui/userMaster`
+                    },
+                    error: function(e) {
+                        alert("Error!")
+                        console.log("ERROR: ", e);
+                    }
+                });
+            }
+        }
+
+        function editUser(id) {
+            localStorage.setItem("edit_user", id)
+            window.location.href = `${url}/ui/addUser`
+        }
+    </script>
+</body>
+
+</html>

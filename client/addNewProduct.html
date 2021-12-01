@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        Product Price List
+    </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" src="http://localhost:9000/ui/header"></script>
+</head>
+
+<body>
+    <nav id="navBar" class="navbar navbar-expand-md bg-dark navbar-dark">
+
+    </nav>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card overflow-auto">
+                    <form action="">
+                        <div class="card-header">
+                            <div class="row" style="padding: 8px; ">
+                                <div class="col-md-6">
+                                    <h4>Product Master Entry</h4>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="card-body">
+
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="col-md-4"> Product Company </div>
+                                    <div class="col-md-8">
+                                        <input autocomplete="off" list="companies" style="width: 100%;" name="company" id="company" class="company" required>
+                                        <datalist id="companies" class="companies"> </datalist>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="col-md-4"> Product Category </div>
+                                    <div class="col-md-8">
+                                        <input autocomplete="off" list="categories" style="width: 100%;" name="category" id="category" class="category" required>
+                                        <datalist id="categories" class="categories"> </datalist>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="col-md-4"> Sub Category </div>
+                                    <div class="col-md-8"> <input autocomplete="off" list="subCategories" style="width: 100%;" name="subCategory" id="subCategory" class="subCategory">
+                                        <datalist id="subCategories" class="subCategories"> </datalist>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="col-md-4"> Model Number </div>
+                                    <div class="col-md-8">
+                                        <input autocomplete="off" style="width: 100%;" name="modelNumber" id="modelNumber" class="modelNumber">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="col-md-4"> Product Discription </div>
+                                    <div class="col-md-8"> <input type="text" required autocomplete="off" list="discriptions" style="width: 100%;" name="discription" id="discription" />
+                                        <datalist id="discriptions"> </datalist></div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="col-md-4"> Dealer Price </div>
+                                    <div class="col-md-8">
+                                        <input autocomplete="off" style="width: 100%;" name="dealerPrice" id="dealerPrice" class="dealerPrice" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="col-md-4"> Customer Price </div>
+                                    <div class="col-md-8">
+                                        <input autocomplete="off" style="width: 100%;" name="customerPrice" id="customerPrice" class="customerPrice" required>
+                                    </div>
+                                </div>
+
+                            </div>
+                    </form>
+
+                    </div>
+                    <div class="card-footer">
+                        <button id="addProduct" type="button" class="btn btn-primary">Add Product</button>
+                        <input hidden="hidden" autocomplete="off" name="uid" id="uid" class="uid">
+                        <button hidden="hidden" id="updateProduct" type="button" class="btn btn-primary">Update Product</button>
+
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+    </div>
+
+
+    <script>
+        $(document).ready(async function() {
+            $('#addProduct').click(() => {
+                let organization_id = sessionStorage.getItem("organization_id")
+                let company_name = $('.company').val()
+                let category = $('.category').val()
+                let sub_category = $('.subCategory').val()
+                let model_number = $('.modelNumber').val()
+                let discription = $('#discription').val()
+                let wholesale_price = $('#dealerPrice').val()
+                let retail_price = $('#customerPrice').val()
+                if (!category || !dealerPrice || !customerPrice) {
+                    alert("Input Required");
+                    return false;
+                }
+                let newProduct = {
+                    organization_id,
+                    company_name,
+                    category,
+                    sub_category,
+                    model_number,
+                    discription,
+                    wholesale_price,
+                    retail_price
+                }
+                $.ajax({
+                    type: "POST",
+                    contentType: "application/json",
+                    url: `${url}/master/addProduct`,
+                    data: JSON.stringify(newProduct),
+                    dataType: 'json',
+                    success: async function(data) {
+                        window.location.href = `${url}/ui/productMaster`
+                    },
+                    error: function(e) {
+                        //           alert(`Add product Ajex Error : ${e}`)
+                        console.log("Add product Ajax ERROR: ", JSON.stringify(e));
+                    }
+                });
+            });
+            if (localStorage.getItem("edit_product")) {
+                var editid = localStorage.getItem("edit_product")
+                console.log(editid);
+                localStorage.clear()
+            }
+
+
+            if (editid) {
+                console.log("editing data");
+                try {
+                    $("#addProduct").hide();
+                    $("#updateProduct").removeAttr('hidden');
+                    let argu = {
+                        "_id": editid
+                    }
+                    $.ajax({
+                        type: "GET",
+                        contentType: "application/json",
+                        url: `${url}/master/getProductById/${editid}`,
+                        data: JSON.stringify(argu),
+                        dataType: 'json',
+                        success: async function(data) {
+                            console.log("edit funtion " + JSON.stringify(data));
+                            data.forEach(element => {
+                                $("#company").val(element.company_name)
+                                $("#category").val(element.category)
+                                $("#subCategory").val(element.sub_category)
+                                $("#modelNumber").val(element.model_number)
+                                $("#discription").val(element.discription)
+                                $("#dealerPrice").val(element.wholesale_price)
+                                $("#customerPrice").val(element.retail_price)
+                                $("#uid").val(element.id)
+                            });
+
+                        },
+                        error: function(e) {
+                            console.log("Edit Function Error : " + e);
+                        }
+                    })
+                } catch (error) {
+                    console.log("Edit Function caught Error : " + error);
+                }
+            }
+            $('#updateProduct').click(() => {
+                let id = $("#uid").val()
+                let company_name = $('.company').val()
+                let category = $('.category').val()
+                let sub_category = $('.subCategory').val()
+                let model_number = $('.modelNumber').val()
+                let discription = $('#discription').val()
+                let wholesale_price = $('#dealerPrice').val()
+                let retail_price = $('#customerPrice').val()
+                if (!category) {
+                    alert("Input Required");
+                    return false;
+                }
+                let updateProduct = {
+                    company_name,
+                    category,
+                    sub_category,
+                    model_number,
+                    discription,
+                    wholesale_price,
+                    retail_price
+                }
+                console.log(updateProduct);
+                try {
+                    $.ajax({
+                        type: "PATCH",
+                        contentType: "application/json",
+                        url: `${url}/master/updateProduct/${id}`,
+                        data: JSON.stringify(updateProduct),
+                        dataType: 'json',
+                        success: async function(data) {
+                            console.log(data);
+                            window.location.href = `${url}/ui/productMaster`
+                        },
+                        error: function(e) {
+                            alert(`update product Ajex Error : ${e.responseText}`)
+                            console.log("update product Ajax ERROR: ", e);
+                        }
+                    });
+                } catch (error) {
+                    console.log("update Product Button Error : " + error);
+                }
+            });
+        });
+        //$("#message").html("hello")
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        Product Price List
+    </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" src="http://localhost:9000/ui/header"></script>
+</head>
+
+<body>
+    <nav id="navBar" class="navbar navbar-expand-md bg-dark navbar-dark">
+
+    </nav>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card overflow-auto">
+                    <form action="">
+                        <div class="card-header">
+                            <div class="row" style="padding: 8px; ">
+                                <div class="col-md-6">
+                                    <h4>User Master Entry</h4>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="card-body">
+
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="col-md-4"> User Name : </div>
+                                    <div class="col-md-8">
+                                        <input autocomplete="off" style="width: 100%;" name="user_name" id="user_name" class="user_name" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="col-md-4"> Role : </div>
+                                    <div class="col-md-8">
+                                        <select style="width: 100%;" name="role" id="role" class="role" required>
+                                        <option value="customer">Customer</option>
+                                        <option value="dealer">Dealer</option>
+                                        <option value="admin">Admin</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="col-md-4">Mobile Number</div>
+                                    <div class="col-md-8">
+                                        <input autocomplete="off" style="width: 100%;" name="mobile" id="mobile" class="mobile" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="col-md-4">E-mail Id</div>
+                                    <div class="col-md-8">
+                                        <input autocomplete="off" type="email" style="width: 100%;" name="email" id="email" class="email">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="col-md-4">Password</div>
+                                    <div class="col-md-8">
+                                        <input type="text" autocomplete="off" style="width: 100%;" name="password" id="password" required/>
+                                    </div>
+                                </div>
+                    </form>
+
+                    </div>
+                    <div class="card-footer">
+                        <button id="addUser" type="button" class="btn btn-primary">Add User</button>
+                        <input hidden="hidden" autocomplete="off" name="uid" id="uid" class="uid">
+                        <button hidden="hidden" id="updateUser" type="button" class="btn btn-primary">Update User</button>
+                    </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        $(document).ready(async function() {
+
+            $('#addUser').click(() => {
+                let user_name = $('.user_name').val()
+                let role = $('.role').val()
+                let mobile = $('.mobile').val()
+                let email = $('.email').val()
+                let password = $('#password').val()
+                if (!userName || !email || !password) {
+                    alert("Input Required");
+                    return false;
+                }
+                let newUser = {
+                    organization_id,
+                    user_name,
+                    role,
+                    mobile,
+                    email,
+                    password
+                }
+                console.log(newUser);
+
+                $.ajax({
+                    type: "POST",
+                    contentType: "application/json",
+                    url: `${url}/master/addUser`,
+                    data: JSON.stringify(newUser),
+                    dataType: 'json',
+                    success: async function(data) {
+                        console.log(data);
+                        window.location.href = `${url}/ui/userMaster`
+                    },
+                    error: function(e) {
+                        //           alert(`Add product Ajex Error : ${e}`)
+                        console.log("Add user Ajax ERROR: ", JSON.stringify(e));
+                    }
+                });
+
+            });
+            if (localStorage.getItem("edit_user")) {
+                var editid = localStorage.getItem("edit_user")
+                console.log(editid);
+                localStorage.clear()
+            }
+            if (editid) {
+                console.log("editing data");
+                try {
+                    $("#addUser").hide();
+                    $("#updateUser").removeAttr('hidden');
+                    $.ajax({
+                        type: "GET",
+                        contentType: "application/json",
+                        url: `${url}/master/getUser/${editid}`,
+                        dataType: 'json',
+                        success: async function(data) {
+                            console.log("edit funtion " + JSON.stringify(data));
+                            data.forEach(element => {
+                                $("#user_name").val(element.user_name)
+                                $("#role").val(element.role)
+                                $("#mobile").val(element.mobile)
+                                $("#email").val(element.email)
+                                $("#password").val(element.password)
+                                $("#uid").val(element.id)
+                            });
+
+                        },
+                        error: function(e) {
+                            console.log("Edit Function Error : " + e);
+                        }
+                    })
+                } catch (error) {
+                    console.log("Edit Function caught Error : " + error);
+                }
+            }
+            $('#updateUser').click(() => {
+                let id = $("#uid").val()
+                let user_name = $('.user_name').val()
+                let role = $('.role').val()
+                let mobile = $('.mobile').val()
+                let email = $('.email').val()
+                let password = $('#password').val()
+                if (!user_name || !email || !password) {
+                    alert("Input Required");
+                    return false;
+                }
+                let updateUser = {
+                    user_name,
+                    role,
+                    mobile,
+                    email,
+                    password
+                }
+                console.log(updateUser);
+                try {
+                    $.ajax({
+                        type: "PATCH",
+                        contentType: "application/json",
+                        url: `${url}/master/updateUser/${id}`,
+                        data: JSON.stringify(updateUser),
+                        dataType: 'json',
+                        success: async function(data) {
+                            console.log(data);
+                            window.location.href = `${url}/ui/userMaster`
+                        },
+                        error: function(e) {
+                            alert(`update user Ajex Error : ${e.responseText}`)
+                            console.log("update user Ajax ERROR: ", e);
+                        }
+                    });
+                } catch (error) {
+                    console.log("update user Button Error : " + error);
+                }
+            });
+        });
+        //$("#message").html("hello")
+    </script>
+</body>
+
+</html>

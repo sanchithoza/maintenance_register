@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        Product Price List
+    </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
+    <style>
+        .back {
+            background: #e2e2e2;
+            width: 100%;
+            position: absolute;
+            top: 0;
+            bottom: 0;
+        }
+        
+        .div-center {
+            width: 400px;
+            height: 400px;
+            background-color: #fff;
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            margin: auto;
+            max-width: 100%;
+            max-height: 100%;
+            overflow: auto;
+            padding: 1em 2em;
+            border-bottom: 2px solid #ccc;
+            display: table;
+        }
+        
+        div.content {
+            display: table-cell;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="back">
+        <div class="div-center" style="width: 600px !important;">
+            <div class="content">
+                <h3>Register Organization</h3>
+                <hr />
+                <form id="add_organization">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="org_name">Organization Name</label>
+                                <input type="text" class="form-control" id="name" name="name" placeholder="Organization Name" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="email">Email Id</label>
+                                <input type="email" class="form-control" id="email" name="email" placeholder="email" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+
+                            <div class="form-group">
+                                <label for="monile">Mobile Number</label>
+                                <input type="text" class="form-control" id="mobile" name="mobile" placeholder="Mobile Number" required>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+
+                            <div class="form-group">
+                                <label for="user_name">User Name</label>
+                                <input type="text" class="form-control" id="user_name" name="username" placeholder="User name" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="password">Password</label>
+                                <input type="password" class="form-control" id="password" placeholder="Password" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="password">Confirm Password</label>
+                                <input type="password" class="form-control" id="confirm_password" placeholder="Confirm Password">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <button type="submit" class="btn btn-primary">Add Organization</button>
+
+                            <button type="reset" class="btn">Reset</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            </span>
+        </div>
+    </div>
+    <script>
+        $(document).ready(async() => {
+            let url = "http://localhost:9000"
+            $("#add_organization").submit((e) => {
+                e.preventDefault()
+                let organization_data = {
+                    "name": $("#name").val(),
+                    "email": $("#email").val(),
+                    "mobile": $("#mobile").val(),
+                    "user_name": $("#user_name").val(),
+                    "password": $("#password").val()
+                }
+
+                $.ajax({
+                    type: "POST",
+                    dataType: "application/json",
+                    url: `${url}/organization/addOrganization`,
+                    data: organization_data,
+                    success: async function(data) {
+                        alert("Organization Added Successfully !!");
+                        window.location.replace(`${url}/ui`)
+                    },
+                    error: function(error) {
+                        console.log(error);
+                        alert(error.responseText)
+                    }
+                });
+
+
+
+            })
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,91 @@
+    body {
+        margin: 0;
+        font-family: "Lato", sans-serif;
+    }
+    
+    .sidebar {
+        margin: 0;
+        padding: 0;
+        width: 200px;
+        background-color: black;
+        position: fixed;
+        height: 100%;
+        overflow: auto;
+    }
+    
+    .sidebar a {
+        display: block;
+        color: white;
+        padding: 16px;
+        text-decoration: none;
+    }
+    
+    .sidebar a.active {
+        background-color: grey;
+        color: black;
+    }
+    
+    .sidebar a:hover:not(.active) {
+        background-color: #555;
+        color: white;
+    }
+    
+    div.content {
+        margin-left: 200px;
+        padding: 1px 16px;
+        height: 1000px;
+    }
+    
+    .playground {
+        padding: 20px;
+    }
+    
+    .btn-primary {
+        color: white;
+        background-color: black;
+        border-color: darkgray;
+    }
+    
+    .btn-secondary {
+        color: black;
+        background-color: #6c757d;
+        border-color: #6c757d;
+    }
+    
+    .header {
+        margin: 0;
+        padding: 10px;
+        height: 50px;
+        background-color: black;
+        color: white;
+        position: sticky;
+        top: 0;
+        z-index: 1030;
+        text-align: center;
+        vertical-align: middle;
+    }
+    
+    @media screen and (max-width: 700px) {
+        .sidebar {
+            width: 100%;
+            height: auto;
+            position: relative;
+        }
+        .sidebar a {
+            float: left;
+        }
+        div.content {
+            margin-left: 0;
+        }
+    }
+    
+    @media screen and (max-width: 400px) {
+        .sidebar a {
+            text-align: center;
+            float: none;
+        }
+    }
+    
+    .modal input {
+        margin: 10px;
+    }

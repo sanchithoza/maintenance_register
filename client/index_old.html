@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        Inventory Management
+    </title>
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="./css/datatable.css">
+    <link href="https://cdn.datatables.net/buttons/1.5.1/css/buttons.dataTables.min.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="./css/custom.css">
+    <script type="text/javascript" src="./js/jquery-min.js"></script>
+    <script type="text/javascript" src="./js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="./js/datatable.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.2.2/js/dataTables.buttons.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
+    <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/pdfmake.min.js"></script>
+    <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.html5.min.js"></script>
+    <script type="text/javascript" src="header.js"></script>
+    <script type="text/javascript" src="./js/lodash.min.js"></script>
+</head>
+
+
+<body>
+
+    <div class="row header">
+        <h4>Inventory Management System</h4>
+    </div>
+    <div class="sidebar" id="sidebar">
+        <!--inside header.js-->
+    </div>
+    <div class="content">
+        <div class="row playground">
+            <div class="col-md-12">
+                <div class="row" style="padding: 8px; border-bottom: 1px solid black;">
+
+                    <div class="col-md-4">
+                        <button type="button" style="width: 100%;" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#productMasterModal">
+                            <h5>New <br>Product <br>Entry</h5>
+                          </button>
+                    </div>
+                </div>
+                <!----------------------------->
+                <!-- Add Product Modal Modal -->
+                <!----------------------------->
+                <div class="modal fade" id="productMasterModal" tabindex="-1" aria-labelledby="productMasterModalLabel" data-bs-backdrop="static" aria-hidden="true">
+
+                </div>
+
+                <!----------------------------->
+                <!-- Add Product Modal Modal -->
+                <!----------------------------->
+                <!----------------------------->
+                <!-- Add Transaction Modal Modal -->
+                <!----------------------------->
+                <div class="modal fade" id="transactionModal" tabindex="-1" aria-labelledby="transactionLabel" data-bs-backdrop="static" aria-hidden="true">
+
+                </div>
+
+                <!----------------------------->
+                <!-- Add Transaction Modal Modal -->
+                <!----------------------------->
+
+                <div class="row">
+                    <div class="col-md-12" style="overflow: auto; padding: 10px; border: 2px solid black;">
+                        <div style="border-bottom: 2px solid black; margin: 2px;">
+                            <h4>Stock Summery</h4>
+                        </div>
+                        <table id="stockSummery" class="display">
+                            <thead>
+                                <tr>
+                                    <th>Product Category</th>
+                                    <th>Product Sub Category</th>
+                                    <th>Product Discription</th>
+                                    <th>Available Stock</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-md-12" style="height: 5px;"></div>
+                    <div class="col-md-6" style="overflow: auto; padding: 10px; border: 2px solid black;">
+                        <div style="border-bottom: 2px solid black; margin: 2px;">
+                            <h4>Product Data</h4>
+
+                        </div>
+                        <table id="productRegister" class="display">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Product Category</th>
+                                    <th>Product Sub Caregory</th>
+                                    <th>Product Discription</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-md-6" style="overflow: auto; padding: 10px; border: 2px solid black;">
+                        <div style="border-bottom: 2px solid black; margin: 2px;">
+                            <h4>Transaction Summery</h4>
+                        </div>
+                        <table id="transctionSummery" class="display">
+                            <thead>
+                                <tr>
+                                    <th>Transaction Date</th>
+                                    <th>Product Id</th>
+                                    <th>Transaction Type</th>
+                                    <th>Quantity</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(async function() {
+            $('#sidebar').html(sidebar);
+            $('#productMasterModal').html(addProductModal)
+                //   await loadTables();
+                //----------------------------
+                //add product modal events
+                //---------------------------
+
+            $('#addProduct').click(() => {
+                addNewProduct();
+            });
+            $('#btnOutward').click(() => {
+                $('#transactionType').val('Outward').change()
+                    //console.log("Out bc")
+            });
+            $('#btnInward').click(() => {
+                $('#transactionType').val('Inward').change()
+                    //console.log("Out bc")
+            });
+
+            $("#productMasterModal").on('show.bs.modal', function() {
+                clearModal(this);
+                //  openProductMasterModal();
+            });
+            $("#transactionModal").on('show.bs.modal', function() {
+                clearModal(this);
+                openTransactionModal();
+            });
+            $("#productCategory").on('change', function() {
+                onChangeProductCategory();
+            });
+            $("#subCategory").on('change', function() {
+                onChangeSubCategory();
+            });
+            $('#addTransaction').click(() => {
+                addNewTransaction();
+
+            });
+            $("#transactionProductCategory").on('change', function() {
+                onChangeProductCategoryTransaction();
+            });
+            $("#transactionSubCategory").on('change', function() {
+                onChangeSubCategoryTransation();
+            });
+            $("#transactionCompanyName").on('change', function() {
+                onChangeCompanyNameTransation();
+            })
+            $("#transactionProductDiscription").on('change', function() {
+                onChangeProductDiscriptionTransation();
+            })
+
+
+        });
+    </script>
+</body>
+
+</html>

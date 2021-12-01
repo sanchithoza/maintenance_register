@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        Product Price List
+    </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" src="http://localhost:9000/ui/header"></script>
+
+</head>
+
+<body>
+    <nav id="navBar" class="navbar navbar-expand-md bg-dark navbar-dark">
+
+    </nav>
+    <div class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card overflow-auto">
+                    <div class="card-header">
+                        <div class="row" style="padding: 8px; ">
+                            <div class="col-md-6">
+                                <h4>Product Master</h4>
+                            </div>
+                            <div class="col-md-6" style="text-align: right;">
+                                <!-- Button trigger modal -->
+                                <a type="button" id="addProduct" class="btn btn-primary">
+                            Add New Product
+                                </a>
+                                <!----------------------------->
+                                <!-- Add Product Modal Modal -->
+                                <!----------------------------
+                                <div class="modal fade" id="productMasterModal" tabindex="-1" aria-labelledby="productMasterModalLabel" data-bs-backdrop="static" aria-hidden="true">
+
+                                </div>
+                                --------------------------->
+                                <!-- Add Product Modal Modal -->
+                                <!----------------------------->
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <table id="productRegister" class="table table-responsive display">
+                            <thead>
+                                <tr>
+                                    <th>edit/delete</th>
+                                    <th>Category</th>
+                                    <th>Sub Category</th>
+                                    <th>Model Number</th>
+                                    <th>Company</th>
+                                    <th>Discription</th>
+                                    <th>Dealer Price</th>
+                                    <th>Customer Price</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="card-footer">Footer</div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        $(document).ready(function() {
+           /* $.ajax({
+                    type: "GET",
+                    dataType: "application/json",
+                    url: `${url}/master/getProductsByOrgId/${sessionStorage.getItem("organization_id")}`,
+                    dataType: 'json',
+                    success: async function(data) {
+                        console.log("populating data table...", data);
+                        var length = data.length;
+                        var table = $('#productRegister').DataTable();
+                        table.clear()
+                        for (var i = 0; i < length; i++) {
+                            $('#productRegister').dataTable().fnAddData([
+                                `<a href="#" onclick='editProduct("${data[i].id}")'>edit</a>/<a  href='#' onclick='deleteProduct("${data[i].id}");'>delete</a>`,
+                                data[i].category,
+                                data[i].sub_category,
+                                data[i].model_number,
+                                data[i].company_name,
+                                data[i].discription,
+                                data[i].wholesale_price,
+                                data[i].retail_price
+                            ]);
+                        }
+                    },
+                    error: function(e) {
+                        alert(e.responseText)
+                        console.log("Add user Ajax ERROR: ", e);
+                    }
+                })
+                //----------------------------
+                //add product modal events
+                //---------------------------
+
+            $('#addProduct').click(() => {
+                window.location.href = `${url}/ui/addProduct`;
+            });
+        });
+
+        function editProduct(id) {
+            localStorage.setItem("edit_product", id)
+            window.location.href = `${url}/ui/addProduct`
+        }
+
+        function deleteProduct(id) {
+            if (confirm("Are You Sure You Want to delete this ?")) {
+                let argu = {
+                    "id": id
+                }
+                $.ajax({
+                    type: "POST",
+                    contentType: "application/json",
+                    url: `${url}/master/deleteProduct`,
+                    data: JSON.stringify(argu),
+                    dataType: 'json',
+                    success: async function(data) {
+                        await window.location.reload()
+                    },
+                    error: function(e) {
+                        alert("Error!")
+                        console.log("ERROR: ", e);
+                    }
+                });
+            } else {
+
+            }*/
+
+        })
+
+
+        //$("#message").html("hello")
+    </script>
+</body>
+
+</html>

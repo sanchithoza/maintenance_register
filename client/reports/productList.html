@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Demo</title>
+    <link rel="stylesheet" href="./../css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="./../css/datatable.css">
+    <script type="text/javascript" src="./../js/jquery-min.js"></script>
+    <script src="https://raw.githack.com/eKoopmans/html2pdf/master/dist/html2pdf.bundle.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>-->
+    <script type="text/javascript" src="./../js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="./../js/datatable.js"></script>
+    <script type="text/javascript" src="./../header.js"></script>
+    <script type="text/javascript" src="./../js/lodash.min.js"></script>
+</head>
+
+<body>
+
+    <div class="container" id="page">
+
+        <div class="row" style="text-align: center;">
+            <h1>Product List</h1>
+        </div>
+        <div class="row">
+            <div class="col-md-12" style="padding: 10px; border: 2px solid black;">
+                <table id="productRegister" class="display">
+                    <thead>
+                        <tr>
+                            <th>Company Name</th>
+                            <th>Product Name</th>
+                            <th>Product Category</th>
+                            <th>Product Sub Caregory</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <button id="btn">Print</button>
+</body>
+
+</html>
+<script>
+    $(document).ready(function() {
+
+        $.get("http://localhost:3000/products", function(data) {
+            try {
+                productList = data;
+                var length = data.length;
+                var table = $('#productRegister').DataTable({
+                    "paging": false,
+                    "searching": false,
+                    "ordering": false,
+                    "info": false
+                });
+                table.clear()
+                for (var i = 0; i < length; i++) {
+                    $('#productRegister').dataTable().fnAddData([
+                        data[i].companyName,
+                        data[i].productName,
+                        data[i].productCategory,
+                        data[i].productSubCategory
+                    ]);
+                }
+            } catch (error) {
+                console.log(error);
+            }
+        });
+
+        let btn = document.getElementById('btn');
+        let element = document.getElementById('page');
+        //var element = document.getElementById('element-to-print');
+        $('#btn').on('click', () => {
+            console.log("here");
+            var opt = {
+                margin: 1,
+                filename: 'myfile.pdf',
+                html2canvas: {
+                    scale: 2
+                },
+                jsPDF: {
+                    unit: 'in',
+                    format: 'a4',
+                    orientation: 'portrait'
+                }
+            };
+            console.log(opt);
+            console.log(element);
+            // New Promise-based usage:
+            html2pdf().set(opt).from(element).save();
+
+            // Old monolithic-style usage:
+            //html2pdf(element, opt);    
+        })
+    })
+</script>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Demo</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+    <script src="https://raw.githack.com/eKoopmans/html2pdf/master/dist/html2pdf.bundle.js"></script>
+
+
+</head>
+
+<body>
+
+    <!-- default a4's width is 595.28px -->
+    <div id="page" style="width: 595.28px;color: black;background: white;">
+        <h3>PDF for Test</h3>
+        <p>Here is some content for testing!!</p>
+        <table id="productRegister" class="display">
+            <thead>
+                <tr>
+
+                    <th>Company Name</th>
+                    <th>Product Name</th>
+                    <th>Product Category</th>
+                    <th>Product Sub Caregory</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td>hello</td>
+                    <td>how</td>
+                    <td>are</td>
+                    <td>you</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <button id="btn">Generate</button>
+</body>
+
+</html>
+<script>
+    let btn = document.getElementById('btn');
+    let element = document.getElementById('page');
+    //var element = document.getElementById('element-to-print');
+    $('#btn').on('click', () => {
+        var opt = {
+            margin: 1,
+            filename: 'myfile.pdf',
+            html2canvas: {
+                scale: 2
+            },
+            jsPDF: {
+                unit: 'in',
+                format: 'letter',
+                orientation: 'portrait'
+            }
+        };
+
+        // New Promise-based usage:
+        html2pdf().set(opt).from(element).save();
+
+        // Old monolithic-style usage:
+        //html2pdf(element, opt);    
+    })
+    var opt = {
+        margin: 1,
+        filename: 'myfile.pdf',
+        html2canvas: {
+            scale: 2
+        },
+        jsPDF: {
+            unit: 'in',
+            format: 'letter',
+            orientation: 'portrait'
+        }
+    };
+
+    // New Promise-based usage:
+    html2pdf().set(opt).from(element).save();
+
+    // Old monolithic-style usage:
+    html2pdf(element, opt);
+</script>
+
+
+'
+<div class="modal-dialog modal-lg">
+    '
+    <div class="modal-content">
+        '
+        <div class="modal-header">
+            '
+            <h5 class="modal-title" id="transactionLabel">Transaction Entry</h5> <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> </div>
+        '
+        <div class="modal-body">
+            '
+            <div class="row">
+                '
+                <div class="col-md-6">
+                    '
+                    <div class="row">
+                        '
+                        <div class="col-md-4" style="border-bottom: 1px solid black;"> Product Category </div>
+                        '
+                        <div class="col-md-8" style="border-bottom: 1px solid black;"> <input autocomplete="off" list="transactionProductCategories" style="width: 100%;" name="transactionProductCategory" id="transactionProductCategory" class="productCategory"> <datalist id="transactionProductCategories" class="productCategory"> </datalist>                            </div>
+                        '
+                        <div class="col-md-4" style="border-bottom: 1px solid black;"> Sub Category </div>
+                        '
+                        <div class="col-md-8" style="border-bottom: 1px solid black;"> <input autocomplete="off" list="transactionSubCategories" style="width: 100%;" name="transactionSubCategory" id="transactionSubCategory"> <datalist id="transactionSubCategories"> </datalist> </div>
+                        '
+                        <div class="col-md-4" style="border-bottom: 1px solid black;">Product Discription </div>
+                        '
+                        <div class="col-md-8" style="border-bottom: 1px solid black;"> <input autocomplete="off" list="transactionProductDiscriptions" style="width: 100%;" name="transactionProductDiscription" id="transactionProductDiscription"> <datalist id="transactionProductDiscriptions"> </datalist> </div>
+                        '
+                        <div class="col-md-4" style="border-bottom: 1px solid black;"> Company Name </div>
+                        '
+                        <div class="col-md-8" style="border-bottom: 1px solid black;"> <input autocomplete="off" list="transactionCompanyNames" style="width: 100%;" name="transationCompanyName" id="transactionCompanyName"> <datalist id="transactionCompanyNames"> </datalist> </div>
+                        '
+                        <div class="col-md-12" style="border-bottom: 1px solid black;"><span id="availableStock" \></div>
+                    '</div>
+                    '</div>
+                    '<div class="col-md-6">
+                        '<div class="row">
+                            '<div class="col-md-4" style="border-bottom: 1px solid black;"> Product Id </div>
+                            '<div class="col-md-8" style="border-bottom: 1px solid black;"> <input autocomplete="off" style="width: 100%;" name="productId" id="transactionProductId"> </div>
+                            '<div class="col-md-4" style="border-bottom: 1px solid black;"> Date </div>
+                            '<div class="col-md-8" style="border-bottom: 1px solid black;"> <input type="date" autocomplete="off" style="width: 100%;" name="transactionDate" id="transactionDate"> </div>
+                            '<div class="col-md-4" style="border-bottom: 1px solid black;"> Transaction Type </div>
+                            '<div class="col-md-8" style="border-bottom: 1px solid black;padding: 2px;"> <select name="transactionType" id="transactionType" style="width: 100%;"> <option value="Inward">Inward</option> <option value="Outward">Outward</option> </select> </div>
+                            '<div class="col-md-4" style="border-bottom: 1px solid black;"> Quantity </div>
+                            '<div class="col-md-8" style="border-bottom: 1px solid black;"> <input type="number" autocomplete="off" name="transactionQuantity" id="transactionQuantity"> </div>
+                            '<div class="col-md-4" style="border-bottom: 1px solid black;"> Remark </div>
+                            '<div class="col-md-8" style="border-bottom: 1px solid black;"> <textarea rows="2" name="transactionRemark" id="transactionRemark"> </textarea> </div>
+                            '</div>
+                            '</div>
+                            '</div>
+                            '</div>
+                            '<div class="modal-footer"> <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button> <button id="addTransaction" type="button" class="btn btn-primary">Add Transaction</button> </div>
+                            '</div>
+                            '</div>

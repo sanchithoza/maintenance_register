@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        Product Price List
+    </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
+</head>
+
+<body>
+    <nav id="navBar" class="navbar navbar-expand-md bg-dark navbar-dark">
+        <!-- Nav-Bar Comes From header.js-->
+    </nav>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-7">
+                <div class="card overflow-auto">
+                    <div class="card-header">
+                        <h4>Make New Maintenance Request</h4>
+                    </div>
+                    <div class="card-body">
+                        <form>
+                            
+                            <div class="form-group">
+                              <label for="exampleFormControlSelect1">Select Institute</label>
+                              <select class="form-control" id="institute_id">
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                              </select>
+                            </div>
+                            <div class="form-group">
+                              <label for="exampleFormControlSelect2">Select Building Name</label>
+                              <select class="form-control" id="exampleFormControlSelect2">
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                              </select>
+                            </div>
+                            <div class="form-group">
+                              <label for="exampleFormControlTextarea1">Floor Number</label>
+                              <input class="form-control" id="floor_number" type="number" min="0" max="6"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleFormControlTextarea1">Room Number</label>
+                                <input class="form-control" id="room_number" type="number"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleFormControlTextarea1">Discribe Your Request</label>
+                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                              </div>
+                              <input type="button" class="btn btn-primary" id="submitCart" value="Submit Request" />
+                            </form>
+                    </div>
+                </div>
+
+            </div>
+            
+        </div>
+
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" src="http://localhost:9000/ui/header"></script>
+
+    <script>
+        $(document).ready(function() {
+           
+        });
+
+        //$("#message").html("hello")
+    </script>
+</body>
+
+</html>
