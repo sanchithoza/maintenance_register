@@ -6,9 +6,11 @@ exports.up = function(knex) {
         table.integer('user_id', 11).unsigned().references('id').inTable('tbl_user')
         table.string('building_name')
         table.string('floor_number').unique().notNullable()
-        table.string('room_number').notNullable()
+        table.string('room_identification').notNullable()
+        table.string('problem_category').notNullable()
         table.text('discription').notNullable()
         table.string('status').notNullable()
+        table.text('admin_comment').notNullable()
         table.timestamp('created_at').defaultTo(knex.fn.now())
     }).then(() => {
         console.log(`tbl_users created successfully . .`);

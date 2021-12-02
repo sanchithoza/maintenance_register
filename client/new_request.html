@@ -26,7 +26,7 @@
                         <form>
                             
                             <div class="form-group">
-                              <label for="exampleFormControlSelect1">Select Institute</label>
+                              <label for="institute">Select Institute</label>
                               <select class="form-control" id="institute_id">
                                 <option>1</option>
                                 <option>2</option>
@@ -36,8 +36,8 @@
                               </select>
                             </div>
                             <div class="form-group">
-                              <label for="exampleFormControlSelect2">Select Building Name</label>
-                              <select class="form-control" id="exampleFormControlSelect2">
+                              <label for="building">Select Building Name</label>
+                              <select class="form-control" id="building_name">
                                 <option>1</option>
                                 <option>2</option>
                                 <option>3</option>
@@ -46,16 +46,22 @@
                               </select>
                             </div>
                             <div class="form-group">
-                              <label for="exampleFormControlTextarea1">Floor Number</label>
-                              <input class="form-control" id="floor_number" type="number" min="0" max="6"/>
+                              <label for="floor">Floor Number</label>
+                              <select class="form-control" id="floor_number">
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                              </select>
                             </div>
                             <div class="form-group">
-                                <label for="exampleFormControlTextarea1">Room Number</label>
-                                <input class="form-control" id="room_number" type="number"/>
+                                <label for="room">Room Number/Name</label>
+                                <input type="number" class="form-control" id="room_identification"/>
                             </div>
                             <div class="form-group">
-                                <label for="exampleFormControlTextarea1">Discribe Your Request</label>
-                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                <label for="discription">Discribe Your Request</label>
+                                <textarea class="form-control" id="discription" rows="3"></textarea>
                               </div>
                               <input type="button" class="btn btn-primary" id="submitCart" value="Submit Request" />
                             </form>
