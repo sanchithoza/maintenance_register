@@ -6,7 +6,7 @@
         Product Price List
     </title>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -21,45 +21,33 @@
     <nav id="navBar" class="navbar navbar-expand-md bg-dark navbar-dark">
 
     </nav>
-    <div class="content">
+    <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
                 <div class="card overflow-auto">
                     <div class="card-header">
-                        <div class="row" style="padding: 8px; ">
-                            <div class="col-md-6">
-                                <h4>Product Master</h4>
+                        <div class="row">
+                            <div class="col-md-12" style="text-align: center;">
+                                <h4>Maintenance Request List</h4>
                             </div>
-                            <div class="col-md-6" style="text-align: right;">
+                            <div class="col-md-12" style="text-align: center;">
                                 <!-- Button trigger modal -->
-                                <a type="button" id="addProduct" class="btn btn-primary">
-                            Add New Product
+                                <a type="button" id="makeRequest" class="btn btn-primary">
+                            Make New Request
                                 </a>
-                                <!----------------------------->
-                                <!-- Add Product Modal Modal -->
-                                <!----------------------------
-                                <div class="modal fade" id="productMasterModal" tabindex="-1" aria-labelledby="productMasterModalLabel" data-bs-backdrop="static" aria-hidden="true">
-
-                                </div>
-                                --------------------------->
-                                <!-- Add Product Modal Modal -->
-                                <!----------------------------->
-
+                                
                             </div>
                         </div>
                     </div>
                     <div class="card-body">
-                        <table id="productRegister" class="table table-responsive display">
+                        <table id="requestRegister" class="table table-responsive display">
                             <thead>
                                 <tr>
-                                    <th>edit/delete</th>
-                                    <th>Category</th>
-                                    <th>Sub Category</th>
-                                    <th>Model Number</th>
-                                    <th>Company</th>
-                                    <th>Discription</th>
-                                    <th>Dealer Price</th>
-                                    <th>Customer Price</th>
+                                    <th>Edit / Delete</th>
+                                    <th>Request Date</th>
+                                    <th>Request For</th>
+                                    <th>Building Name</th>
+                                    <th>Status</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -67,7 +55,7 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="card-footer">Footer</div>
+                   
                 </div>
 
 
@@ -78,26 +66,23 @@
 
     <script>
         $(document).ready(function() {
-           /* $.ajax({
+           $.ajax({
                     type: "GET",
                     dataType: "application/json",
-                    url: `${url}/master/getProductsByOrgId/${sessionStorage.getItem("organization_id")}`,
+                    url: `${url}/request/getRequests`,
                     dataType: 'json',
                     success: async function(data) {
                         console.log("populating data table...", data);
                         var length = data.length;
-                        var table = $('#productRegister').DataTable();
+                        var table = $('#requestRegister').DataTable();
                         table.clear()
                         for (var i = 0; i < length; i++) {
-                            $('#productRegister').dataTable().fnAddData([
-                                `<a href="#" onclick='editProduct("${data[i].id}")'>edit</a>/<a  href='#' onclick='deleteProduct("${data[i].id}");'>delete</a>`,
-                                data[i].category,
-                                data[i].sub_category,
-                                data[i].model_number,
-                                data[i].company_name,
-                                data[i].discription,
-                                data[i].wholesale_price,
-                                data[i].retail_price
+                            $('#requestRegister').dataTable().fnAddData([
+                                `<a href="#" onclick='editProduct("${data[i].id}")'>edit</a>/<a  href='#' onclick='deleteRequest("${data[i].id}");'>delete</a>`,
+                                data[i].created_at,
+                                data[i].request_for,
+                                data[i].building_name,
+                                data[i].status
                             ]);
                         }
                     },
@@ -110,26 +95,26 @@
                 //add product modal events
                 //---------------------------
 
-            $('#addProduct').click(() => {
-                window.location.href = `${url}/ui/addProduct`;
+            $('#makeRequest').click(() => {
+                window.location.href = `${url}/ui/newRequest`;
             });
         });
 
-        function editProduct(id) {
+      /*  function editProduct(id) {
             localStorage.setItem("edit_product", id)
             window.location.href = `${url}/ui/addProduct`
-        }
+        }*/
 
-        function deleteProduct(id) {
-            if (confirm("Are You Sure You Want to delete this ?")) {
-                let argu = {
+        function deleteRequest(id) {
+            if (confirm("Are You Sure You Want to delete this Request?")) {
+                let record_id = {
                     "id": id
                 }
                 $.ajax({
                     type: "POST",
                     contentType: "application/json",
-                    url: `${url}/master/deleteProduct`,
-                    data: JSON.stringify(argu),
+                    url: `${url}/request/deleteRequest`,
+                    data: JSON.stringify(record_id),
                     dataType: 'json',
                     success: async function(data) {
                         await window.location.reload()
@@ -139,14 +124,9 @@
                         console.log("ERROR: ", e);
                     }
                 });
-            } else {
+            }
+        }
 
-            }*/
-
-        })
-
-
-        //$("#message").html("hello")
     </script>
 </body>
 

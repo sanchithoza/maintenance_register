@@ -15,55 +15,58 @@
     <nav id="navBar" class="navbar navbar-expand-md bg-dark navbar-dark">
         <!-- Nav-Bar Comes From header.js-->
     </nav>
-    <div class="container-fluid">
+    <div class="container">
         <div class="row">
-            <div class="col-md-7">
+            <div class="col-md-12">
                 <div class="card overflow-auto">
                     <div class="card-header">
                         <h4>Make New Maintenance Request</h4>
                     </div>
                     <div class="card-body">
-                        <form>
-                            
+                        <form class="form">
                             <div class="form-group">
                               <label for="institute">Select Institute</label>
                               <select class="form-control" id="institute_id">
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
+                                <option value="1">SSACCM</option>
                               </select>
                             </div>
                             <div class="form-group">
                               <label for="building">Select Building Name</label>
                               <select class="form-control" id="building_name">
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
+                                <option value="SSACCM">SSACCM</option>
                               </select>
                             </div>
                             <div class="form-group">
                               <label for="floor">Floor Number</label>
                               <select class="form-control" id="floor_number">
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
                               </select>
                             </div>
+                            
                             <div class="form-group">
-                                <label for="room">Room Number/Name</label>
+                                <label for="room">Room Number / Name</label>
                                 <input type="number" class="form-control" id="room_identification"/>
+                            </div>
+                            <div class="form-group">
+                              <label for="floor">Request For :</label>
+                              <select class="form-control" id="request_for">
+                                <option value="electrical work">electrical work</option>
+                                <option value="plumbing work">Plumbing Work</option>
+                                <option value="hardware work">Hardware Work</option>
+                                <option value="furniture work">Furniture Work</option>
+                                <option value="glassware work">Glassware Work</option>
+                               </select>
                             </div>
                             <div class="form-group">
                                 <label for="discription">Discribe Your Request</label>
                                 <textarea class="form-control" id="discription" rows="3"></textarea>
                               </div>
-                              <input type="button" class="btn btn-primary" id="submitCart" value="Submit Request" />
+                              <input type="button" class="btn btn-primary" id="submitRequest" value="Submit Request" />
                             </form>
                     </div>
                 </div>
@@ -81,7 +84,37 @@
 
     <script>
         $(document).ready(function() {
-           
+
+          $("#submitRequest").click(()=>{
+            console.log("here");
+            let newRequest ={
+              institute_id:parseInt($("#institute_id").val()),
+              user_id:1,
+              building_name:$("#building_name").val(),
+              floor_number:$("#floor_number").val(),
+              room_identification:$("#room_identification").val(),
+              request_for:$("#request_for").val(),
+              discription:$("#discription").val(),
+              status:"pending"
+            };
+            console.log(newRequest);
+            $.ajax({
+                    type: "POST",
+                    contentType: "application/json",
+                    url: `${url}/request/makeRequest`,
+                    data: JSON.stringify(newRequest),
+                    dataType: 'json',
+                    success: async function(data) {
+                      console.log(`submited ${data}.`);
+                        //window.location.href = `${url}/ui/productMaster`
+                    },
+                    error: function(e) {
+                        //           alert(`Add product Ajex Error : ${e}`)
+                        console.log("Make Request Ajax ERROR: ", JSON.stringify(e));
+                    }
+                });
+          })
+          /**/
         });
 
         //$("#message").html("hello")

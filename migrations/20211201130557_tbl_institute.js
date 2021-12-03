@@ -15,5 +15,5 @@ exports.up = function(knex) {
 };
 
 exports.down = function(knex) {
-    return knex.schema.dropTable('tbl_organization')
+    return knex.schema.dropTable('tbl_institute')
 };

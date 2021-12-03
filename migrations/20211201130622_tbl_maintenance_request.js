@@ -7,13 +7,12 @@ exports.up = function(knex) {
         table.string('building_name')
         table.string('floor_number').unique().notNullable()
         table.string('room_identification').notNullable()
-        table.string('problem_category').notNullable()
+        table.string('request_for').notNullable()
         table.text('discription').notNullable()
         table.string('status').notNullable()
-        table.text('admin_comment').notNullable()
         table.timestamp('created_at').defaultTo(knex.fn.now())
     }).then(() => {
-        console.log(`tbl_users created successfully . .`);
+        console.log(`tbl_maintenance_request created successfully . .`);
     }).catch((error) => {
         console.log(`Error creating tbl_users : ${error}`);
         throw error
@@ -21,5 +20,5 @@ exports.up = function(knex) {
 };
 
 exports.down = function(knex) {
-    return knex.schema.dropTable('tbl_user')
+    return knex.schema.dropTable('tbl_maintenance_request')
 };
