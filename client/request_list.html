@@ -40,20 +40,27 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <table id="requestRegister" class="table table-responsive display">
-                            <thead>
-                                <tr>
-                                    <th>Edit / Delete</th>
-                                    <th>Request Date</th>
-                                    <th>Request For</th>
-                                    <th>Building Name</th>
-                                    <th>Status</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-
-                            </tbody>
-                        </table>
+                        <div class="row" id="serviceRequest">
+                            <div class="col-sm-4">
+                              <div class="card">
+                                <div class="card-body">
+                                  <h5 class="card-title">Special title treatment</h5>
+                                  <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                                  <a href="#" class="btn btn-primary">Go somewhere</a>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-sm-4">
+                              <div class="card">
+                                <div class="card-body">
+                                  <h5 class="card-title">Special title treatment</h5>
+                                  <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                                  <a href="#" class="btn btn-primary">Go somewhere</a>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        
                     </div>
                    
                 </div>
@@ -72,18 +79,33 @@
                     url: `${url}/request/getRequests`,
                     dataType: 'json',
                     success: async function(data) {
-                        console.log("populating data table...", data);
+                        console.log("populating data ...", data);
                         var length = data.length;
-                        var table = $('#requestRegister').DataTable();
-                        table.clear()
+                        var dataDiv = $('#serviceRequest');
+                        dataDiv.empty()
                         for (var i = 0; i < length; i++) {
-                            $('#requestRegister').dataTable().fnAddData([
-                                `<a href="#" onclick='editProduct("${data[i].id}")'>edit</a>/<a  href='#' onclick='deleteRequest("${data[i].id}");'>delete</a>`,
-                                data[i].created_at,
-                                data[i].request_for,
-                                data[i].building_name,
-                                data[i].status
-                            ]);
+                            let card_color = "";
+                            if(data[i].status === "pending"){
+                                card_color = "alert-danger"
+                            }else if(data[i].status === "in progress")
+                            {
+                                card_color = "alert-warning"
+                            }else{
+                                card_color = "alert-success"
+                            }
+                            dataDiv.append(`<div class="col-sm-4 p-2">
+                              <div class="card ${card_color}">
+                                <h4 class="card-header">${data[i].request_for}</h4> 
+                                <div class="card-body">
+                                  
+                                  <p class="card-text"><b>Request Date :</b><br> ${data[i].created_at}</p>
+                                  <p class="card-text"><b>Details :</b><br>${data[i].discription}</p>
+                                  <a href="#" class="btn btn-primary" onclick='viewDetail("${data[i].id}")'>view</a>
+                                  <a href="#" class="btn btn-secondary" onclick='editProduct("${data[i].id}")'>edit</a>
+                                  <a  class="btn btn-danger"  href='#' onclick='deleteRequest("${data[i].id}");'>delete</a>
+                                </div>
+                              </div>
+                            </div>`);
                         }
                     },
                     error: function(e) {
@@ -104,7 +126,9 @@
             localStorage.setItem("edit_product", id)
             window.location.href = `${url}/ui/addProduct`
         }*/
-
+        function viewDetail(id){
+            window.location.href = `${url}/ui/requestDetail/${id}`
+        }
         function deleteRequest(id) {
             if (confirm("Are You Sure You Want to delete this Request?")) {
                 let record_id = {

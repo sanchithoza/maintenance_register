@@ -17,6 +17,9 @@ async function routes(fastify, options) {
     fastify.get('/checkRequest', function(req, reply) {
         return reply.sendFile('request_list.html') // serving path.join(__dirname, 'public', 'myHtml.html') directly
     })
+    fastify.get('/requestDetail/:id', function(req, reply) {
+        return reply.sendFile('request_detail.html') // serving path.join(__dirname, 'public', 'myHtml.html') directly
+    })
     fastify.get('/addProduct', function(req, reply) {
         return reply.sendFile('addNewProduct.html') // serving path.join(__dirname, 'public', 'myHtml.html') directly
     })
