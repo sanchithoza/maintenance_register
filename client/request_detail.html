@@ -131,30 +131,23 @@
             
           });
           $("#updateStatus").click(()=>{
-            console.log("here");
-            let newRequest ={
-              institute_id:parseInt($("#institute_id").val()),
-              user_id:1,
-              building_name:$("#building_name").val(),
-              floor_number:$("#floor_number").val(),
-              room_identification:$("#room_identification").val(),
-              request_for:$("#request_for").val(),
-              discription:$("#discription").val(),
-              status:"pending"
-            };
-            console.log(newRequest);
+            let newStatus = {
+              status : $('input[name="status"]:checked').val()
+            }
+            console.log(newStatus);
             $.ajax({
-                    type: "POST",
+                    type: "PATCH",
                     contentType: "application/json",
-                    url: `${url}/request/makeRequest`,
-                    data: JSON.stringify(newRequest),
+                    url: `${url}/request/updateStatus/${request_id}`,
+                    data: JSON.stringify(newStatus),
                     dataType: 'json',
                     success: async function(data) {
                       console.log(`submited ${data}.`);
-                        //window.location.href = `${url}/ui/productMaster`
+                      alert("Status Updated Succesfully.")
+                      window.location.href = `${url}/ui/checkRequest`
                     },
                     error: function(e) {
-                        //           alert(`Add product Ajex Error : ${e}`)
+                        alert(`Unable to Update Status For Now Contact System Admin : ${e}`)
                         console.log("Make Request Ajax ERROR: ", JSON.stringify(e));
                     }
                 });

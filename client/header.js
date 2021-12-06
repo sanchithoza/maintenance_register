@@ -3,13 +3,12 @@ if (sessionStorage.length <= 0) {
     window.location.href = `${url}/ui`
     if (alert("only registered users can access this.")) {
         console.log("here");
-
     }
 }
 
 let user = sessionStorage.getItem("user_name").trim()
 let role = sessionStorage.getItem("role").trim()
-let organization_id = sessionStorage.getItem("organization_id").trim()
+let institute_id = sessionStorage.getItem("institute_id").trim()
 $("#userName").html(sessionStorage.getItem("fullName"));
 //==================================
 //==Ui Elements like modal and menu==>
@@ -24,7 +23,7 @@ let commonNav = `<a class="navbar-brand" href="#">Maintenance Register</a>
     <a class="nav-link" href="${url}/ui/newRequest">Make Request</a>
     </li>`;
 let adminNav = `<li class="nav-item">
-    <a class="nav-link" href="${url}/ui/checkRequest">Manage Requests</a>
+   
     </li>
     <li class="nav-item">
     <a class="nav-link" href="${url}/ui/userMaster">Manage_User</a>
@@ -38,8 +37,8 @@ let userDropDown = `
     <span id="userName"></span>
     </a>
     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-    <a class="dropdown-item" href="#">User Details</a>
-    <div class="dropdown-divider"></div>
+    <!--<a class="dropdown-item" href="#">User Details</a>
+    <div class="dropdown-divider"></div>-->
     <a class="dropdown-item" id="logout" onclick="userSignout()" href="#">Logout</a>
      </div>
     </li>

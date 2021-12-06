@@ -54,8 +54,8 @@
                                     <th>edit/delete</th>
                                     <th>Role</th>
                                     <th>User Name</th>
-                                    <th>Mobile Number</th>
                                     <th>Email</th>
+                                    <th>Institute</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -74,8 +74,10 @@
 
     <script>
         $(document).ready(async function() {
-            let organization_id = sessionStorage.getItem("organization_id")
-            $.get(`${url}/master/users/${organization_id}`, function(data) {
+            console.log("ge users");
+            let institute_id = sessionStorage.getItem("institute_id")
+            $.get(`${url}/user/getUsers`, function(data) {
+                console.log("get users");
                 var length = data.length;
                 console.log(data);
                 var table = $('#userRegister').DataTable();
@@ -85,8 +87,8 @@
                         `<a onclick='editUser("${data[i].id}");' href='#' id="editUser">edit</a>/<a  href='#' onclick='deleteUser("${data[i].id}");'>delete</a>`,
                         data[i].role,
                         data[i].user_name,
-                        data[i].mobile,
-                        data[i].email
+                        data[i].email,
+                        data[i].institute_id
                     ]);
                 }
             });
