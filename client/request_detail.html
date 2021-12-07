@@ -55,6 +55,11 @@
                           </table>
                              
                               <hr>
+                              <h3>Comments</h3>
+                              <div id="comments_div">
+
+                              </div>
+                              <hr>
                               <form class="form">
                                 <h4><label for="status">Update Status</label></h4>
                                 <div class="form-check form-check-inline">
@@ -126,9 +131,41 @@
                         console.log("Add user Ajax ERROR: ", e);
                     }
                 })
+                $.ajax({
+                  type:"GET",
+                  dataType:"application/json",
+                  url:`${url}/request/getComments/${request_id}`,
+                  dataType:"json",
+                  success:async function(result){
+                    result.forEach(element => {
+                      $("#comments_div").append(`<div class="alert alert-dark" role="alert">
+  ${element.discription}
+</div>`)
+                    });
+                  },
+                  error:async function(error){
+                    console.log(error);
+                  }
+                })
            
           $("#addComment").click(()=>{
-            
+            let newComment = {
+              tbl_maintenance_request_id:request_id,
+              user_id:sessionStorage.getItem("user_id").trim(),
+              discription:$("#comment").val()
+              };
+            $.ajax({
+              type:"POST",
+              contentType:"application/json",
+              url:`${url}/request/addComment`,
+              data:JSON.stringify(newComment),
+              success:async function(result){
+                console.log(result);
+              },
+              error:async function(error){
+                console.log(error);
+              }
+            })
           });
           $("#updateStatus").click(()=>{
             let newStatus = {
