@@ -5,7 +5,7 @@ if (sessionStorage.length <= 0) {
         console.log("here");
     }
 }
-
+let user_id = sessionStorage.getItem("user_id").trim()
 let user = sessionStorage.getItem("user_name").trim()
 let role = sessionStorage.getItem("role").trim()
 let institute_id = sessionStorage.getItem("institute_id").trim()
@@ -71,4 +71,22 @@ async function userSignout() {
     await sessionStorage.clear()
     await localStorage.clear()
     window.location.href = `${url}/ui`;
+}
+async function getInstitute(){
+    console.log("in header");
+    $(".institute_id").empty()
+    $.ajax({
+        type:"GET",
+        dataType:"application/json",
+        url:`${url}/master/getInstitute`,
+        dataType:"json",
+        success:async function(result){
+          result.forEach(element => {
+           $(".institute_id").append(`<option value=${element.id}>${element.alias}</option>`)
+          });
+        },
+        error:async function(error){
+          console.log(error);
+        }
+      })
 }

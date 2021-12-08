@@ -139,8 +139,8 @@
                   success:async function(result){
                     result.forEach(element => {
                       $("#comments_div").append(`<div class="alert alert-dark" role="alert">
-  ${element.discription}
-</div>`)
+                        ${element.discription}
+                      </div>`)
                     });
                   },
                   error:async function(error){

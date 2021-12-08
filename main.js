@@ -20,7 +20,7 @@ fastify.get('/', function(req, reply) {
     //routes
 fastify.register(require('./client/ui_route'), { prefix: '/ui' })
 fastify.register(require('./routes/maintenance_request'), { prefix: '/request' });
-/*fastify.register(require('./routes/organization'), { prefix: '/organization' });*/
+fastify.register(require('./routes/master'), { prefix: '/master' });
 fastify.register(require('./routes/user'), { prefix: '/user' });
 
 

@@ -3,6 +3,7 @@ exports.up = function(knex) {
         table.increments('id').primary()
         table.integer('institute_id', 11).unsigned().references('id').inTable('tbl_institute')
         table.string('email')
+        table.string('mobile')
         table.string('user_name').unique().notNullable()
         table.string('password').notNullable()
         table.string('role').notNullable()

@@ -73,10 +73,26 @@
 
     <script>
         $(document).ready(function() {
+            let requestLink='';
+            let requestData;
+            console.log(role); 
+            if(role == 'user'){
+                requestLink = `${url}/request/getRequests`;
+                requestData = {
+                    user_id
+                }
+            }else if(role == 'admin'){
+                requestLink = `${url}/request/getRequests`;
+                requestData = {
+                    //check here on next visit
+                    user_id:'$'
+                }
+            }
            $.ajax({
-                    type: "GET",
+                    type: "POST",
                     dataType: "application/json",
-                    url: `${url}/request/getRequests`,
+                    url: requestLink,
+                    data: requestData,
                     dataType: 'json',
                     success: async function(data) {
                         console.log("populating data ...", data);

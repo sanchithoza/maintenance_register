@@ -26,8 +26,8 @@
                         <form class="form">
                             <div class="form-group">
                               <label for="institute">Select Institute</label>
-                              <select class="form-control" id="institute_id">
-                                <option value="1">SSACCM</option>
+                              <select class="form-control institute_id" id="institute_id">
+                               
                               </select>
                             </div>
                             <div class="form-group">
@@ -60,7 +60,7 @@
                             <div class="form-group">
                               <label for="floor">Request For :</label>
                               <select class="form-control" id="request_for">
-                                <option value="electrical work">electrical work</option>
+                                <option value="electrical work">Electrical Work</option>
                                 <option value="plumbing work">Plumbing Work</option>
                                 <option value="hardware work">Hardware Work</option>
                                 <option value="furniture work">Furniture Work</option>
@@ -89,12 +89,12 @@
 
     <script>
         $(document).ready(function() {
-
+          getInstitute();
           $("#submitRequest").click(()=>{
             console.log("here");
             let newRequest ={
               institute_id:parseInt($("#institute_id").val()),
-              user_id:1,
+              user_id:user_id,
               building_name:$("#building_name").val(),
               floor_number:$("#floor_number").val(),
               room_identification:$("#room_identification").val(),

@@ -34,41 +34,37 @@
 
                         </div>
                         <div class="card-body">
+                            <div class="form-group">
+                                <label for="institute">Select Institute</label>
+                                <select class="form-control institute_id" id="institute_id">
+                                 
+                                </select>
+                              </div>
 
-
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="col-md-4"> User Name : </div>
-                                    <div class="col-md-8">
-                                        <input autocomplete="off" style="width: 100%;" name="user_name" id="user_name" class="user_name" required>
+                              <div class="form-group">
+                                <label for="username">User Name</label>   
+                                        <input autocomplete="off" style="width: 100%;" name="user_name" id="user_name" class="form-control user_name" required>
                                     </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="col-md-4"> Role : </div>
-                                    <div class="col-md-8">
-                                        <select style="width: 100%;" name="role" id="role" class="role" required>
-                                        <option value="customer">Customer</option>
-                                        <option value="dealer">Dealer</option>
+                               
+                                    <div class="form-group">
+                                        <label for="userrole">User Role</label>          
+                                        <select style="width: 100%;" name="role" id="role" class="form-control role" required>
+                                        <option value="user">User</option>
+                                        <option value="technician">Technician</option>
                                         <option value="admin">Admin</option>
                                         </select>
-                                    </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="col-md-4">Mobile Number</div>
-                                    <div class="col-md-8">
-                                        <input autocomplete="off" style="width: 100%;" name="mobile" id="mobile" class="mobile" required>
+                                <div class="form-group">
+                                    <label for="mobilenumber">Mobile Number</label>   
+                                         <input autocomplete="off" style="width: 100%;" name="mobile" id="mobile" class="form-control mobile" required>
                                     </div>
+                                    <div class="form-group">
+                                        <label for="email">E-mail Id</label>   
+                                        <input autocomplete="off" type="email" style="width: 100%;" name="email" id="email" class="form-control email" required>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="col-md-4">E-mail Id</div>
-                                    <div class="col-md-8">
-                                        <input autocomplete="off" type="email" style="width: 100%;" name="email" id="email" class="email">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="col-md-4">Password</div>
-                                    <div class="col-md-8">
-                                        <input type="text" autocomplete="off" style="width: 100%;" name="password" id="password" required/>
+                                <div class="form-group">
+                                    <label for="password">Password</label>   
+                                         <input class="form-control" type="password" autocomplete="off" style="width: 100%;" name="password" id="password" required/>
                                     </div>
                                 </div>
                     </form>
@@ -90,24 +86,25 @@
 
     <script>
         $(document).ready(async function() {
-
+            getInstitute()
             $('#addUser').click(() => {
                 let user_name = $('.user_name').val()
                 let role = $('.role').val()
                 let mobile = $('.mobile').val()
                 let email = $('.email').val()
                 let password = $('#password').val()
+                let institute_id = $('#institute_id').val()
                 if (!userName || !email || !password) {
                     alert("Input Required");
                     return false;
                 }
                 let newUser = {
-                    organization_id,
                     user_name,
                     role,
                     mobile,
                     email,
-                    password
+                    password,
+                    institute_id
                 }
                 console.log(newUser);
 
@@ -128,7 +125,7 @@
                 });
 
             });
-            if (localStorage.getItem("edit_user")) {
+          /*  if (localStorage.getItem("edit_user")) {
                 var editid = localStorage.getItem("edit_user")
                 console.log(editid);
                 localStorage.clear()
@@ -201,7 +198,7 @@
                 } catch (error) {
                     console.log("update user Button Error : " + error);
                 }
-            });
+            });*/
         });
         //$("#message").html("hello")
     </script>

@@ -11,11 +11,12 @@ async function routes(fastify, options) {
     }
   });
   /*get all Master Record Routes*/
-  fastify.get("/getRequests", async (request, reply) => {
+  fastify.post("/getRequests", async (request, reply) => {
     //return newpost
     knex
       .select()
       .table("tbl_maintenance_request")
+      .where(request.body)
       .then((result) => {
         if (result.length) {
           reply.status(200).send(result);
