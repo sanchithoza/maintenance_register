@@ -29,6 +29,23 @@ async function routes(fastify, options) {
         reply.status(400).send(error);
       });
   });
+  fastify.get("/getRequests", async (request, reply) => {
+    //return newpost
+    knex
+      .select()
+      .table("tbl_maintenance_request")
+      .then((result) => {
+        if (result.length) {
+          reply.status(200).send(result);
+        } else {
+          reply.status(200).send({ result: "No Record Available" });
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+        reply.status(400).send(error);
+      });
+  });
   //get request detail
   fastify.get("/getRequest/:id", async (request, reply) => {
     console.log(request.params.id);
@@ -77,7 +94,7 @@ async function routes(fastify, options) {
       });
   });
 
-  fastify.patch("/updateStatus/:id", async (request, reply) => {
+  fastify.patch("/updateRequest/:id", async (request, reply) => {
     await knex("tbl_maintenance_request")
       .update(request.body)
       .where({ id: request.params.id })
@@ -90,22 +107,29 @@ async function routes(fastify, options) {
         reply.status(400).send(error);
       });
   });
-  //Adding Comment 
-  fastify.post(`/addComment`,async(request,reply)=>{
-    await knex('tbl_comment').insert(request.body).then(async(result)=>{
-      await reply.status(200).send(result)
-    }).catch(async(error)=>{
-      await reply.status(400).send(`Error Adding Comment : ${error}`)
-    })
-  })
-  fastify.get(`/getComments/:request_id`,async(request,reply)=>{
-    await knex('tbl_comment').select().where({"tbl_maintenance_request_id":request.params.request_id}).then(async(result)=>{
-      console.log(result);
-      reply.status(200).send(result);
-    }).catch(async(error)=>{
-      await reply.status(400).send(`Error getting Comment : ${error}`)
-    })
-  })
+  //Adding Comment
+  fastify.post(`/addComment`, async (request, reply) => {
+    await knex("tbl_comment")
+      .insert(request.body)
+      .then(async (result) => {
+        await reply.status(200).send(result);
+      })
+      .catch(async (error) => {
+        await reply.status(400).send(`Error Adding Comment : ${error}`);
+      });
+  });
+  fastify.get(`/getComments/:request_id`, async (request, reply) => {
+    await knex("tbl_comment")
+      .select()
+      .where({ tbl_maintenance_request_id: request.params.request_id })
+      .then(async (result) => {
+        console.log(result);
+        reply.status(200).send(result);
+      })
+      .catch(async (error) => {
+        await reply.status(400).send(`Error getting Comment : ${error}`);
+      });
+  });
 }
 
 module.exports = routes;

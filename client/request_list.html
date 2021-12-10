@@ -1,115 +1,150 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-    <title>
-        Product Price List
-    </title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
+  <head>
+    <title>Product Price List</title>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css"
+    />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
-    <script type="text/javascript" src="http://localhost:9000/ui/header"></script>
+    <script
+      type="text/javascript"
+      charset="utf8"
+      src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="http://localhost:9000/ui/header"
+    ></script>
+  </head>
 
-</head>
-
-<body>
-    <nav id="navBar" class="navbar navbar-expand-md bg-dark navbar-dark">
-
-    </nav>
+  <body>
+    <nav id="navBar" class="navbar navbar-expand-md bg-dark navbar-dark"></nav>
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card overflow-auto">
-                    <div class="card-header">
-                        <div class="row">
-                            <div class="col-md-12" style="text-align: center;">
-                                <h4>Maintenance Request List</h4>
-                            </div>
-                            <div class="col-md-12" style="text-align: center;">
-                                <!-- Button trigger modal -->
-                                <a type="button" id="makeRequest" class="btn btn-primary">
-                            Make New Request
-                                </a>
-                                
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div class="row" id="serviceRequest">
-                            <div class="col-sm-4">
-                              <div class="card">
-                                <div class="card-body">
-                                  <h5 class="card-title">Special title treatment</h5>
-                                  <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                                  <a href="#" class="btn btn-primary">Go somewhere</a>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="col-sm-4">
-                              <div class="card">
-                                <div class="card-body">
-                                  <h5 class="card-title">Special title treatment</h5>
-                                  <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                                  <a href="#" class="btn btn-primary">Go somewhere</a>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        
-                    </div>
-                   
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card overflow-auto">
+            <div class="card-header">
+              <div class="row">
+                <div class="col-md-12" style="text-align: center">
+                  <h4>Maintenance Request List</h4>
                 </div>
-
-
+                <div class="col-md-12" style="text-align: center">
+                  <!-- Button trigger modal -->
+                  <a type="button" id="makeRequest" class="btn btn-primary">
+                    Make New Request
+                  </a>
+                </div>
+              </div>
             </div>
+            <div class="card-body">
+              <div class="row" id="serviceRequest">
+                <div class="col-sm-4">
+                  <div class="card">
+                    <div class="card-body">
+                      <h5 class="card-title">Special title treatment</h5>
+                      <p class="card-text">
+                        With supporting text below as a natural lead-in to
+                        additional content.
+                      </p>
+                      <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="card">
+                    <div class="card-body">
+                      <h5 class="card-title">Special title treatment</h5>
+                      <p class="card-text">
+                        With supporting text below as a natural lead-in to
+                        additional content.
+                      </p>
+                      <a href="#" class="btn btn-primary">Go somewhere</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
 
-
     <script>
-        $(document).ready(function() {
-            let requestLink='';
-            let requestData;
-            console.log(role); 
-            if(role == 'user'){
-                requestLink = `${url}/request/getRequests`;
-                requestData = {
-                    user_id
-                }
-            }else if(role == 'admin'){
-                requestLink = `${url}/request/getRequests`;
-                requestData = {
-                    //check here on next visit
-                    user_id:'$'
-                }
+      $(document).ready(function () {
+       if (role == "user") {
+          $.ajax({
+            type: "POST",
+            dataType: "application/json",
+            url: `${url}/request/getRequests`,
+            data: {
+              user_id,
+            },
+            dataType: "json",
+            success: async function(data){
+                onSuccess(data)
+            },
+            error: async function(error){
+                onError(error);
             }
-           $.ajax({
-                    type: "POST",
-                    dataType: "application/json",
-                    url: requestLink,
-                    data: requestData,
-                    dataType: 'json',
-                    success: async function(data) {
-                        console.log("populating data ...", data);
-                        var length = data.length;
-                        var dataDiv = $('#serviceRequest');
-                        dataDiv.empty()
-                        for (var i = 0; i < length; i++) {
-                            let card_color = "";
-                            if(data[i].status === "pending"){
-                                card_color = "alert-danger"
-                            }else if(data[i].status === "in progress")
-                            {
-                                card_color = "alert-warning"
-                            }else{
-                                card_color = "alert-success"
-                            }
-                            dataDiv.append(`<div class="col-sm-6 p-2">
+        });
+        } else if (role == "technician") {
+            $.ajax({
+            type: "POST",
+            dataType: "application/json",
+            url: `${url}/request/getRequests`,
+            data: {
+                technician_id:user_id,
+            },
+            dataType: "json",
+            success: async function(data){
+                onSuccess(data)
+            },
+            error: async function(error){
+                onError(error);
+            }
+          });
+        }else if (role == "admin") {
+            $.ajax({
+            type: "GET",
+            dataType: "application/json",
+            url: `${url}/request/getRequests`,
+            dataType: "json",
+            success: async function(data){
+                onSuccess(data)
+            },
+            error: async function(error){
+                onError(error);
+            }
+          });
+        }
+        async function onSuccess(data) {
+          console.log("populating data ...", data);
+          var length = data.length;
+          var dataDiv = $("#serviceRequest");
+          dataDiv.empty();
+          for (var i = 0; i < length; i++) {
+            let card_color = "";
+            if (data[i].status === "pending") {
+              card_color = "alert-danger";
+            } else if (data[i].status === "in progress") {
+              card_color = "alert-warning";
+            } else {
+              card_color = "alert-success";
+            }
+            dataDiv.append(`<div class="col-sm-6 p-2">
                               <div class="card ${card_color}">
                                 <h4 class="card-header">${data[i].request_for}</h4> 
                                 <div class="card-body">
@@ -122,52 +157,50 @@
                                 </div>
                               </div>
                             </div>`);
-                        }
-                    },
-                    error: function(e) {
-                        alert(e.responseText)
-                        console.log("Add user Ajax ERROR: ", e);
-                    }
-                })
-                //----------------------------
-                //add product modal events
-                //---------------------------
+          }
+        }
+        async function onError(e) {
+          alert(e.responseText);
+          console.log("Add user Ajax ERROR: ", e);
+        }
 
-            $('#makeRequest').click(() => {
-                window.location.href = `${url}/ui/newRequest`;
-            });
+        //----------------------------
+        //add product modal events
+        //---------------------------
+
+        $("#makeRequest").click(() => {
+          window.location.href = `${url}/ui/newRequest`;
         });
+      });
 
       /*  function editProduct(id) {
             localStorage.setItem("edit_product", id)
             window.location.href = `${url}/ui/addProduct`
         }*/
-        function viewDetail(id){
-            window.location.href = `${url}/ui/requestDetail/${id}`
+      function viewDetail(id) {
+        window.location.href = `${url}/ui/requestDetail/${id}`;
+      }
+      function deleteRequest(id) {
+        if (confirm("Are You Sure You Want to delete this Request?")) {
+          let record_id = {
+            id: id,
+          };
+          $.ajax({
+            type: "POST",
+            contentType: "application/json",
+            url: `${url}/request/deleteRequest`,
+            data: JSON.stringify(record_id),
+            dataType: "json",
+            success: async function (data) {
+              await window.location.reload();
+            },
+            error: function (e) {
+              alert("Error!");
+              console.log("ERROR: ", e);
+            },
+          });
         }
-        function deleteRequest(id) {
-            if (confirm("Are You Sure You Want to delete this Request?")) {
-                let record_id = {
-                    "id": id
-                }
-                $.ajax({
-                    type: "POST",
-                    contentType: "application/json",
-                    url: `${url}/request/deleteRequest`,
-                    data: JSON.stringify(record_id),
-                    dataType: 'json',
-                    success: async function(data) {
-                        await window.location.reload()
-                    },
-                    error: function(e) {
-                        alert("Error!")
-                        console.log("ERROR: ", e);
-                    }
-                });
-            }
-        }
-
+      }
     </script>
-</body>
-
+  </body>
 </html>

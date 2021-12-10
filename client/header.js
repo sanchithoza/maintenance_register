@@ -90,3 +90,21 @@ async function getInstitute(){
         }
       })
 }
+async function getTechnician(){
+    console.log("in header");
+    $(".institute_id").empty()
+    $.ajax({
+        type:"GET",
+        dataType:"application/json",
+        url:`${url}/master/getTechnicians/technician`,
+        dataType:"json",
+        success:async function(result){
+          result.forEach(element => {
+           $(".technician_id").append(`<option value=${element.id}>${element.user_name}</option>`)
+          });
+        },
+        error:async function(error){
+          console.log(error);
+        }
+      })
+}

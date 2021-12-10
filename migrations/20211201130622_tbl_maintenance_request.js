@@ -10,6 +10,7 @@ exports.up = function(knex) {
         table.string('request_for').notNullable()
         table.text('discription').notNullable()
         table.string('status').notNullable()
+        table.string('technician_id')
         table.timestamp('created_at').defaultTo(knex.fn.now())
     }).then(() => {
         console.log(`tbl_maintenance_request created successfully . .`);

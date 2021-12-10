@@ -54,30 +54,41 @@
                             </tr>
                           </table>
                              
-                              <hr>
+                          <form class="form" id="assignedTo" hidden="hidden">
+                            <h4><label for="status">Assign To : </label></h4>
+                            <div class="form-group">
+                              <select class="form-control technician_id" id="technician_id"></select>
+                              <input type="button" class="btn btn-warning mt-2" id="assignTo" value="Assign"/>
+                            </div>
+                            <hr>
+                          </form>
+                            
+                          <form class="form" id="statusUpdate" hidden="hidden">
+                            <h4><label for="status">Update Status</label></h4>
+                            <div class="form-check form-check-inline">
+                              <input class="form-check-input" type="radio" name="status" id="pending" value="pending">
+                              <label class="form-check-label" for="pending">Pending</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                              <input class="form-check-input" type="radio" name="status" id="inProgress" value="in progress">
+                              <label class="form-check-label" for="inProgress">In Progress</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                              <input class="form-check-input" type="radio" name="status" id="completed" value="completed">
+                              <label class="form-check-label" for="completed">Completed</label>
+                            </div>
+
+                            <input type="button" class="btn btn-primary" id="updateStatus" value="Update Status" />
+                            <hr>
+                        </form>
+                        
                               <h3>Comments</h3>
                               <div id="comments_div">
 
                               </div>
                               <hr>
-                              <form class="form">
-                                <h4><label for="status">Update Status</label></h4>
-                                <div class="form-check form-check-inline">
-                                  <input class="form-check-input" type="radio" name="status" id="pending" value="pending">
-                                  <label class="form-check-label" for="pending">Pending</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                  <input class="form-check-input" type="radio" name="status" id="inProgress" value="in progress">
-                                  <label class="form-check-label" for="inProgress">In Progress</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                  <input class="form-check-input" type="radio" name="status" id="completed" value="completed">
-                                  <label class="form-check-label" for="completed">Completed</label>
-                                </div>
+                            
 
-                                <input type="button" class="btn btn-primary" id="updateStatus" value="Update Status" />
-                            </form>
-                            <hr>
                             <form class="form">
                               <h4><label for="status">Add Comment</label></h4>
                               <div class="form-group">
@@ -104,6 +115,14 @@
           let this_url = window.location.href;
           let splitUrl = this_url.split('/');
           let request_id = splitUrl[splitUrl.length-1];
+          
+          if(role == "admin" || role == "technician"){
+            $("#statusUpdate").removeAttr('hidden')
+          }
+          if(role == "admin"){
+            $("#assignedTo").removeAttr('hidden')
+          }
+          getTechnician();
           $.ajax({
                     type: "GET",
                     dataType: "application/json",
@@ -124,6 +143,10 @@
                           $("#inProgress").attr('checked',true)
                         }else if(data.status === "completed"){
                           $("#completed").attr('checked',true)
+                        }
+                        console.log(data.technician_id);
+                        if(data.technician_id != ''){
+                          $("#assignedTo").hide()
                         }
                     },
                     error: function(e) {
@@ -177,6 +200,28 @@
                     contentType: "application/json",
                     url: `${url}/request/updateStatus/${request_id}`,
                     data: JSON.stringify(newStatus),
+                    dataType: 'json',
+                    success: async function(data) {
+                      console.log(`submited ${data}.`);
+                      alert("Status Updated Succesfully.")
+                      window.location.href = `${url}/ui/checkRequest`
+                    },
+                    error: function(e) {
+                        alert(`Unable to Update Status For Now Contact System Admin : ${e}`)
+                        console.log("Make Request Ajax ERROR: ", JSON.stringify(e));
+                    }
+                });
+          })
+          $("#assignTo").click(async()=>{
+            let update = {
+              technician_id : $("#technician_id").val()
+            }
+            console.log(update);
+            $.ajax({
+                    type: "PATCH",
+                    contentType: "application/json",
+                    url: `${url}/request/updateRequest/${request_id}`,
+                    data: JSON.stringify(update),
                     dataType: 'json',
                     success: async function(data) {
                       console.log(`submited ${data}.`);
