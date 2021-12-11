@@ -13,12 +13,20 @@ async function routes(fastify, options) {
   /*get all Master Record Routes*/
   fastify.post("/getRequests", async (request, reply) => {
     //return newpost
+    let records = [];
     knex
       .select()
       .table("tbl_maintenance_request")
       .where(request.body)
-      .then((result) => {
+      .then(async(result) => {
         if (result.length) {
+          for(i = 0;i < result.length;i++){
+            if(result[i].technician_id !=''){
+              let technician_name = await knex.table("tbl_user").select("user_name").where("id", result[i].technician_id);
+              console.log(technician_name[0]);
+              result[i].technician_name = technician_name[0].user_name
+            }
+          }
           reply.status(200).send(result);
         } else {
           reply.status(200).send({ result: "No Record Available" });
@@ -31,11 +39,20 @@ async function routes(fastify, options) {
   });
   fastify.get("/getRequests", async (request, reply) => {
     //return newpost
+    const records = []
     knex
       .select()
       .table("tbl_maintenance_request")
-      .then((result) => {
+      .then( async (result) => {
         if (result.length) {
+          for(i = 0;i < result.length;i++){
+            if(result[i].technician_id !=''){
+              let technician_name = await knex.table("tbl_user").select("user_name").where("id", result[i].technician_id);
+              console.log(technician_name[0]);
+              result[i].technician_name = technician_name[0].user_name
+            }
+          }
+          //console.log(records);
           reply.status(200).send(result);
         } else {
           reply.status(200).send({ result: "No Record Available" });
@@ -68,6 +85,14 @@ async function routes(fastify, options) {
             .where("id", record.institute_id);
           record.user_name = user_name[0].user_name;
           record.institute = institute[0].alias;
+          if(record.technician_id !=''){
+            let technician_name = await knex
+            .table("tbl_user")
+            .select("user_name")
+            .where("id", record.technician_id);
+            record.technician_name = technician_name[0].user_name
+          }
+          
           reply.status(200).send(record);
         } else {
           reply.status(200).send({ result: "No Record Available" });

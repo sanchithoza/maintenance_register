@@ -52,6 +52,10 @@
                               <th for="status">Current Status : </th>
                               <td id="current_status"></td>
                             </tr>
+                            <tr>
+                              <th for="assigned">Assigned To : </th>
+                              <td id="assigned_to"></td>
+                            </tr>
                           </table>
                              
                           <form class="form" id="assignedTo" hidden="hidden">
@@ -137,6 +141,7 @@
                         $("#request_for").append(data.request_for)
                         $("#discription").append(data.discription)
                         $("#current_status").append(data.status)
+                        $("#assigned_to").append((data.technician_name)?data.technician_name:'not assigned')
                         if(data.status === "pending"){
                           $("#pending").attr('checked',true)
                         }else if(data.status === "in progress"){

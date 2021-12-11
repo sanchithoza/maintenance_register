@@ -146,13 +146,15 @@
             }
             dataDiv.append(`<div class="col-sm-6 p-2">
                               <div class="card ${card_color}">
-                                <h4 class="card-header">${data[i].request_for}</h4> 
+                                <h4 class="card-header">${data[i].request_for}</h4>                                
                                 <div class="card-body">
                                   
                                   <p class="card-text"><b>Request Date :</b><br> ${data[i].created_at}</p>
                                   <p class="card-text"><b>Details :</b><br>${data[i].discription}</p>
+                                  <p class="card-text"><b>Assigned To :</b><br>${(data[i].technician_id != '')?data[i].technician_name:'not assinged'}</p>
                                   <a href="#" class="btn btn-primary" onclick='viewDetail("${data[i].id}")'>view</a>
                                   <a href="#" class="btn btn-secondary" onclick='editProduct("${data[i].id}")'>edit</a>
+
                                   <a  class="btn btn-danger"  href='#' onclick='deleteRequest("${data[i].id}");'>delete</a>
                                 </div>
                               </div>
