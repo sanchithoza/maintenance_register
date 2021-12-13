@@ -5,10 +5,10 @@ module.exports = {
   development: {
       client: 'mysql',
       connection: {
-         // host: '8.tcp.ngrok.io',
-         // port:'17807',
-         host:'localhost',
-         port:'3306',
+          host: 'tcp://0.tcp.ngrok.io',
+          port:'13586',
+         //host:'localhost',
+         //port:'3306',
           user: 'root',
           password: '',
           database: 'db_maintenance_register'
