@@ -10,7 +10,7 @@ async function routes(fastify, options) {
       reply.status(400).send(error);
     }
   });
-  /*get all Master Record Routes*/
+  /*get all  Record Routes*/
   fastify.post("/getRequests", async (request, reply) => {
     //return newpost
     let records = [];
