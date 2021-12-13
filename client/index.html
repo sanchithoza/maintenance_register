@@ -75,8 +75,9 @@
     </div>
     <script>
         $(document).ready(async() => {
-            let url = "http://localhost:9000"
-            $("#login").click(() => {
+            const port = process.env.PORT || 9000;
+                let url = `http://localhost:${port}`;
+                $("#login").click(() => {
                 let loginCredential = {
                     "user_name": $("#user_name").val(),
                     "password": $("#password").val()
