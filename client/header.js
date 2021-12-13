@@ -1,4 +1,5 @@
-let url = "http://localhost:9000";
+const port = process.env.PORT || 9000;
+let url = `http://localhost:${port}`;
 if (sessionStorage.length <= 0) {
     window.location.href = `${url}/ui`
     if (alert("only registered users can access this.")) {
