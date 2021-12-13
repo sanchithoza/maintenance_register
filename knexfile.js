@@ -5,7 +5,7 @@ module.exports = {
   development: {
       client: 'mysql',
       connection: {
-          host: 'tcp://0.tcp.ngrok.io',
+          host: '0.tcp.ngrok.io',
           port:'13586',
          //host:'localhost',
          //port:'3306',
