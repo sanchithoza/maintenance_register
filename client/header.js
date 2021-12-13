@@ -1,6 +1,6 @@
 //const port = process.env.PORT || 9000;
 //let url = `http://localhost:${port}`;
-let url = "https://limitless-shore-03105.herokuapp.com/"
+let url = "https://limitless-shore-03105.herokuapp.com"
 if (sessionStorage.length <= 0) {
     window.location.href = `${url}/ui`
     if (alert("only registered users can access this.")) {
