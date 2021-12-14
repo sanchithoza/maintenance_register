@@ -16,6 +16,7 @@
       type="text/css"
       href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css"
     />
+    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -24,10 +25,7 @@
       charset="utf8"
       src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"
     ></script>
-    <script
-      type="text/javascript"
-      src="http://localhost:9000/ui/header"
-    ></script>
+    <script type="text/javascript" src="https://limitless-shore-03105.herokuapp.com/ui/header"></script>
   </head>
 
   <body class="text-uppercase">
@@ -83,7 +81,11 @@
     </div>
 
     <script>
-      $(document).ready(function () {
+     
+      $(document).ready(async function () {
+        let srcScript = document.location.origin+'ui/header'
+        console.log("ready");
+        
        if (role == "user") {
         $("#makeRequest").removeAttr("hidden")
           $.ajax({
