@@ -131,7 +131,6 @@ async function routes(fastify, options) {
         reply.status(400).send(error);
       });
   });
-
   fastify.patch("/updateRequest/:id", async (request, reply) => {
     await knex("tbl_maintenance_request")
       .update(request.body)

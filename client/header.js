@@ -1,5 +1,15 @@
-const port =  9000;
-let url = `http://localhost:${port}`;
+
+let url= ''
+setUrl()
+function setUrl(){
+    if( window.location.protocol == 'file:' ){ return 0; }
+    if( !window.location.host.replace( /localhost|127\.0\.0\.1/i, '' ) ){ 
+        url = 'https://limitless-shore-03105.herokuapp.com'
+     }
+    const port =  9000;
+     url = `http://localhost:${port}`
+}
+console.log(url);
 //let url = "https://limitless-shore-03105.herokuapp.com"
 if (sessionStorage.length <= 0) {
     window.location.href = `${url}/ui`

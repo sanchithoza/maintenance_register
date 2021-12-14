@@ -75,9 +75,17 @@
     </div>
     <script>
         $(document).ready(async() => {
-            const port =  9000;
-                let url = `http://localhost:${port}`;
-                //let url = "https://limitless-shore-03105.herokuapp.com"
+            let url= ''
+await setUrl()
+function setUrl(){
+    if( window.location.protocol == 'file:' ){ return 0; }
+    if( !window.location.host.replace( /localhost|127\.0\.0\.1/i, '' ) ){ 
+        url = 'https://limitless-shore-03105.herokuapp.com'
+     }
+    const port =  9000;
+     url = `http://localhost:${port}`
+}
+console.log(url);
                 $("#login").click(() => {
                 let loginCredential = {
                     "user_name": $("#user_name").val(),
