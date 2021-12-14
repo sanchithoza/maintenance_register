@@ -1,6 +1,6 @@
-//const port = process.env.PORT || 9000;
-//let url = `http://localhost:${port}`;
-let url = "https://limitless-shore-03105.herokuapp.com"
+const port =  9000;
+let url = `http://localhost:${port}`;
+//let url = "https://limitless-shore-03105.herokuapp.com"
 if (sessionStorage.length <= 0) {
     window.location.href = `${url}/ui`
     if (alert("only registered users can access this.")) {
@@ -15,25 +15,26 @@ $("#userName").html(sessionStorage.getItem("fullName"));
 //==================================
 //==Ui Elements like modal and menu==>
 //==================================
-let commonNav = `<a class="navbar-brand" href="#">Maintenance Register</a>
+let commonNav = `<a class="navbar-brand" href="${url}/ui/checkRequest">Maintenance Register</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
     <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="collapsibleNavbar">
     <ul class="navbar-nav ml-auto">
     <li class="nav-item">
-    <a class="nav-link" href="${url}/ui/newRequest">Make Request</a>
+    <a class="nav-link" href="${url}/ui/checkRequest">Manage Requests</a>
     </li>`;
 let adminNav = `<li class="nav-item">
-   
     </li>
     <li class="nav-item">
     <a class="nav-link" href="${url}/ui/userMaster">Manage_User</a>
     </li>`;
+let userNav = `<li class="nav-item">
+    </li>  
+    <li class="nav-item">
+    <a class="nav-link" href="${url}/ui/newRequest">Make Request</a>
+    </li>`;
 let userDropDown = `
-<li class="nav-item">
-    <a class="nav-link" href="${url}/ui/checkRequest">Manage Requests</a>
-    </li>
     <li class="nav-item dropdown">
     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     <span id="userName"></span>
@@ -51,8 +52,11 @@ let navBar = ''
 if (role == "admin") {
     console.log("in for admin");
     navBar = commonNav + adminNav + userDropDown;
+} else if(role == "user"){
+    console.log("in for user");
+    navBar = commonNav + userNav + userDropDown;
 } else {
-    console.log("in for others");
+    console.log("in for technician");
     navBar = commonNav + userDropDown;
 }
 
@@ -109,4 +113,9 @@ async function getTechnician(){
           console.log(error);
         }
       })
+}
+async function getFormetedDate(date){
+    let rawDate = new Date(date);
+    let dateString = rawDate.getDate() +" / "+ (rawDate.getMonth()+1) +" / "+rawDate.getFullYear()
+    return dateString;
 }

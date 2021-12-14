@@ -75,9 +75,9 @@
     </div>
     <script>
         $(document).ready(async() => {
-           // const port = process.env.PORT || 9000;
-                //let url = `http://localhost:${port}`;
-                let url = "https://limitless-shore-03105.herokuapp.com"
+            const port =  9000;
+                let url = `http://localhost:${port}`;
+                //let url = "https://limitless-shore-03105.herokuapp.com"
                 $("#login").click(() => {
                 let loginCredential = {
                     "user_name": $("#user_name").val(),
@@ -96,10 +96,11 @@
                             sessionStorage.setItem("user_name", data[0].user_name);
                             sessionStorage.setItem("institute_id", data[0].institute_id);
                             sessionStorage.setItem("role", data[0].role);
-                            window.location.replace(`${url}/ui/newRequest`)
+                            window.location.replace(`${url}/ui/checkRequest`)
                         },
                         error: function(e) {
                             alert(e.responseText)
+                            alert(JSON.stringify(e))
                             console.log("Add user Ajax ERROR: ", e);
                         }
                     });

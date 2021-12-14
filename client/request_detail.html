@@ -1,249 +1,309 @@
 <!DOCTYPE html>
 <html>
+  <head>
+    <title>Request Details</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css"
+    />
+  </head>
 
-<head>
-    <title>
-        Request Details
-    </title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
-</head>
-
-<body>
+  <body>
     <nav id="navBar" class="navbar navbar-expand-md bg-dark navbar-dark">
-        <!-- Nav-Bar Comes From header.js-->
+      <!-- Nav-Bar Comes From header.js-->
     </nav>
     <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card overflow-auto">
-                    <div class="card-header">
-                        <h4>Request Details</h4>
-                    </div>
-                    <div class="card-body">
-                      <table class="table">
-                        <tr>
-                              <th>Institute : </th>
-                              <td id="institute"></td>
-                            </tr>
-                            <tr>
-                            <th for="building">Building Name : </th>
-                            <td id="building"></td>
-                          </tr>
-                          <tr>
-                            <th for="floor">Floor Number : </th>
-                            <td id="floor"></td>
-                          </tr>
-                          <tr>
-                            <th for="room">Room Number / Name : </th>
-                            <td id="room"></td>
-                          </tr>
-                          <tr>
-                            <th for="request_for">Request For :</th>
-                            <td id="request_for"></td>
-                          </tr>
-                          <tr>
-                            <th for="discription">Discription : </th>
-                              <td id="discription"></td>
-                            </tr>  
-                            <tr>
-                              <th for="status">Current Status : </th>
-                              <td id="current_status"></td>
-                            </tr>
-                            <tr>
-                              <th for="assigned">Assigned To : </th>
-                              <td id="assigned_to"></td>
-                            </tr>
-                          </table>
-                             
-                          <form class="form" id="assignedTo" hidden="hidden">
-                            <h4><label for="status">Assign To : </label></h4>
-                            <div class="form-group">
-                              <select class="form-control technician_id" id="technician_id"></select>
-                              <input type="button" class="btn btn-warning mt-2" id="assignTo" value="Assign"/>
-                            </div>
-                            <hr>
-                          </form>
-                            
-                          <form class="form" id="statusUpdate" hidden="hidden">
-                            <h4><label for="status">Update Status</label></h4>
-                            <div class="form-check form-check-inline">
-                              <input class="form-check-input" type="radio" name="status" id="pending" value="pending">
-                              <label class="form-check-label" for="pending">Pending</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                              <input class="form-check-input" type="radio" name="status" id="inProgress" value="in progress">
-                              <label class="form-check-label" for="inProgress">In Progress</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                              <input class="form-check-input" type="radio" name="status" id="completed" value="completed">
-                              <label class="form-check-label" for="completed">Completed</label>
-                            </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card overflow-auto">
+            <div class="card-header">
+              <h4>Request Details</h4>
+            </div>
+            <div class="card-body">
+              <table class="table">
+                <tr>
+                  <th>Request Date :</th>
+                  <td id="request_date"></td>
+                </tr>
+                <tr>
+                  <th>Institute :</th>
+                  <td id="institute"></td>
+                </tr>
+                <tr>
+                  <th for="building">Building Name :</th>
+                  <td id="building"></td>
+                </tr>
+                <tr>
+                  <th for="floor">Floor Number :</th>
+                  <td id="floor"></td>
+                </tr>
+                <tr>
+                  <th for="room">Room Number / Name :</th>
+                  <td id="room"></td>
+                </tr>
+                <tr>
+                  <th for="request_for">Request For :</th>
+                  <td id="request_for"></td>
+                </tr>
+                <tr>
+                  <th for="discription">Discription :</th>
+                  <td id="discription"></td>
+                </tr>
+                <tr>
+                  <th for="status">Current Status :</th>
+                  <td id="current_status"></td>
+                </tr>
+                <tr>
+                  <th for="assigned">Assigned To :</th>
+                  <td id="assigned_to"></td>
+                </tr>
+              </table>
 
-                            <input type="button" class="btn btn-primary" id="updateStatus" value="Update Status" />
-                            <hr>
-                        </form>
-                        
-                              <h3>Comments</h3>
-                              <div id="comments_div">
+              <form class="form" id="assignedTo" hidden="hidden">
+                <h4><label for="status">Assign To : </label></h4>
+                <div class="form-group">
+                  <select
+                    class="form-control technician_id"
+                    id="technician_id"
+                  ></select>
+                  <input
+                    type="button"
+                    class="btn btn-warning mt-2"
+                    id="assignTo"
+                    value="Assign"
+                  />
+                </div>
+                <hr />
+              </form>
 
-                              </div>
-                              <hr>
-                            
-
-                            <form class="form">
-                              <h4><label for="status">Add Comment</label></h4>
-                              <div class="form-group">
-                                <textarea class="form-control" id="comment" rows="3"></textarea>
-                                <input type="button" class="btn btn-primary mt-2" id="addComment" value="Add Comment" />
-                              </div>
-                            </form>
-                    </div>
+              <form class="form" id="statusUpdate" hidden="hidden">
+                <h4><label for="status">Update Status</label></h4>
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="status"
+                    id="pending"
+                    value="pending"
+                  />
+                  <label class="form-check-label" for="pending">Pending</label>
+                </div>
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="status"
+                    id="inProgress"
+                    value="in progress"
+                  />
+                  <label class="form-check-label" for="inProgress"
+                    >In Progress</label
+                  >
+                </div>
+                <div class="form-check form-check-inline">
+                  <input
+                    class="form-check-input"
+                    type="radio"
+                    name="status"
+                    id="completed"
+                    value="completed"
+                  />
+                  <label class="form-check-label" for="completed"
+                    >Completed</label
+                  >
                 </div>
 
-            </div>
-            
-        </div>
+                <input
+                  type="button"
+                  class="btn btn-primary"
+                  id="updateStatus"
+                  value="Update Status"
+                />
+                <hr />
+              </form>
 
+              <h3>Comments</h3>
+              <div id="comments_div"></div>
+              <hr />
+
+              <form class="form">
+                <h4><label for="status">Add Comment</label></h4>
+                <div class="form-group">
+                  <textarea
+                    class="form-control"
+                    id="comment"
+                    rows="3"
+                  ></textarea>
+                  <input
+                    type="button"
+                    class="btn btn-primary mt-2"
+                    id="addComment"
+                    value="Add Comment"
+                  />
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
-    <script type="text/javascript" src="http://localhost:9000/ui/header"></script>
+    <script
+      type="text/javascript"
+      charset="utf8"
+      src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="http://localhost:9000/ui/header"
+    ></script>
 
     <script>
-        $(document).ready(function() {
-          let this_url = window.location.href;
-          let splitUrl = this_url.split('/');
-          let request_id = splitUrl[splitUrl.length-1];
-          
-          if(role == "admin" || role == "technician"){
-            $("#statusUpdate").removeAttr('hidden')
-          }
-          if(role == "admin"){
-            $("#assignedTo").removeAttr('hidden')
-          }
-          getTechnician();
-          $.ajax({
-                    type: "GET",
-                    dataType: "application/json",
-                    url: `${url}/request/getRequest/${request_id}`,
-                    dataType: 'json',
-                    success: async function(data) {
-                        console.log(data);
-                        $("#institute").append(data.institute)
-                        $("#building").append(data.building_name)
-                        $("#floor").append(data.floor_number)
-                        $("#room").append(data.room_identification)
-                        $("#request_for").append(data.request_for)
-                        $("#discription").append(data.discription)
-                        $("#current_status").append(data.status)
-                        $("#assigned_to").append((data.technician_name)?data.technician_name:'not assigned')
-                        if(data.status === "pending"){
-                          $("#pending").attr('checked',true)
-                        }else if(data.status === "in progress"){
-                          $("#inProgress").attr('checked',true)
-                        }else if(data.status === "completed"){
-                          $("#completed").attr('checked',true)
-                        }
-                        console.log(data.technician_id);
-                        if(data.technician_id != ''){
-                          $("#assignedTo").hide()
-                        }
-                    },
-                    error: function(e) {
-                        alert(e.responseText)
-                        console.log("Add user Ajax ERROR: ", e);
-                    }
-                })
-                $.ajax({
-                  type:"GET",
-                  dataType:"application/json",
-                  url:`${url}/request/getComments/${request_id}`,
-                  dataType:"json",
-                  success:async function(result){
-                    result.forEach(element => {
-                      $("#comments_div").append(`<div class="alert alert-dark" role="alert">
+      $(document).ready(function () {
+        let this_url = window.location.href;
+        let splitUrl = this_url.split("/");
+        let request_id = splitUrl[splitUrl.length - 1];
+
+        if (role == "admin" || role == "technician") {
+          $("#statusUpdate").removeAttr("hidden");
+        }
+        if (role == "admin") {
+          $("#assignedTo").removeAttr("hidden");
+        }
+        getTechnician();
+        $.ajax({
+          type: "GET",
+          dataType: "application/json",
+          url: `${url}/request/getRequest/${request_id}`,
+          dataType: "json",
+          success: async function (data) {
+            console.log(data);
+            $("#request_date").append(await getFormetedDate(data.created_at));
+            $("#institute").append(data.institute);
+            $("#building").append(data.building_name);
+            $("#floor").append(data.floor_number);
+            $("#room").append(data.room_identification);
+            $("#request_for").append(data.request_for);
+            $("#discription").append(data.discription);
+            $("#current_status").append(data.status);
+            $("#assigned_to").append(
+              data.technician_name ? data.technician_name : "not assigned"
+            );
+            if (data.status === "pending") {
+              $("#pending").attr("checked", true);
+            } else if (data.status === "in progress") {
+              $("#inProgress").attr("checked", true);
+            } else if (data.status === "completed") {
+              $("#completed").attr("checked", true);
+            }
+            console.log(data.technician_id);
+            if (data.technician_id != "" && data.technician_id != null) {
+              $("#assignedTo").hide();
+            }
+          },
+          error: function (e) {
+            alert(e.responseText);
+            console.log("Add user Ajax ERROR: ", e);
+          },
+        });
+        $.ajax({
+          type: "GET",
+          dataType: "application/json",
+          url: `${url}/request/getComments/${request_id}`,
+          dataType: "json",
+          success: async function (result) {
+            result.forEach((element) => {
+              $("#comments_div")
+                .append(`<div class="alert alert-dark" role="alert">
                         ${element.discription}
-                      </div>`)
-                    });
-                  },
-                  error:async function(error){
-                    console.log(error);
-                  }
-                })
-           
-          $("#addComment").click(()=>{
-            let newComment = {
-              tbl_maintenance_request_id:request_id,
-              user_id:sessionStorage.getItem("user_id").trim(),
-              discription:$("#comment").val()
-              };
-            $.ajax({
-              type:"POST",
-              contentType:"application/json",
-              url:`${url}/request/addComment`,
-              data:JSON.stringify(newComment),
-              success:async function(result){
-                console.log(result);
-              },
-              error:async function(error){
-                console.log(error);
-              }
-            })
-          });
-          $("#updateStatus").click(()=>{
-            let newStatus = {
-              status : $('input[name="status"]:checked').val()
-            }
-            console.log(newStatus);
-            $.ajax({
-                    type: "PATCH",
-                    contentType: "application/json",
-                    url: `${url}/request/updateStatus/${request_id}`,
-                    data: JSON.stringify(newStatus),
-                    dataType: 'json',
-                    success: async function(data) {
-                      console.log(`submited ${data}.`);
-                      alert("Status Updated Succesfully.")
-                      window.location.href = `${url}/ui/checkRequest`
-                    },
-                    error: function(e) {
-                        alert(`Unable to Update Status For Now Contact System Admin : ${e}`)
-                        console.log("Make Request Ajax ERROR: ", JSON.stringify(e));
-                    }
-                });
-          })
-          $("#assignTo").click(async()=>{
-            let update = {
-              technician_id : $("#technician_id").val()
-            }
-            console.log(update);
-            $.ajax({
-                    type: "PATCH",
-                    contentType: "application/json",
-                    url: `${url}/request/updateRequest/${request_id}`,
-                    data: JSON.stringify(update),
-                    dataType: 'json',
-                    success: async function(data) {
-                      console.log(`submited ${data}.`);
-                      alert("Status Updated Succesfully.")
-                      window.location.href = `${url}/ui/checkRequest`
-                    },
-                    error: function(e) {
-                        alert(`Unable to Update Status For Now Contact System Admin : ${e}`)
-                        console.log("Make Request Ajax ERROR: ", JSON.stringify(e));
-                    }
-                });
-          })
-          /**/
+                      </div>`);
+            });
+          },
+          error: async function (error) {
+            console.log(error);
+          },
         });
 
-        //$("#message").html("hello")
-    </script>
-</body>
+        $("#addComment").click(() => {
+          let newComment = {
+            tbl_maintenance_request_id: request_id,
+            user_id: sessionStorage.getItem("user_id").trim(),
+            discription: $("#comment").val(),
+          };
+          $.ajax({
+            type: "POST",
+            contentType: "application/json",
+            url: `${url}/request/addComment`,
+            data: JSON.stringify(newComment),
+            success: async function (result) {
+              console.log(result);
+            },
+            error: async function (error) {
+              console.log(error);
+            },
+          });
+        });
+        $("#updateStatus").click(() => {
+          let newStatus = {
+            status: $('input[name="status"]:checked').val(),
+          };
+          console.log(newStatus);
+          $.ajax({
+            type: "PATCH",
+            contentType: "application/json",
+            url: `${url}/request/updateRequest/${request_id}`,
+            data: JSON.stringify(newStatus),
+            dataType: "json",
+            success: async function (data) {
+              console.log(`submited ${data}.`);
+              alert("Status Updated Succesfully.");
+              window.location.href = `${url}/ui/checkRequest`;
+            },
+            error: function (e) {
+              alert(
+                `Unable to Update Status For Now Contact System Admin : ${e}`
+              );
+              console.log("Make Request Ajax ERROR: ", JSON.stringify(e));
+            },
+          });
+        });
+        $("#assignTo").click(async () => {
+          let update = {
+            technician_id: $("#technician_id").val(),
+          };
+          console.log(update);
+          $.ajax({
+            type: "PATCH",
+            contentType: "application/json",
+            url: `${url}/request/updateRequest/${request_id}`,
+            data: JSON.stringify(update),
+            dataType: "json",
+            success: async function (data) {
+              console.log(`submited ${data}.`);
+              alert("Status Updated Succesfully.");
+              window.location.href = `${url}/ui/checkRequest`;
+            },
+            error: function (e) {
+              alert(
+                `Unable to Update Status For Now Contact System Admin : ${e}`
+              );
+              console.log("Make Request Ajax ERROR: ", JSON.stringify(e));
+            },
+          });
+        });
+        /**/
+      });
 
+      //$("#message").html("hello")
+    </script>
+  </body>
 </html>

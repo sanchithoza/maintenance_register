@@ -21,10 +21,17 @@ async function routes(fastify, options) {
       .then(async(result) => {
         if (result.length) {
           for(i = 0;i < result.length;i++){
-            if(result[i].technician_id !=''){
+            console.log(result[i].technician_id != null);
+            if(result[i].technician_id !='' && result[i].technician_id != null){
               let technician_name = await knex.table("tbl_user").select("user_name").where("id", result[i].technician_id);
               console.log(technician_name[0]);
               result[i].technician_name = technician_name[0].user_name
+            }else{
+              result[i].technician_name = "Not Assigned"
+            }
+            if(result[i].user_id !='' && result[i].user_id != null){
+              let user_name = await knex.table("tbl_user").select("user_name").where("id", result[i].user_id);
+              result[i].user_name = user_name[0].user_name
             }
           }
           reply.status(200).send(result);
@@ -46,10 +53,16 @@ async function routes(fastify, options) {
       .then( async (result) => {
         if (result.length) {
           for(i = 0;i < result.length;i++){
-            if(result[i].technician_id !=''){
+            if(result[i].technician_id !='' && result[i].technician_id != null){
               let technician_name = await knex.table("tbl_user").select("user_name").where("id", result[i].technician_id);
               console.log(technician_name[0]);
               result[i].technician_name = technician_name[0].user_name
+            }else{
+              result[i].technician_name = "Not Assigned"
+            }
+            if(result[i].user_id !='' && result[i].user_id != null){
+              let user_name = await knex.table("tbl_user").select("user_name").where("id", result[i].user_id);
+              result[i].user_name = user_name[0].user_name
             }
           }
           //console.log(records);
@@ -85,7 +98,7 @@ async function routes(fastify, options) {
             .where("id", record.institute_id);
           record.user_name = user_name[0].user_name;
           record.institute = institute[0].alias;
-          if(record.technician_id !=''){
+          if(record.technician_id !='' && record.technician_id != null){
             let technician_name = await knex
             .table("tbl_user")
             .select("user_name")

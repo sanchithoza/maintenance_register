@@ -5,6 +5,7 @@ async function routes(fastify, options) {
         console.log(req.body);
     })
     fastify.post('/login', async(request, reply) => {
+        console.log(request.body);
         await knex('tbl_user')
             .where({ "user_name": request.body.user_name, "password": request.body.password })
             .then(rows => {

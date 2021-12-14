@@ -30,7 +30,7 @@
     ></script>
   </head>
 
-  <body>
+  <body class="text-uppercase">
     <nav id="navBar" class="navbar navbar-expand-md bg-dark navbar-dark"></nav>
     <div class="container-fluid">
       <div class="row">
@@ -43,7 +43,7 @@
                 </div>
                 <div class="col-md-12" style="text-align: center">
                   <!-- Button trigger modal -->
-                  <a type="button" id="makeRequest" class="btn btn-primary">
+                  <a type="button" id="makeRequest" class="btn btn-primary" hidden="hidden">
                     Make New Request
                   </a>
                 </div>
@@ -85,6 +85,7 @@
     <script>
       $(document).ready(function () {
        if (role == "user") {
+        $("#makeRequest").removeAttr("hidden")
           $.ajax({
             type: "POST",
             dataType: "application/json",
@@ -136,6 +137,7 @@
           var dataDiv = $("#serviceRequest");
           dataDiv.empty();
           for (var i = 0; i < length; i++) {
+            
             let card_color = "";
             if (data[i].status === "pending") {
               card_color = "alert-danger";
@@ -144,21 +146,21 @@
             } else {
               card_color = "alert-success";
             }
-            dataDiv.append(`<div class="col-sm-6 p-2">
+            let formatedDate = await getFormetedDate(data[i].created_at);
+            let deleteButton = `  <a  class="btn btn-danger btn-sm float-right m-1"  href='#' onclick='deleteRequest("${data[i].id}");'>DELETE</a>`;
+            dataDiv.append(`<div class="col-sm-6 p-1">
                               <div class="card ${card_color}">
-                                <h4 class="card-header">${data[i].request_for}</h4>                                
-                                <div class="card-body">
-                                  
-                                  <p class="card-text"><b>Request Date :</b><br> ${data[i].created_at}</p>
-                                  <p class="card-text"><b>Details :</b><br>${data[i].discription}</p>
-                                  <p class="card-text"><b>Assigned To :</b><br>${(data[i].technician_id != '')?data[i].technician_name:'not assinged'}</p>
-                                  <a href="#" class="btn btn-primary" onclick='viewDetail("${data[i].id}")'>view</a>
-                                  <a href="#" class="btn btn-secondary" onclick='editProduct("${data[i].id}")'>edit</a>
-
-                                  <a  class="btn btn-danger"  href='#' onclick='deleteRequest("${data[i].id}");'>delete</a>
+                                <h4 class="card-header p-1">${data[i].request_for}</h4>                                
+                                <div class="card-body p-1">
+                                  <div class="m-1"><span class="card-text float-left"><b>Request Date : </b> </span><span class="float-right">${formatedDate}</span></div><br>
+                                  <div class="m-1"><span class="card-text float-left"><b>Request From : </b></span><span class="float-right">${data[i].user_name}</span></div><br>
+                                  <div class="m-1"><span class="card-text float-left"><b>Assigned To : </b></span><span class="float-right">${(data[i].technician_id != '')?data[i].technician_name:'not assinged'}</span></div><br>
+                                  <a href="#" class="btn btn-primary btn-sm float-right m-1" onclick='viewDetail("${data[i].id}")'>VIEW</a>
+                                  ${(role != 'technician')?deleteButton:''}
                                 </div>
                               </div>
                             </div>`);
+                            //<a href="#" class="btn btn-secondary btn-sm float-right m-1" onclick='editProduct("${data[i].id}")'>EDIT</a>
           }
         }
         async function onError(e) {
