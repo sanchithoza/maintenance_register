@@ -1,13 +1,15 @@
 
 let url= ''
+console.log(window.location.host);
 setUrl()
+
 function setUrl(){
-    if( window.location.protocol == 'file:' ){ return 0; }
-    if( !window.location.host.replace( /localhost|127\.0\.0\.1/i, '' ) ){ 
-        url = 'https://limitless-shore-03105.herokuapp.com'
-     }
-    const port =  9000;
+    if(( window.location.host == 'localhost:9000' || window.location.host == '127.0.0.1:9000' || window.location.host == '' ) ){ 
+        const port =  9000;
      url = `http://localhost:${port}`
+     }else{
+     url = 'https://limitless-shore-03105.herokuapp.com'
+    }
 }
 console.log(url);
 //let url = "https://limitless-shore-03105.herokuapp.com"
