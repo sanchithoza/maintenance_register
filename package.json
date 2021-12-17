@@ -19,11 +19,13 @@
     "fastify": "^3.17.0",
     "fastify-cors": "^5.1.0",
     "fastify-formbody": "^5.0.0",
+    "fastify-mailer": "^2.2.0",
     "fastify-multipart": "^4.0.7",
     "fastify-static": "^4.2.2",
     "knex": "^0.95.7",
     "lodash": "^4.17.21",
     "mysql": "^2.18.1",
+    "nodemailer": "^6.7.2",
     "point-of-view": "^4.15.1"
   },
   "license": "ISC",
