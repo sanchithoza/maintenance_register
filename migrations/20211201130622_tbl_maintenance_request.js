@@ -5,7 +5,7 @@ exports.up = function(knex) {
         table.integer('institute_id', 11).unsigned().references('id').inTable('tbl_institute')
         table.integer('user_id', 11).unsigned().references('id').inTable('tbl_user')
         table.string('building_name')
-        table.string('floor_number').unique().notNullable()
+        table.string('floor_number').notNullable()
         table.string('room_identification').notNullable()
         table.string('request_for').notNullable()
         table.text('discription').notNullable()

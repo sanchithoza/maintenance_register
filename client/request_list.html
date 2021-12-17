@@ -192,10 +192,9 @@
             id: id,
           };
           $.ajax({
-            type: "POST",
+            type: "DELETE",
             contentType: "application/json",
-            url: `${url}/request/deleteRequest`,
-            data: JSON.stringify(record_id),
+            url: `${url}/request/deleteRequest/${id}`,
             dataType: "json",
             success: async function (data) {
               await window.location.reload();

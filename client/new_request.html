@@ -112,7 +112,9 @@
                     dataType: 'json',
                     success: async function(data) {
                       console.log(`submited ${data}.`);
-                        //window.location.href = `${url}/ui/productMaster`
+                    alert("Request Created.")
+                      window.location.href = `${url}/ui/checkRequest`
+                    
                     },
                     error: function(e) {
                         //           alert(`Add product Ajex Error : ${e}`)
