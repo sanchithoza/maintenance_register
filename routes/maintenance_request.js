@@ -23,15 +23,15 @@ async function routes(fastify, options) {
           for(i = 0;i < result.length;i++){
             console.log(result[i].technician_id != null);
             if(result[i].technician_id !='' && result[i].technician_id != null){
-              let technician_name = await knex.table("tbl_user").select("user_name").where("id", result[i].technician_id);
+              let technician_name = await knex.table("tbl_user").select("name").where("id", result[i].technician_id);
               console.log(technician_name[0]);
-              result[i].technician_name = technician_name[0].user_name
+              result[i].technician_name = technician_name[0].name
             }else{
               result[i].technician_name = "Not Assigned"
             }
             if(result[i].user_id !='' && result[i].user_id != null){
-              let user_name = await knex.table("tbl_user").select("user_name").where("id", result[i].user_id);
-              result[i].user_name = user_name[0].user_name
+              let user_name = await knex.table("tbl_user").select("name").where("id", result[i].user_id);
+              result[i].user_name = user_name[0].name
             }
           }
           reply.status(200).send(result);
@@ -54,15 +54,15 @@ async function routes(fastify, options) {
         if (result.length) {
           for(i = 0;i < result.length;i++){
             if(result[i].technician_id !='' && result[i].technician_id != null){
-              let technician_name = await knex.table("tbl_user").select("user_name").where("id", result[i].technician_id);
+              let technician_name = await knex.table("tbl_user").select("name").where("id", result[i].technician_id);
               console.log(technician_name[0]);
-              result[i].technician_name = technician_name[0].user_name
+              result[i].technician_name = technician_name[0].name
             }else{
               result[i].technician_name = "Not Assigned"
             }
             if(result[i].user_id !='' && result[i].user_id != null){
-              let user_name = await knex.table("tbl_user").select("user_name").where("id", result[i].user_id);
-              result[i].user_name = user_name[0].user_name
+              let user_name = await knex.table("tbl_user").select("name").where("id", result[i].user_id);
+              result[i].user_name = user_name[0].name
             }
           }
           //console.log(records);
@@ -90,20 +90,20 @@ async function routes(fastify, options) {
           let record = result[0];
           let user_name = await knex
             .table("tbl_user")
-            .select("user_name")
+            .select("name")
             .where("id", record.user_id);
           let institute = await knex
             .table("tbl_institute")
-            .select("alias")
+            .select("name")
             .where("id", record.institute_id);
-          record.user_name = user_name[0].user_name;
-          record.institute = institute[0].alias;
+          record.user_name = user_name[0].name;
+          record.institute = institute[0].name;
           if(record.technician_id !='' && record.technician_id != null){
             let technician_name = await knex
             .table("tbl_user")
-            .select("user_name")
+            .select("name")
             .where("id", record.technician_id);
-            record.technician_name = technician_name[0].user_name
+            record.technician_name = technician_name[0].name
           }
           
           reply.status(200).send(record);
@@ -160,6 +160,15 @@ async function routes(fastify, options) {
       .select()
       .where({ tbl_maintenance_request_id: request.params.request_id })
       .then(async (result) => {
+        console.log(result);
+        for(i = 0;i < result.length;i++){
+          let user_name = await knex
+            .table("tbl_user")
+            .select("name")
+            .where("id", result[i].user_id);
+            console.log(user_name);
+            result[i].user_name = user_name[0].name;
+        }
         console.log(result);
         reply.status(200).send(result);
       })

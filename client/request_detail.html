@@ -162,7 +162,7 @@
       charset="utf8"
       src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"
     ></script>
-    <script type="text/javascript" src="https://limitless-shore-03105.herokuapp.com/ui/header"></script>
+    <script type="text/javascript" src="http://localhost:9000/ui/header"></script>
 
     <script>
       $(document).ready(function () {
@@ -170,7 +170,7 @@
         let splitUrl = this_url.split("/");
         let request_id = splitUrl[splitUrl.length - 1];
 
-        if (role == "admin" || role == "technician") {
+        if (role == "admin" || role == "supervisior") {
           $("#statusUpdate").removeAttr("hidden");
         }
         if (role == "admin") {
@@ -220,8 +220,11 @@
           success: async function (result) {
             result.forEach((element) => {
               $("#comments_div")
-                .append(`<div class="alert alert-dark" role="alert">
-                        ${element.discription}
+                .append(`<div class="alert alert-info" role="alert p-0 m-0">
+                  <blockquote class="blockquote p-0 m-0">
+                    <p class="m-0">${element.discription}</p>
+                    <footer class="blockquote-footer p-0 m-0">${element.user_name} @ <cite title="Source Title">${element.created_at}</cite></footer>
+                  </blockquote>                      
                       </div>`);
             });
           },
@@ -242,7 +245,7 @@
             url: `${url}/request/addComment`,
             data: JSON.stringify(newComment),
             success: async function (result) {
-              console.log(result);
+              window.location.reload();
             },
             error: async function (error) {
               console.log(error);

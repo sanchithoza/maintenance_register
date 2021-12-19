@@ -25,7 +25,7 @@
       charset="utf8"
       src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"
     ></script>
-    <script type="text/javascript" src="https://limitless-shore-03105.herokuapp.com/ui/header"></script>
+    <script type="text/javascript" src="http://localhost:9000/ui/header"></script>
   </head>
 
   <body class="text-uppercase">
@@ -103,7 +103,7 @@
                 onError(error);
             }
         });
-        } else if (role == "technician") {
+        } else if (role == "supervisior") {
             $.ajax({
             type: "POST",
             dataType: "application/json",
@@ -156,6 +156,7 @@
                                 <div class="card-body p-1">
                                   <div class="m-1"><span class="card-text float-left"><b>Request Date : </b> </span><span class="float-right">${formatedDate}</span></div><br>
                                   <div class="m-1"><span class="card-text float-left"><b>Request From : </b></span><span class="float-right">${data[i].user_name}</span></div><br>
+                                  <div class="m-1"><span class="card-text float-left"><b>Status : </b></span><span class="float-right">${data[i].status}</span></div><br>
                                   <div class="m-1"><span class="card-text float-left"><b>Assigned To : </b></span><span class="float-right">${(data[i].technician_id != '')?data[i].technician_name:'not assinged'}</span></div><br>
                                   <a href="#" class="btn btn-primary btn-sm float-right m-1" onclick='viewDetail("${data[i].id}")'>VIEW</a>
                                   ${(role != 'technician')?deleteButton:''}

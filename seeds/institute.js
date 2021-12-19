@@ -6,44 +6,54 @@ exports.seed = function(knex) {
       // Inserts seed entries
       return knex('tbl_institute').insert([
         {
-          id: 1, 
-          name: 'Agrawal Education Foundation', 
-          alias:'AEF'
+          id: 1,
+          name: 'Admin Department', 
+          alias:'Admin'
         },
         {
           id: 2, 
-          name: 'S. S. Agrawal College of Commerece and Management', 
-          alias:'SSACCM'
+          name: 'Commerece Department', 
+          alias:'Commerece'
         },
         {
           id: 3, 
-          name: 'S.S. Agrawal Institute of Management & Technology', 
-          alias:'SSAIMT'
+          name: 'Science Department', 
+          alias:'Science'
         },
         {
           id: 4, 
-          name: 'S. S. Agrawal Institute of Engineering and Technology', 
-          alias:'SSAIET'
+          name: 'MBA Department', 
+          alias:'MBA'
         },
         {
           id: 5, 
-          name: 'S. S. Agrawal Homoeopathic Medial College & Hospital', 
-          alias:'HOMEO'
+          name: 'MCA Department', 
+          alias:'MCA'
         },
         {
           id: 6, 
-          name: 'S. S. Agrawal Public School', 
-          alias:'SCHOOL'
+          name: 'Engineering Department', 
+          alias:'Engineering'
         },
         {
           id: 7, 
-          name: 'S S. Agrawal College of Nursing Training College and Research Centre', 
-          alias:'NURSING'
+          name: 'Homeopathy Department', 
+          alias:'Homeopathy'
         },
         {
           id: 8, 
-          name: 'S.S.Agrawal Institute of Physiotherapy & Medical Care Education', 
-          alias:'PHYSIO'
+          name: 'School', 
+          alias:'SCHOOL'
+        },
+        {
+          id: 9, 
+          name: 'Nursing Department', 
+          alias:'Nursing'
+        },
+        {
+          id: 10, 
+          name: 'Physiotherapy Department', 
+          alias:'Physiotherapy'
         }
       ]);
     });

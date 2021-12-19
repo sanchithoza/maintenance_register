@@ -35,15 +35,18 @@
                               <select class="form-control" id="building_name">
                                 <option value="admin/engeneering">ADMIN / ENGENEERING</option>
                                 <option value="ssaccm">SSACCM</option>
+                                <option value="nursing/physiotherapy ">NURSING / PHYSIOTHERAPY</option>
                                 <option value="school">SCHOOL</option>
                                 <option value="workshop">WORKSHOP</option>
+                                <option value="campus hostel">CAMPUS HOSTEL</option>
+                                <option value="boys hostel">BOYS HOSTEL</option>
                                 <option value="girls hostel">GIRLS HOSTEL</option>
-                                <option value="nursing/physiotherapy ">NURSING / PHYSIOTHERAPY</option>
-                              </select>
+                                </select>
                             </div>
                             <div class="form-group">
                               <label for="floor">Floor Number</label>
                               <select class="form-control" id="floor_number">
+                                <option value="0">0</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>
@@ -86,14 +89,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
-    <script type="text/javascript" src="https://limitless-shore-03105.herokuapp.com/ui/header"></script>
+    <script type="text/javascript" src="http://localhost:9000/ui/header"></script>
 
     <script>
-        $(document).ready(function() {
-          getInstitute();
+        $(document).ready(async function() {
+          await getInstitute();
           $("#submitRequest").click(()=>{
-            console.log("here");
-            let newRequest ={
+           let newRequest ={
               institute_id:parseInt($("#institute_id").val()),
               user_id:user_id,
               building_name:$("#building_name").val(),
@@ -103,7 +105,6 @@
               discription:$("#discription").val(),
               status:"pending"
             };
-            console.log(newRequest);
             $.ajax({
                     type: "POST",
                     contentType: "application/json",
@@ -111,13 +112,12 @@
                     data: JSON.stringify(newRequest),
                     dataType: 'json',
                     success: async function(data) {
-                      console.log(`submited ${data}.`);
                     alert("Request Created.")
                       window.location.href = `${url}/ui/checkRequest`
                     
                     },
                     error: function(e) {
-                        //           alert(`Add product Ajex Error : ${e}`)
+                        alert(`Unable to Create Request ${e}`)
                         console.log("Make Request Ajax ERROR: ", JSON.stringify(e));
                     }
                 });

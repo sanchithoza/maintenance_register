@@ -1,17 +1,6 @@
-
-let url= ''
-console.log(window.location.host);
-setUrl()
-
-function setUrl(){
-    if(( window.location.host == 'localhost:9000' || window.location.host == '127.0.0.1:9000' || window.location.host == '' ) ){ 
-        const port =  9000;
-     url = `http://localhost:${port}`
-     }else{
-     url = 'https://limitless-shore-03105.herokuapp.com'
-    }
-}
+let url= window.location.origin
 console.log(url);
+
 //let url = "https://limitless-shore-03105.herokuapp.com"
 if (sessionStorage.length <= 0) {
     window.location.href = `${url}/ui`
@@ -68,7 +57,6 @@ if (role == "admin") {
     console.log("in for user");
     navBar = commonNav + userNav + userDropDown;
 } else {
-    console.log("in for technician");
     navBar = commonNav + userDropDown;
 }
 
@@ -91,17 +79,20 @@ async function userSignout() {
     window.location.href = `${url}/ui`;
 }
 async function getInstitute(){
-    console.log("in header");
+    console.log("in get institute");
     $(".institute_id").empty()
-    $.ajax({
+    await $.ajax({
         type:"GET",
         dataType:"application/json",
         url:`${url}/master/getInstitute`,
         dataType:"json",
         success:async function(result){
-          result.forEach(element => {
-           $(".institute_id").append(`<option value=${element.id}>${element.alias}</option>`)
+            console.log(result);
+         await result.forEach(element => {
+           $(".institute_id").append(`<option value=${element.id}>${element.name}</option>`)  
           });
+          $(".institute_id").val(`${institute_id}`)
+          
         },
         error:async function(error){
           console.log(error);
@@ -109,16 +100,15 @@ async function getInstitute(){
       })
 }
 async function getTechnician(){
-    console.log("in header");
     $(".institute_id").empty()
     $.ajax({
         type:"GET",
         dataType:"application/json",
-        url:`${url}/master/getTechnicians/technician`,
+        url:`${url}/master/getTechnicians/supervisior`,
         dataType:"json",
         success:async function(result){
           result.forEach(element => {
-           $(".technician_id").append(`<option value=${element.id}>${element.user_name}</option>`)
+           $(".technician_id").append(`<option value=${element.id}>${element.name}</option>`)
           });
         },
         error:async function(error){
@@ -128,6 +118,6 @@ async function getTechnician(){
 }
 async function getFormetedDate(date){
     let rawDate = new Date(date);
-    let dateString = rawDate.getDate() +" / "+ (rawDate.getMonth()+1) +" / "+rawDate.getFullYear()
+    let dateString = rawDate.getDate() +"/"+ (rawDate.getMonth()+1) +"/"+rawDate.getFullYear() +" at "+rawDate.getHours()+":"+rawDate.getMinutes()
     return dateString;
 }
