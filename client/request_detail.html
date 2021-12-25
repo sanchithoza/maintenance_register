@@ -166,9 +166,11 @@
 
     <script>
       $(document).ready(function () {
-        let this_url = window.location.href;
-        let splitUrl = this_url.split("/");
-        let request_id = splitUrl[splitUrl.length - 1];
+        /*let this_url = window.location.href;
+        let splitUrl = this_url.split("/");*/
+        const params = new URLSearchParams(window.location.search)
+        
+        let request_id = params.get('id');
 
         if (role == "admin" || role == "supervisior") {
           $("#statusUpdate").removeAttr("hidden");
@@ -266,7 +268,7 @@
             success: async function (data) {
               console.log(`submited ${data}.`);
               alert("Status Updated Succesfully.");
-              window.location.href = `${url}/ui/checkRequest`;
+              window.location.href = `request_list.html`;
             },
             error: function (e) {
               alert(
@@ -290,7 +292,7 @@
             success: async function (data) {
               console.log(`submited ${data}.`);
               alert("Status Updated Succesfully.");
-              window.location.href = `${url}/ui/checkRequest`;
+              window.location.href = `request_list.html`;
             },
             error: function (e) {
               alert(

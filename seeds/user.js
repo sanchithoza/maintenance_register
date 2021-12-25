@@ -122,7 +122,7 @@ exports.seed = function(knex) {
           institute_id: 1,
           name:'Dharmesh Patel',
           user_name:'dharmesh.patel',
-          password:'amit@ssa',
+          password:'dharmesh@ssa',
           role:'supervisior'
         },
         {

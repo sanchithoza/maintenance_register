@@ -1,17 +1,12 @@
 
 const fastify = require("fastify")();
 const path = require('path')
-const fastifyStatic = require('fastify-static')
 
 // first plugin
-fastify.register(fastifyStatic, {
-    root: path.join(__dirname, 'client'),
-    prefix: '/client/', // optional: default '/'
-})
 fastify.register(require('fastify-cors'), {
     origin: true
 })
-fastify.register(require('fastify-mailer'), {
+/*fastify.register(require('fastify-mailer'), {
     defaults: { from: 'Sanchit Oza<sanchithoza@gmail.com>' },
     transport: {
       service:'gmail',
@@ -20,6 +15,9 @@ fastify.register(require('fastify-mailer'), {
         pass: 'wrzmdqwsxhrejmhe'
       }
     }
+  })
+  fastify.get('/',(request,reply)=>{
+    reply.status(200).send("welcome")
   })
   fastify.get('/send-mail', (request, reply) => {
     const { mailer } = fastify
@@ -70,19 +68,22 @@ fastify.register(require('fastify-mailer'), {
         }
       }
     })
-  })
-//fastify.register(require('fastify-multipart'))
+  })*/
+fastify.register(require('fastify-multipart'))
 fastify.register(require('fastify-formbody'))
-//fastify.get('/', function(req, reply) {
-    //    reply.sendFile('client/index.html') // serving path.join(__dirname, 'public', 'myHtml.html') directly
-        //reply.send("hello")
-  //  })
+fastify.get('/maintenance/', function(req, reply) {
+        //reply.sendFile(__dirname+'/client/index.html') // serving path.join(__dirname, 'public', 'myHtml.html') directly
+        reply.send("hello maintenance root")
+    })
+    fastify.get('/', function(req, reply) {
+      //reply.sendFile(__dirname+'/client/index.html') // serving path.join(__dirname, 'public', 'myHtml.html') directly
+      reply.send("hello root")
+  })
     //database connection
     //routes
-fastify.register(require('./client/ui_route'), { prefix: '/ui' })
-fastify.register(require('./routes/maintenance_request'), { prefix: '/request' });
-fastify.register(require('./routes/master'), { prefix: '/master' });
-fastify.register(require('./routes/user'), { prefix: '/user' });
+fastify.register(require('./routes/maintenance_request'), { prefix: '/maintenence/request' });
+fastify.register(require('./routes/master'), { prefix: '/maintenence/master' });
+fastify.register(require('./routes/user'), { prefix: '/maintenence/user' });  
 
 
 // Declare a route

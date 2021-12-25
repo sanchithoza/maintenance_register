@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        Product Price List
+    </title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
+</head>
+
+<body>
+    <nav id="navBar" class="navbar navbar-expand-md bg-dark navbar-dark">
+        <!-- Nav-Bar Comes From header.js-->
+    </nav>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card overflow-auto">
+                    <div class="card-header">
+                        <h4 id="">New Entry</h4>
+                    </div>
+                    <div class="card-body">
+                        <form class="form">
+                          <div class="row">
+                            <div class="col-md-6 border-right border-dark">
+                              <div class="form-group">
+                                <label for="institute">Select Department</label>
+                                <select class="form-control institute_id" id="institute_id">
+                                  <option value="none">Select Department</option>
+                                  <option value="ayurvedic">Ayurvedic</option>
+                                  <option value="homeopathic">Homeopathic</option>
+                                </select>
+                              </div>
+                              <div class="form-group">
+                                <label for="case">Case Number</label>
+                                <input type="text" class="form-control" id="case_number"/>
+                            </div>
+                            <div class="form-group">
+                              <label for="pname">Patient Name</label>
+                              <input type="text" class="form-control" id="patient_name"/>
+                          </div>
+                            </div>
+                            <div class="col-md-6">
+                            <table class="table p-0 m-0">
+                              <tr>
+                                <td><label for="lcharges">Registration Charges</label></td>
+                                <td><input type="number" class="form-control" id="registration_charges" value="0" min="0" disabled/></td>
+                                <td style="width: 38px;"><input type="checkbox" class="form-control" id="is_registration_charges"/></td>
+                              </tr>
+                              <tr>
+                                <td><label for="lcharges">Lab Charges</label></td>
+                                <td><input type="number" class="form-control" id="lab_charges" value="0" min="0" disabled/></td>
+                                <td><input type="checkbox" class="form-control" id="is_lab_charges"/></td>
+                              </tr>
+                            </table>
+                            </div>
+                          </div>
+                            
+                            
+                              <input type="button" class="btn btn-primary" id="submitRequest" value="Submit Request" />
+                            </form>
+                    </div>
+                </div>
+
+            </div>
+            
+        </div>
+
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" src="header.js"></script>
+
+    <script>
+        $(document).ready(async function() {
+          $("#is_lab_charges").click(function(){
+            $(this).is(':checked')?$(this).parent().parent().find('input[type="number"]').removeAttr('disabled'):$(this).parent().parent().find('input[type="number"]').attr('disabled','disabled')
+          })
+          console.log($("#is_lab_charges").is(':checked'))
+          $("#submitRequest").click(()=>{
+           let newRequest ={
+              institute_id:parseInt($("#institute_id").val()),
+              user_id:user_id,
+              building_name:$("#building_name").val(),
+              floor_number:$("#floor_number").val(),
+              room_identification:$("#room_identification").val(),
+              request_for:$("#request_for").val(),
+              discription:$("#discription").val(),
+              status:"pending"
+            };
+            $.ajax({
+                    type: "POST",
+                    contentType: "application/json",
+                    url: `${url}/request/makeRequest`,
+                    data: JSON.stringify(newRequest),
+                    dataType: 'json',
+                    success: async function(data) {
+                    alert("Request Created.")
+                      window.location.href = `request_list.html`
+                    
+                    },
+                    error: function(e) {
+                        alert(`Unable to Create Request ${e}`)
+                        console.log("Make Request Ajax ERROR: ", JSON.stringify(e));
+                    }
+                });
+          })
+          /**/
+        });
+
+        //$("#message").html("hello")
+    </script>
+</body>
+
+</html>

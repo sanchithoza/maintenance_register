@@ -1,62 +1,24 @@
 let url= "http://localhost:9000"
 console.log("here",url);
-if (sessionStorage.length <= 0) {
-    window.location.href = `index.html`
-    if (alert("only registered users can access this.")) {
-        console.log("here");
-    }
-}
-let user_id = sessionStorage.getItem("user_id").trim()
-let user = sessionStorage.getItem("user_name").trim()
-let role = sessionStorage.getItem("role").trim()
-let institute_id = sessionStorage.getItem("institute_id").trim()
 $("#userName").html(sessionStorage.getItem("fullName"));
 //==================================
 //==Ui Elements like modal and menu==>
 //==================================
-let commonNav = `<a class="navbar-brand" href="request_list.html">Maintenance Register</a>
+let navBar = `<a class="navbar-brand" href="index.html">OPD Entry Management</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
     <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="collapsibleNavbar">
     <ul class="navbar-nav ml-auto">
     <li class="nav-item">
-    <a class="nav-link" href="request_list.html">Manage Requests</a>
-    </li>`;
-let adminNav = `<li class="nav-item">
+    <a class="nav-link" href="index.html">New Entry</a>
     </li>
     <li class="nav-item">
-    <a class="nav-link" href="userMaster.html">Manage_User</a>
-    </li>`;
-let userNav = `<li class="nav-item">
-    </li>  
-    <li class="nav-item">
-    <a class="nav-link" href="new_request.html">Make Request</a>
-    </li>`;
-let userDropDown = `
-    <li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    <span id="userName"></span>
-    </a>
-    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-    <!--<a class="dropdown-item" href="#">User Details</a>
-    <div class="dropdown-divider"></div>-->
-    <a class="dropdown-item" id="logout" onclick="userSignout()" href="#">Logout</a>
-     </div>
+    <a class="nav-link" href="reports.html">Reports</a>
     </li>
     </ul>
     </div>`;
 
-let navBar = ''
-if (role == "admin") {
-    console.log("in for admin");
-    navBar = commonNav + adminNav + userDropDown;
-} else if(role == "user"){
-    console.log("in for user");
-    navBar = commonNav + userNav + userDropDown;
-} else {
-    navBar = commonNav + userDropDown;
-}
 
 
 window.addEventListener("load", function() {

@@ -76,7 +76,7 @@
     </div>
     <script>
         $(document).ready(async() => {
-                let url= window.location.origin;
+                let url= 'http://localhost:9000';
                 $("#login").click(() => {
                 let loginCredential = {
                     "user_name": $("#user_name").val(),
@@ -94,7 +94,8 @@
                             sessionStorage.setItem("user_name", data[0].name);
                             sessionStorage.setItem("institute_id", data[0].institute_id);
                             sessionStorage.setItem("role", data[0].role);
-                            window.location.replace(`${url}/ui/checkRequest`)
+                            window.location.replace("./request_list.html");
+                            
                         },
                         error: function(e) {
                             alert(e.responseText)

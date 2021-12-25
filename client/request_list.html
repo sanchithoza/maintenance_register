@@ -25,7 +25,7 @@
       charset="utf8"
       src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"
     ></script>
-    <script type="text/javascript" src="http://localhost:9000/ui/header"></script>
+    <script type="text/javascript" src="./header.js"></script>
   </head>
 
   <body class="text-uppercase">
@@ -83,8 +83,6 @@
     <script>
      
       $(document).ready(async function () {
-        let srcScript = document.location.origin+'ui/header'
-        console.log("ready");
         
        if (role == "user") {
         $("#makeRequest").removeAttr("hidden")
@@ -176,7 +174,7 @@
         //---------------------------
 
         $("#makeRequest").click(() => {
-          window.location.href = `${url}/ui/newRequest`;
+          window.location.href = `new_request.html`;
         });
       });
 
@@ -185,7 +183,7 @@
             window.location.href = `${url}/ui/addProduct`
         }*/
       function viewDetail(id) {
-        window.location.href = `${url}/ui/requestDetail/${id}`;
+        window.location.href = `request_detail.html?id=${id}`;
       }
       function deleteRequest(id) {
         if (confirm("Are You Sure You Want to delete this Request?")) {

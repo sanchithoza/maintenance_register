@@ -13,7 +13,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
-    <script type="text/javascript" src="https://limitless-shore-03105.herokuapp.com/ui/header"></script>
+    <script type="text/javascript" src="header.js"></script>
 </head>
 
 <body>
@@ -74,7 +74,7 @@
 
     <script>
         $(document).ready(async function() {
-            console.log("ge users");
+            console.log("ge users",url);
             let institute_id = sessionStorage.getItem("institute_id")
             $.get(`${url}/user/getUsers`, function(data) {
                 console.log("get users");
@@ -96,7 +96,7 @@
             //add product modal events
             //---------------------------
             $('#addUser').click(() => {
-                window.location.href = `${url}/ui/addUser`;
+                window.location.href = `addNewUser.html`;
             });
         });
 
@@ -109,7 +109,7 @@
                     url: `${url}/master/deleteUser/${id}`,
                     dataType: 'json',
                     success: async function(data) {
-                        window.location.href = `${url}/ui/userMaster`
+                        window.location.href = `userMaster.html`
                     },
                     error: function(e) {
                         alert("Error!")
@@ -121,7 +121,7 @@
 
         function editUser(id) {
             localStorage.setItem("edit_user", id)
-            window.location.href = `${url}/ui/addUser`
+            window.location.href = `addNewUser.html`
         }
     </script>
 </body>

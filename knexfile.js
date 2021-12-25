@@ -7,11 +7,13 @@ module.exports = {
       connection: {
           //host: '0.tcp.ngrok.io',
           //port:'11838',
-         host:'localhost',
-         port:'3306',
-          user: 'root',
-          password: '',
-          database: 'db_maintenance_register'
+            host:'localhost',
+            port:'3306',
+            //user: 'root',
+            //password: '',
+            user:'requests_root',
+            password:'Ssaccm@2021',
+            database: 'requests_maintenance_db'
       }
   },
   /*production: {
