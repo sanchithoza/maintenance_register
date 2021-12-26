@@ -55,12 +55,50 @@
                                 <td><input type="number" class="form-control" id="lab_charges" value="0" min="0" disabled/></td>
                                 <td><input type="checkbox" class="form-control" id="is_lab_charges"/></td>
                               </tr>
+                              <tr>
+                                <td><label for="lcharges">1 Week Dispensary Charge</label></td>
+                                <td><input type="number" class="form-control" id="lab_charges" value="0" min="0" disabled/></td>
+                                <td><input type="checkbox" class="form-control" id="is_lab_charges"/></td>
+                              </tr>
+                              <tr>
+                                <td><label for="lcharges">2 Week Dispensary Charge</label></td>
+                                <td><input type="number" class="form-control" id="lab_charges" value="0" min="0" disabled/></td>
+                                <td><input type="checkbox" class="form-control" id="is_lab_charges"/></td>
+                              </tr>
+                              <tr>
+                                <td><label for="lcharges">1 Week Bio Chemic</label></td>
+                                <td><input type="number" class="form-control" id="lab_charges" value="0" min="0" disabled/></td>
+                                <td><input type="checkbox" class="form-control" id="is_lab_charges"/></td>
+                              </tr>
+                              <tr>
+                                <td><label for="lcharges">2 Week Bio Chemic</label></td>
+                                <td><input type="number" class="form-control" id="lab_charges" value="0" min="0" disabled/></td>
+                                <td><input type="checkbox" class="form-control" id="is_lab_charges"/></td>
+                              </tr>
+                              <tr>
+                                <td><label for="lcharges">1 Mother Tincher</label></td>
+                                <td><input type="number" class="form-control" id="lab_charges" value="0" min="0" disabled/></td>
+                                <td><input type="checkbox" class="form-control" id="is_lab_charges"/></td>
+                              </tr>
+                              <tr>
+                                <td><label for="lcharges">2 Mother Tincher</label></td>
+                                <td><input type="number" class="form-control" id="lab_charges" value="0" min="0" disabled/></td>
+                                <td><input type="checkbox" class="form-control" id="is_lab_charges"/></td>
+                              </tr>
+
                             </table>
+                            </div>
+                            <div class="col-md-12 border-top border-dark p-2 center">
+                              <div class="form-group">
+                                <label for="pname">Entry Done By</label>
+                                <input type="text" class="form-control" id="patient_name"/>
+                            </div>
+                              <input type="button" class="btn btn-primary" id="submitRequest" value="Submit Request" />
                             </div>
                           </div>
                             
                             
-                              <input type="button" class="btn btn-primary" id="submitRequest" value="Submit Request" />
+                              
                             </form>
                     </div>
                 </div>
@@ -79,6 +117,9 @@
     <script>
         $(document).ready(async function() {
           $("#is_lab_charges").click(function(){
+            $(this).is(':checked')?$(this).parent().parent().find('input[type="number"]').removeAttr('disabled'):$(this).parent().parent().find('input[type="number"]').attr('disabled','disabled')
+          })
+          $("#is_registration_charges").click(function(){
             $(this).is(':checked')?$(this).parent().parent().find('input[type="number"]').removeAttr('disabled'):$(this).parent().parent().find('input[type="number"]').attr('disabled','disabled')
           })
           console.log($("#is_lab_charges").is(':checked'))
