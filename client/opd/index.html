@@ -9,6 +9,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
+    <style>
+      table tr td{
+        margin:0px !important;
+        padding: 3px !important;
+      }
+    </style>
 </head>
 
 <body>
@@ -20,12 +26,12 @@
             <div class="col-md-12">
                 <div class="card overflow-auto">
                     <div class="card-header">
-                        <h4 id="">New Entry</h4>
+                        <h4 id="">New OPD Charges Entry</h4>
                     </div>
                     <div class="card-body">
                         <form class="form">
                           <div class="row">
-                            <div class="col-md-6 border-right border-dark">
+                            <div class="col-md-4 border-right border-dark p-2">
                               <div class="form-group">
                                 <label for="institute">Select Department</label>
                                 <select class="form-control institute_id" id="institute_id">
@@ -43,63 +49,109 @@
                               <input type="text" class="form-control" id="patient_name"/>
                           </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-4 border-right border-dark p-0">
                             <table class="table p-0 m-0">
+                              <h3>Dispensary Charge</h3>
                               <tr>
-                                <td><label for="lcharges">Registration Charges</label></td>
+                                <td><label for="lcharges">Registration</label></td>
                                 <td><input type="number" class="form-control" id="registration_charges" value="0" min="0" disabled/></td>
-                                <td style="width: 38px;"><input type="checkbox" class="form-control" id="is_registration_charges"/></td>
+                                <td><input type="checkbox" id="is_registration_charges"/></td>
                               </tr>
                               <tr>
-                                <td><label for="lcharges">Lab Charges</label></td>
+                                <td><label for="lcharges">Lab</label></td>
                                 <td><input type="number" class="form-control" id="lab_charges" value="0" min="0" disabled/></td>
-                                <td><input type="checkbox" class="form-control" id="is_lab_charges"/></td>
+                                <td><input type="checkbox" id="is_lab_charges"/></td>
                               </tr>
                               <tr>
-                                <td><label for="lcharges">1 Week Dispensary Charge</label></td>
-                                <td><input type="number" class="form-control" id="lab_charges" value="0" min="0" disabled/></td>
-                                <td><input type="checkbox" class="form-control" id="is_lab_charges"/></td>
+                                <td><label for="lcharges">Dispensary</label></td>
+                                <td>
+                                  <select class="form-control no_of_weeks" disabled>
+                                    <option value="1">1 Week</option>
+                                    <option value="2">2 Week</option>
+                                    <option value="4">4 Week</option>
+                                  </select>
+                                  <input type="number" class="form-control" id="dispensary" value="0" min="0" disabled/></td>
+                                <td><input type="checkbox" id="is_dispensary"/></td>
                               </tr>
                               <tr>
-                                <td><label for="lcharges">2 Week Dispensary Charge</label></td>
-                                <td><input type="number" class="form-control" id="lab_charges" value="0" min="0" disabled/></td>
-                                <td><input type="checkbox" class="form-control" id="is_lab_charges"/></td>
+                                <td><label for="lcharges">Bio Chemic</label></td>
+                                <td>
+                                  <select class="form-control no_of_weeks" disabled>
+                                    <option value="1">1 Week</option>
+                                    <option value="2">2 Week</option>
+                                    <option value="4">4 Week</option>
+                                  </select>
+                                  <input type="number" class="form-control" id="biochem" value="0" min="0" disabled/></td>
+                                <td><input type="checkbox" id="is_biochem"/></td>
                               </tr>
-                              <tr>
-                                <td><label for="lcharges">1 Week Bio Chemic</label></td>
-                                <td><input type="number" class="form-control" id="lab_charges" value="0" min="0" disabled/></td>
-                                <td><input type="checkbox" class="form-control" id="is_lab_charges"/></td>
+                             <tr>
+                                <td><label for="lcharges">Mother Tincher</label></td>
+                                <td>
+                                  <select class="form-control no_of_weeks" disabled>
+                                    <option value="1">1 Week</option>
+                                    <option value="2">2 Week</option>
+                                    <option value="4">4 Week</option>
+                                  </select>
+                                  <input type="number" class="form-control" id="tincher" value="0" min="0" disabled/></td>
+                                <td><input type="checkbox" id="is_ticher"/></td>
                               </tr>
-                              <tr>
-                                <td><label for="lcharges">2 Week Bio Chemic</label></td>
-                                <td><input type="number" class="form-control" id="lab_charges" value="0" min="0" disabled/></td>
-                                <td><input type="checkbox" class="form-control" id="is_lab_charges"/></td>
-                              </tr>
-                              <tr>
-                                <td><label for="lcharges">1 Mother Tincher</label></td>
-                                <td><input type="number" class="form-control" id="lab_charges" value="0" min="0" disabled/></td>
-                                <td><input type="checkbox" class="form-control" id="is_lab_charges"/></td>
-                              </tr>
-                              <tr>
-                                <td><label for="lcharges">2 Mother Tincher</label></td>
-                                <td><input type="number" class="form-control" id="lab_charges" value="0" min="0" disabled/></td>
-                                <td><input type="checkbox" class="form-control" id="is_lab_charges"/></td>
-                              </tr>
-
-                            </table>
+                              </table>
                             </div>
+                            <div class="col-md-4 p-0">
+                              <table class="table p-0 m-0">
+                                <h3>Dressing Charge</h3>
+                                <tr>
+                                  <td><label for="lcharges">Minor Dressing</label></td>
+                                  <td><input type="number" class="form-control" id="minor_dressing" value="0" min="0" disabled/></td>
+                                  <td><input type="checkbox" id="is_minor_dressing"/></td>
+                                </tr>
+                                <tr>
+                                  <td><label for="lcharges">Major Dressing</label></td>
+                                  <td><input type="number" class="form-control" id="major_dressing" value="0" min="0" disabled/></td>
+                                  <td><input type="checkbox" id="is_major_dressing"/></td>
+                                </tr>
+                                <tr>
+                                  <td><label for="lcharges">1st Stiches</label></td>
+                                  <td><input type="number" class="form-control" id="first_stiches" value="0" min="0" disabled/></td>
+                                  <td><input type="checkbox" id="is_first_stiches"/></td>
+                                </tr>
+                                <tr>
+                                  <td><label for="lcharges">Other Stiches</label></td>
+                                  <td><input type="number" class="form-control" id="other_stiches" value="0" min="0" disabled/></td>
+                                  <td><input type="checkbox" id="is_other_stiches"/></td>
+                                </tr>
+                               <tr>
+                                  <td><label for="lcharges">Injection</label></td>
+                                  <td><input type="number" class="form-control" id="injection" value="0" min="0" disabled/></td>
+                                  <td><input type="checkbox" id="is_injection"/></td>
+                                </tr>
+                                <tr>
+                                  <td><label for="lcharges">ECG</label></td>
+                                  <td><input type="number" class="form-control" id="ecg" value="0" min="0" disabled/></td>
+                                  <td><input type="checkbox" id="is_ecg"/></td>
+                                </tr>
+                                </table>
+                              </div>
                             <div class="col-md-12 border-top border-dark p-2 center">
-                              <div class="form-group">
-                                <label for="pname">Entry Done By</label>
-                                <input type="text" class="form-control" id="patient_name"/>
-                            </div>
-                              <input type="button" class="btn btn-primary" id="submitRequest" value="Submit Request" />
+                              <table class="table">
+                                <tr>
+                                  <td>Entry By</td>
+                                  <td>
+                                    <select class="form-control" id="entry_by">
+                                      <option value="hiren">Hiren</option>
+                                      <option value="hiren">Disha</option>
+                                      <option value="hiren">Tinkle</option>
+                                      <option value="hiren">Bhavisha</option>
+                                    </select>
+                                  </td>
+                                  <td><input type="button" class="btn btn-primary" id="submitRequest" value="Submit Request" /></td>
+                                  <td><h5>Total = <span id="total"></span></h5></td>
+                                </tr>
+                              </table>
+                              
                             </div>
                           </div>
-                            
-                            
-                              
-                            </form>
+                    </form>
                     </div>
                 </div>
 
@@ -116,13 +168,80 @@
 
     <script>
         $(document).ready(async function() {
+          function toggleInput(control,charge){
+            if($(control).is(':checked')){
+              $(control).parent().parent().find('input[type="number"]').removeAttr('disabled')
+              $(control).parent().parent().find('input[type="number"]').val(charge)
+            }else{
+              $(control).parent().parent().find('input[type="number"]').attr('disabled','disabled')
+              $(control).parent().parent().find('input[type="number"]').val(0)
+            }
+            updateTotal();
+          }
+          function toggleInputSelect(control,charge){
+            if($(control).is(':checked')){
+              $(control).parent().parent().find('input[type="number"]').removeAttr('disabled')
+              $(control).parent().parent().find('select').removeAttr('disabled')
+              $(control).parent().parent().find('input[type="number"]').val(30)
+            }else{
+              $(control).parent().parent().find('input[type="number"]').attr('disabled','disabled')
+              $(control).parent().parent().find('select').attr('disabled','disabled')
+              $(control).parent().parent().find('input[type="number"]').val(0)
+            }
+            updateTotal();
+          }
           $("#is_lab_charges").click(function(){
-            $(this).is(':checked')?$(this).parent().parent().find('input[type="number"]').removeAttr('disabled'):$(this).parent().parent().find('input[type="number"]').attr('disabled','disabled')
+            toggleInput(this,30)
           })
           $("#is_registration_charges").click(function(){
-            $(this).is(':checked')?$(this).parent().parent().find('input[type="number"]').removeAttr('disabled'):$(this).parent().parent().find('input[type="number"]').attr('disabled','disabled')
+            toggleInput(this,30)
           })
-          console.log($("#is_lab_charges").is(':checked'))
+          $("#is_dispensary").click(function(){
+            toggleInputSelect(this,30)
+          })
+          
+          $("#is_biochem").click(function(){
+            toggleInputSelect(this,30)
+          })
+          $("#is_ticher").click(function(){
+            toggleInputSelect(this,30)
+          })
+          $("#is_minor_dressing").click(function(){
+            toggleInput(this,30)
+          })
+          $("#is_major_dressing").click(function(){
+            toggleInput(this,30)
+          })
+          $("#is_first_stiches").click(function(){
+            toggleInput(this,30)
+          })
+          $("#is_other_stiches").click(function(){
+            toggleInput(this,30)
+          })
+          $("#is_injection").click(function(){
+            toggleInput(this,30)
+          })
+          $("#is_ecg").click(function(){
+            toggleInput(this,30)
+          })
+          $('input[type="number"]').on('change',async function(){
+            updateTotal();
+          })
+          $('input[type="number"]').on('keyup',async function(){
+            updateTotal();
+          })
+          function updateTotal(){
+            var input_number = document.querySelectorAll("input[type='number']");
+            var total = 0
+            $("#total").empty()
+          for(i = 0;i<input_number.length;i++){
+            total = total + parseInt(input_number[i].value)
+            
+          }
+          $("#total").append(total)
+          console.log(total)
+          }
+          
           $("#submitRequest").click(()=>{
            let newRequest ={
               institute_id:parseInt($("#institute_id").val()),
