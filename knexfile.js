@@ -5,14 +5,13 @@ module.exports = {
   development: {
       client: 'mysql',
       connection: {
-          //host: '0.tcp.ngrok.io',
-          //port:'11838',
-            host:'localhost',
+          host:'localhost',
             port:'3306',
-            //user: 'root',
-            //password: '',
-            user:'requests_root',
-            password:'Ssaccm@2021',
+            user: 'root',
+            password: '',
+            //for request-ssa.xyz web version
+          //  user:'requests_root',
+           // password:'Ssaccm@2021',
             database: 'requests_maintenance_db'
       }
   },

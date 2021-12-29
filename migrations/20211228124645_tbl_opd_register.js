@@ -18,6 +18,7 @@ exports.up = function(knex) {
         table.string('ecg');
         table.string('total')
         table.string('entry_by').notNullable()
+        table.text('remark')
         table.timestamp('created_at').defaultTo(knex.fn.now())
     }).then(() => {
         console.log(`tbl_opd_register created successfully . .`);

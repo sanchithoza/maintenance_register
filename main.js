@@ -71,6 +71,7 @@ fastify.register(require('fastify-cors'), {
   })*/
 fastify.register(require('fastify-multipart'))
 fastify.register(require('fastify-formbody'))
+
 fastify.get('/maintenance/', function(req, reply) {
         //reply.sendFile(__dirname+'/client/index.html') // serving path.join(__dirname, 'public', 'myHtml.html') directly
         reply.send("hello maintenance root")
@@ -81,11 +82,10 @@ fastify.get('/maintenance/', function(req, reply) {
   })
     //database connection
     //routes
-fastify.register(require('./routes/maintenance_request'), { prefix: '/maintenence/request' });
-fastify.register(require('./routes/master'), { prefix: '/maintenence/master' });
-fastify.register(require('./routes/user'), { prefix: '/maintenence/user' });  
-fastify.register(require('./routes/opd'), { prefix: '/maintenence/opd' });  
-
+fastify.register(require('./routes/maintenance_request'), { prefix: '/maintenance/request' });
+fastify.register(require('./routes/master'), { prefix: '/maintenance/master' });
+fastify.register(require('./routes/user'), { prefix: '/maintenance/user' });  
+fastify.register(require('./routes/opd'), { prefix: '/maintenance/opd' });  
 
 // Declare a route
 //Funtion To run the server

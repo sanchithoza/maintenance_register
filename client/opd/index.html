@@ -266,7 +266,8 @@
                     dataType: 'json',
                     success: async function(data) {
                     alert("Request Created.")
-                      window.location.href = `request_list.html`  
+                    console.log(data);
+                     // window.location.href = `request_list.html`  
                     },
                     error: function(e) {
                         alert(`Unable to Create Request ${e}`)
