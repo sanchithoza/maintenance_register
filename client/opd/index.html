@@ -34,7 +34,7 @@
                             <div class="col-md-4 border-right border-dark p-2">
                               <div class="form-group">
                                 <label for="institute">Select Department</label>
-                                <select class="form-control institute_id" id="institute_id">
+                                <select class="form-control department" id="department">
                                   <option value="none">Select Department</option>
                                   <option value="ayurvedic">Ayurvedic</option>
                                   <option value="homeopathic">Homeopathic</option>
@@ -54,12 +54,12 @@
                               <h3>Dispensary Charge</h3>
                               <tr>
                                 <td><label for="lcharges">Registration</label></td>
-                                <td><input type="number" class="form-control" id="registration_charges" value="0" min="0" disabled/></td>
+                                <td><input type="number" class="form-control" id="registration" value="0" min="0" disabled/></td>
                                 <td><input type="checkbox" id="is_registration_charges"/></td>
                               </tr>
                               <tr>
                                 <td><label for="lcharges">Lab</label></td>
-                                <td><input type="number" class="form-control" id="lab_charges" value="0" min="0" disabled/></td>
+                                <td><input type="number" class="form-control" id="lab" value="0" min="0" disabled/></td>
                                 <td><input type="checkbox" id="is_lab_charges"/></td>
                               </tr>
                               <tr>
@@ -81,7 +81,7 @@
                                     <option value="2">2 Week</option>
                                     <option value="4">4 Week</option>
                                   </select>
-                                  <input type="number" class="form-control" id="biochem" value="0" min="0" disabled/></td>
+                                  <input type="number" class="form-control" id="bio_chemic" value="0" min="0" disabled/></td>
                                 <td><input type="checkbox" id="is_biochem"/></td>
                               </tr>
                              <tr>
@@ -92,7 +92,7 @@
                                     <option value="2">2 Week</option>
                                     <option value="4">4 Week</option>
                                   </select>
-                                  <input type="number" class="form-control" id="tincher" value="0" min="0" disabled/></td>
+                                  <input type="number" class="form-control" id="mother_tincher" value="0" min="0" disabled/></td>
                                 <td><input type="checkbox" id="is_ticher"/></td>
                               </tr>
                               </table>
@@ -167,15 +167,25 @@
     <script type="text/javascript" src="header.js"></script>
 
     <script>
+      let newEntry;
         $(document).ready(async function() {
-          function toggleInput(control,charge){
+          newEntry={
+              department : "",
+              case_number : "",
+              patient_name : "",
+              entry_by : "",
+              total : "",
+            };
+          async function toggleInput(control,charge){
             if($(control).is(':checked')){
               $(control).parent().parent().find('input[type="number"]').removeAttr('disabled')
-              $(control).parent().parent().find('input[type="number"]').val(charge)
+              $(control).parent().parent().find('input[type="number"]').val(charge)  
             }else{
               $(control).parent().parent().find('input[type="number"]').attr('disabled','disabled')
               $(control).parent().parent().find('input[type="number"]').val(0)
             }
+            let control_id = $(control).parent().parent().find('input[type="number"]').attr('id'); 
+            newEntry[`${control_id}`] = $(control).parent().parent().find('input[type="number"]').val()
             updateTotal();
           }
           function toggleInputSelect(control,charge){
@@ -189,6 +199,15 @@
               $(control).parent().parent().find('input[type="number"]').val(0)
             }
             updateTotal();
+          }
+          function updateTotal(){
+            var input_number = document.querySelectorAll("input[type='number']");
+            var total = 0
+            $("#total").empty()
+            for(i = 0;i<input_number.length;i++){
+              total = total + parseInt(input_number[i].value)
+            }
+            $("#total").append(total)
           }
           $("#is_lab_charges").click(function(){
             toggleInput(this,30)
@@ -230,39 +249,24 @@
           $('input[type="number"]').on('keyup',async function(){
             updateTotal();
           })
-          function updateTotal(){
-            var input_number = document.querySelectorAll("input[type='number']");
-            var total = 0
-            $("#total").empty()
-          for(i = 0;i<input_number.length;i++){
-            total = total + parseInt(input_number[i].value)
-            
-          }
-          $("#total").append(total)
-          console.log(total)
-          }
+          
           
           $("#submitRequest").click(()=>{
-           let newRequest ={
-              institute_id:parseInt($("#institute_id").val()),
-              user_id:user_id,
-              building_name:$("#building_name").val(),
-              floor_number:$("#floor_number").val(),
-              room_identification:$("#room_identification").val(),
-              request_for:$("#request_for").val(),
-              discription:$("#discription").val(),
-              status:"pending"
-            };
+            newEntry.department = $("#department").val()
+            newEntry.patient_name = $("#patient_name").val()
+            newEntry.case_number = $("#case_number").val()
+            newEntry.entry_by = $("#entry_by").val()
+            newEntry.total = $("#total").text()
+            console.log(newEntry);
             $.ajax({
                     type: "POST",
                     contentType: "application/json",
-                    url: `${url}/request/makeRequest`,
-                    data: JSON.stringify(newRequest),
+                    url: `${url}/opd/newEntry`,
+                    data: JSON.stringify(newEntry),
                     dataType: 'json',
                     success: async function(data) {
                     alert("Request Created.")
-                      window.location.href = `request_list.html`
-                    
+                      window.location.href = `request_list.html`  
                     },
                     error: function(e) {
                         alert(`Unable to Create Request ${e}`)

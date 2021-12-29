@@ -84,6 +84,7 @@ fastify.get('/maintenance/', function(req, reply) {
 fastify.register(require('./routes/maintenance_request'), { prefix: '/maintenence/request' });
 fastify.register(require('./routes/master'), { prefix: '/maintenence/master' });
 fastify.register(require('./routes/user'), { prefix: '/maintenence/user' });  
+fastify.register(require('./routes/opd'), { prefix: '/maintenence/opd' });  
 
 
 // Declare a route

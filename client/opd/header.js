@@ -1,4 +1,4 @@
-let url= "http://localhost:9000"
+let url= "http://localhost:9000/maintenance"
 console.log("here",url);
 $("#userName").html(sessionStorage.getItem("fullName"));
 //==================================
