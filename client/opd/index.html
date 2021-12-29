@@ -34,7 +34,7 @@
                             <div class="col-md-4 border-right border-dark p-2">
                               <div class="form-group">
                                 <label for="institute">Select Department</label>
-                                <select class="form-control department" id="department">
+                                <select class="form-control department" id="department" required>
                                   <option value="none">Select Department</option>
                                   <option value="ayurvedic">Ayurvedic</option>
                                   <option value="homeopathic">Homeopathic</option>
@@ -63,7 +63,7 @@
                                 <td><input type="checkbox" id="is_lab_charges"/></td>
                               </tr>
                               <tr>
-                                <td><label for="lcharges">Dispensary</label></td>
+                                <td><label for="lcharges">Dispensary<br>(<span class="charge">30</span>/week)</label></td>
                                 <td>
                                   <select class="form-control no_of_weeks" disabled>
                                     <option value="1">1 Week</option>
@@ -74,7 +74,7 @@
                                 <td><input type="checkbox" id="is_dispensary"/></td>
                               </tr>
                               <tr>
-                                <td><label for="lcharges">Bio Chemic</label></td>
+                                <td><label for="lcharges">Bio Chemic<br>(<span class="charge">50</span>/week)</label></td>
                                 <td>
                                   <select class="form-control no_of_weeks" disabled>
                                     <option value="1">1 Week</option>
@@ -85,7 +85,7 @@
                                 <td><input type="checkbox" id="is_biochem"/></td>
                               </tr>
                              <tr>
-                                <td><label for="lcharges">Mother Tincher</label></td>
+                                <td><label for="lcharges">Mother Tincher<br>(<span class="charge">50</span>/week)</label></td>
                                 <td>
                                   <select class="form-control no_of_weeks" disabled>
                                     <option value="1">1 Week</option>
@@ -192,7 +192,7 @@
             if($(control).is(':checked')){
               $(control).parent().parent().find('input[type="number"]').removeAttr('disabled')
               $(control).parent().parent().find('select').removeAttr('disabled')
-              $(control).parent().parent().find('input[type="number"]').val(30)
+              $(control).parent().parent().find('input[type="number"]').val(charge)
             }else{
               $(control).parent().parent().find('input[type="number"]').attr('disabled','disabled')
               $(control).parent().parent().find('select').attr('disabled','disabled')
@@ -210,38 +210,38 @@
             $("#total").append(total)
           }
           $("#is_lab_charges").click(function(){
-            toggleInput(this,30)
+            toggleInput(this,0)
           })
           $("#is_registration_charges").click(function(){
-            toggleInput(this,30)
+            toggleInput(this,20)
           })
           $("#is_dispensary").click(function(){
             toggleInputSelect(this,30)
           })
           
           $("#is_biochem").click(function(){
-            toggleInputSelect(this,30)
+            toggleInputSelect(this,50)
           })
           $("#is_ticher").click(function(){
-            toggleInputSelect(this,30)
+            toggleInputSelect(this,50)
           })
           $("#is_minor_dressing").click(function(){
-            toggleInput(this,30)
+            toggleInput(this,50)
           })
           $("#is_major_dressing").click(function(){
-            toggleInput(this,30)
+            toggleInput(this,0)
           })
           $("#is_first_stiches").click(function(){
-            toggleInput(this,30)
+            toggleInput(this,150)
           })
           $("#is_other_stiches").click(function(){
-            toggleInput(this,30)
+            toggleInput(this,50)
           })
           $("#is_injection").click(function(){
             toggleInput(this,30)
           })
           $("#is_ecg").click(function(){
-            toggleInput(this,30)
+            toggleInput(this,150)
           })
           $('input[type="number"]').on('change',async function(){
             updateTotal();
@@ -249,7 +249,13 @@
           $('input[type="number"]').on('keyup',async function(){
             updateTotal();
           })
-          
+          $(".no_of_weeks").on('change',function(){
+            let week = $(this).val();
+            let amt = $(this).parent().parent().find('.charge').text();
+            $(this).parent().parent().find('input[type="number"]').val(parseInt(week)*parseInt(amt));
+            updateTotal()
+
+          })
           
           $("#submitRequest").click(()=>{
             newEntry.department = $("#department").val()
@@ -267,7 +273,7 @@
                     success: async function(data) {
                     alert("Request Created.")
                     console.log(data);
-                     // window.location.href = `request_list.html`  
+                     window.location.reload();
                     },
                     error: function(e) {
                         alert(`Unable to Create Request ${e}`)
