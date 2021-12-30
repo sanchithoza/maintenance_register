@@ -13,43 +13,36 @@
       referrerpolicy="no-referrer"
     ></script>
     
-    <script>
-       /* var doc = new jsPDF("l", "px", [420, 297]);
-  
-        doc.html(`S.S.Agrawal Homoeopathic Medial College & Hospital
-        <table style="width:290px;border:1px solid black">
-                  <tr>
-                      <td style="text-align:center;font-size:12px;font-face:bold" colspan="4">S. S. Agrawal Homoeopathic Medial College & Hospital</td>
-                  </tr>
-                  <tr>
-                      <td style="text-align:center;font-size:10px" colspan="4">S. S. Agrawal College Campus Nr. Devina Park Society. Gandevi Road, Navsari-396445</td>
-                  </tr>
-                  <tr>
-                      <td>One</td>
-                      <td>Two</td>
-                      <td>One</td>
-                      <td>Two</td>
-                      </tr>
-                  </table>`, {
-          callback: function (doc) {
-            doc.output("dataurlnewwindow");
-          },
-          x: 10,
-          y: 10,
-        });*/
-      </script>
+    
+      <style>
+          #content th{
+            border: 1px solid black;
+        border-collapse: collapse;      
+          }
+          #content td{
+            border: 1px solid black;
+        border-collapse: collapse;      
+          }
+          #content {
+            border: 1px solid black;
+        border-collapse: collapse;      
+          }
+      </style>
   </head>
-  <body style="background-color: lightgrey;">
-    <div style="height: 297px;width: 420px;padding:10px;border: 1px solid black;background-color: white;">
+  <body>
+    <div class="receipt" style="height: 297px;width: 420px;padding:10px;background-color: white;">
         <table style="width:100%;border:1px solid black">
             <tr>
-                <td style="text-align:center;font-size:18px;" colspan="4">S. S. Agrawal Homoeopathic Medial College & Hospital</td>
+                <th style="text-align:center;font-size:16px;" colspan="4">S. S. Agrawal Homoeopathic Medial College & Hospital</th>
             </tr>
             <tr>
                 <td style="text-align:center;font-size:10px" colspan="4">S. S. Agrawal College Campus Nr. Devina Park Society. Gandevi Road, Navsari-396445</td>
             </tr>
             <tr>
-                <td style="text-align:center;font-size:10px" colspan="4">O P D Charges Recipt</td>
+                <td style="text-align:center;font-size:10px" colspan="4">Comtact Number : 02637 - 0000000</td>
+            </tr>
+            <tr>
+                <th style="text-align:center;font-size:10px" colspan="4">O P D Charges Recipt</th>
             </tr>
             <tr style="font-size: 12px;">
                 <td colspan="3"></td>
@@ -62,7 +55,7 @@
                 <td>Oza Sanchit Hitendrabhai</td>
                 </tr>
             </table>
-            <table style="width: 100%;font-size: 12px;border: 1px solid black;">
+            <table id="content" style="width: 100%;font-size: 12px;">
                 <tr>
                     <th style="width:10%">Sr No.</th>
                     <th  style="width:70%">Perticular</th>
@@ -93,7 +86,29 @@
                     <th>Total Amount</td>
                     <th>0</th>
                 </tr>
+                <tr>
+                    <td colspan="2"></td>
+                    <td><div style="height:30px;width:30px;margin:5px 5px 0px 5px;padding:3px;border:1px solid black"></div><br>Auth. Sign.</td>
+                </tr>
             </table>
     </div>
   </body>
+  <script>
+        let box = document.querySelector('.receipt');
+        let width = box.offsetWidth;
+        let height = box.offsetHeight;
+        console.log(width,height);
+        var doc = new jsPDF("l", "pt", [width, height],true);
+        doc.setFont("courier");
+
+        doc.html(document.querySelector('.receipt'), {
+            callback: function (doc) {
+                var pageCount = doc.internal.getNumberOfPages();
+                doc.deletePage(pageCount)
+                doc.output("dataurlnewwindow");
+            },
+            x: 2,
+            y: 2,
+        });
+   </script>
 </html>
