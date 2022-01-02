@@ -49,30 +49,7 @@
             </div>
             <div class="card-body">
               <div class="row" id="serviceRequest">
-                <div class="col-sm-4">
-                  <div class="card">
-                    <div class="card-body">
-                      <h5 class="card-title">Special title treatment</h5>
-                      <p class="card-text">
-                        With supporting text below as a natural lead-in to
-                        additional content.
-                      </p>
-                      <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-sm-4">
-                  <div class="card">
-                    <div class="card-body">
-                      <h5 class="card-title">Special title treatment</h5>
-                      <p class="card-text">
-                        With supporting text below as a natural lead-in to
-                        additional content.
-                      </p>
-                      <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                  </div>
-                </div>
+                
               </div>
             </div>
           </div>
@@ -89,7 +66,7 @@
           $.ajax({
             type: "POST",
             dataType: "application/json",
-            url: `${url}/request/getRequests`,
+            url: `${url}/maintenance/request/getRequests`,
             data: {
               user_id,
             },
@@ -105,7 +82,7 @@
             $.ajax({
             type: "POST",
             dataType: "application/json",
-            url: `${url}/request/getRequests`,
+            url: `${url}/maintenance/request/getRequests`,
             data: {
                 technician_id:user_id,
             },
@@ -121,7 +98,7 @@
             $.ajax({
             type: "GET",
             dataType: "application/json",
-            url: `${url}/request/getRequests`,
+            url: `${url}/maintenance/request/getRequests`,
             dataType: "json",
             success: async function(data){
                 onSuccess(data)
@@ -193,7 +170,7 @@
           $.ajax({
             type: "DELETE",
             contentType: "application/json",
-            url: `${url}/request/deleteRequest/${id}`,
+            url: `${url}/maintenance/request/deleteRequest/${id}`,
             dataType: "json",
             success: async function (data) {
               await window.location.reload();

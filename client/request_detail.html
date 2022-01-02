@@ -162,10 +162,10 @@
       charset="utf8"
       src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"
     ></script>
-    <script type="text/javascript" src="http://localhost:9000/ui/header"></script>
+    <script type="text/javascript" src="header.js"></script>
 
     <script>
-      $(document).ready(function () {
+      $(document).ready(async function () {
         /*let this_url = window.location.href;
         let splitUrl = this_url.split("/");*/
         const params = new URLSearchParams(window.location.search)
@@ -178,11 +178,11 @@
         if (role == "admin") {
           $("#assignedTo").removeAttr("hidden");
         }
-        getTechnician();
+        await getTechnician();
         $.ajax({
           type: "GET",
           dataType: "application/json",
-          url: `${url}/request/getRequest/${request_id}`,
+          url: `${url}/maintenance/request/getRequest/${request_id}`,
           dataType: "json",
           success: async function (data) {
             console.log(data);
@@ -217,7 +217,7 @@
         $.ajax({
           type: "GET",
           dataType: "application/json",
-          url: `${url}/request/getComments/${request_id}`,
+          url: `${url}/maintenance/request/getComments/${request_id}`,
           dataType: "json",
           success: async function (result) {
             result.forEach((element) => {
@@ -262,7 +262,7 @@
           $.ajax({
             type: "PATCH",
             contentType: "application/json",
-            url: `${url}/request/updateRequest/${request_id}`,
+            url: `${url}/maintenance/request/updateRequest/${request_id}`,
             data: JSON.stringify(newStatus),
             dataType: "json",
             success: async function (data) {
@@ -286,7 +286,7 @@
           $.ajax({
             type: "PATCH",
             contentType: "application/json",
-            url: `${url}/request/updateRequest/${request_id}`,
+            url: `${url}/maintenance/request/updateRequest/${request_id}`,
             data: JSON.stringify(update),
             dataType: "json",
             success: async function (data) {

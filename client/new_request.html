@@ -59,7 +59,7 @@
                             
                             <div class="form-group">
                                 <label for="room">Room Number / Name</label>
-                                <input type="number" class="form-control" id="room_identification"/>
+                                <input type="text" class="form-control" id="room_identification"/>
                             </div>
                             <div class="form-group">
                               <label for="floor">Request For :</label>
@@ -109,7 +109,7 @@
             $.ajax({
                     type: "POST",
                     contentType: "application/json",
-                    url: `${url}/request/makeRequest`,
+                    url: `${url}/maintenance/request/makeRequest`,
                     data: JSON.stringify(newRequest),
                     dataType: 'json',
                     success: async function(data) {

@@ -82,7 +82,7 @@ async function getInstitute(){
     await $.ajax({
         type:"GET",
         dataType:"application/json",
-        url:`${url}/master/getInstitute`,
+        url:`${url}/maintenance/master/getInstitute`,
         dataType:"json",
         success:async function(result){
             console.log(result);
@@ -102,7 +102,7 @@ async function getTechnician(){
     $.ajax({
         type:"GET",
         dataType:"application/json",
-        url:`${url}/master/getTechnicians/supervisior`,
+        url:`${url}/maintenance/master/getTechnicians/supervisior`,
         dataType:"json",
         success:async function(result){
           result.forEach(element => {
