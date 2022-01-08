@@ -5,10 +5,10 @@ module.exports = {
   development: {
       client: 'mysql',
       connection: {
-          host:'localhost',
+            host:'127.0.0.1',
             port:'3306',
             user: 'root',
-            password: '',
+            password: 'root@2022',
             //for request-ssa.xyz web version
           //  user:'requests_root',
            // password:'Ssaccm@2021',

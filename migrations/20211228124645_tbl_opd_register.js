@@ -6,6 +6,7 @@ exports.up = function(knex) {
         table.string('case_number').notNullable();
         table.string('patient_name').notNullable();
         table.string('registration');
+        table.string('consultation');
         table.string('lab');
         table.string('dispensary');
         table.string('bio_chemic');

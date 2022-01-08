@@ -58,6 +58,11 @@
                                 <td><input type="checkbox" id="is_registration_charges"/></td>
                               </tr>
                               <tr>
+                                <td><label for="lcharges">Consultation</label></td>
+                                <td><input type="number" class="form-control" id="consultation" value="0" min="0" disabled/></td>
+                                <td><input type="checkbox" id="is_consultation_charges"/></td>
+                              </tr>
+                              <tr>
                                 <td><label for="lcharges">Lab</label></td>
                                 <td><input type="number" class="form-control" id="lab" value="0" min="0" disabled/></td>
                                 <td><input type="checkbox" id="is_lab_charges"/></td>
@@ -129,6 +134,11 @@
                                   <td><label for="lcharges">ECG</label></td>
                                   <td><input type="number" class="form-control" id="ecg" value="0" min="0" disabled/></td>
                                   <td><input type="checkbox" id="is_ecg"/></td>
+                                </tr>
+                                <tr>
+                                  <td><label for="lcharges">Remark</label></td>
+                                  <td colspan="2"><textarea name="remark" id="remark" cols="30" rows="4"></textarea></td>
+                                  
                                 </tr>
                                 </table>
                               </div>
@@ -215,6 +225,9 @@
           $("#is_registration_charges").click(function(){
             toggleInput(this,20)
           })
+          $("#is_consultation_charges").click(function(){
+            toggleInput(this,0)
+          })
           $("#is_dispensary").click(function(){
             toggleInputSelect(this,30)
           })
@@ -254,7 +267,6 @@
             let amt = $(this).parent().parent().find('.charge').text();
             $(this).parent().parent().find('input[type="number"]').val(parseInt(week)*parseInt(amt));
             updateTotal()
-
           })
           
           $("#submitRequest").click(()=>{
@@ -263,6 +275,7 @@
             newEntry.case_number = $("#case_number").val()
             newEntry.entry_by = $("#entry_by").val()
             newEntry.total = $("#total").text()
+            newEntry.remark = $("#remark").val()
             console.log(newEntry);
             $.ajax({
                     type: "POST",

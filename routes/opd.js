@@ -10,7 +10,8 @@ async function routes(fastify, options) {
             reply.status(400).send(error)
         })
     })  
-    fastify.get('/getEntries',async(request,reply)=>{
+    fastify.post('/getEntries',async(request,reply)=>{
+        console.log(request.body);
         await knex("tbl_opd_register").select().then((result)=>{
             reply.status(200).send(result)
         }).catch((error)=>{
