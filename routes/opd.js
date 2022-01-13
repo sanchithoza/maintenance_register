@@ -11,8 +11,23 @@ async function routes(fastify, options) {
         })
     })  
     fastify.post('/getEntries',async(request,reply)=>{
-        console.log(request.body);
-        await knex("tbl_opd_register").select().then((result)=>{
+        let filter= {};
+        let columns = ["patient_name","created_at","entry_by"];
+        if(request.body.department!="none"){
+            filter.department = request.body.department
+        }
+        if(request.body.report_type =="lab"){
+            columns.push("lab as amount") 
+        }else if(request.body.report_type =="registration"){
+            columns.push("registration as amount") 
+        }else if(request.body.report_type =="other"){
+            columns.push("lab as amount") 
+        }else{
+            columns.push("total as amount") 
+        }
+        console.log(filter);
+        await knex("tbl_opd_register").select(columns).where(filter).then((result)=>{
+            console.log(result);
             reply.status(200).send(result)
         }).catch((error)=>{
             reply.status(400).send(error)

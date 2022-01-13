@@ -79,7 +79,7 @@
                     />
                   </form>
                 </div>
-                <div class="col-md-8">
+                <div class="col-md-8" id="report_div" hidden="hidden">
                   <h3>Report Data</h3>
                   <table id="opd_entries" class="display" style="width: 100%">
                     <thead>
@@ -150,12 +150,22 @@
 
     <script>
       $(document).ready(async function () {
+        var table = $("#opd_entries").DataTable({
+                paging: false,
+                dom: "Bfrtip",
+                buttons: [
+                  { extend: "excelHtml5", footer: true },
+                  { extend: "pdfHtml5", footer: true },
+                ],
+              });
+             
         $("#generate_report").click(async function () {
+          $("#report_div").removeAttr('hidden');
           let finalTotal = 0;
-          let department = $("#department").val();
-          let report_type = $("#report_type").val();
-          let from_date = $("#from_date").val();
-          let to_date = $("#to_date").val();
+          let department = $("#department").val() || "";
+          let report_type = $("#report_type").val()|| "";
+          let from_date = $("#from_date").val()|| "";
+          let to_date = $("#to_date").val()|| "";
           let filter = {
               department,
               report_type,
@@ -169,16 +179,11 @@
             data: JSON.stringify(filter),
             dataType: "json",
             success: async function (data) {
-              console.log("get users", data);
+              if(data.length<1){
+                data = [{created_at:"",patient_name:"No records found",amount:"",entry_by:""}];
+              }
               var length = data.length;
-              console.log(data);
-              var table = $("#opd_entries").DataTable({
-                dom: "Bfrtip",
-                buttons: [
-                  { extend: "excelHtml5", footer: true },
-                  { extend: "pdfHtml5", footer: true },
-                ],
-              });
+             
               table.clear();
               for (var i = 0; i < length; i++) {
                 $("#opd_entries")
@@ -186,7 +191,7 @@
                   .fnAddData([
                     data[i].created_at,
                     data[i].patient_name,
-                    data[i].total,
+                    data[i].amount,
                     data[i].entry_by,
                   ]);
                 finalTotal += parseInt(data[i].total);

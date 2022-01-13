@@ -5,21 +5,21 @@ exports.up = function(knex) {
         table.string('department').notNullable();
         table.string('case_number').notNullable();
         table.string('patient_name').notNullable();
-        table.string('registration');
-        table.string('consultation');
-        table.string('lab');
-        table.string('dispensary');
-        table.string('bio_chemic');
-        table.string('mother_tincher');
-        table.string('minor_dressing');
-        table.string('major_dressing');
-        table.string('first_stiches');
-        table.string('other_stiches');
-        table.string('injection');
-        table.string('ecg');
-        table.string('total')
-        table.string('entry_by').notNullable()
-        table.text('remark')
+        table.float('registration').defaultTo(0);
+        table.float('consultation').defaultTo(0);
+        table.float('lab').defaultTo(0);
+        table.float('dispensary').defaultTo(0);
+        table.float('bio_chemic').defaultTo(0);
+        table.float('mother_tincher').defaultTo(0);
+        table.float('minor_dressing').defaultTo(0);
+        table.float('major_dressing').defaultTo(0);
+        table.float('first_stiches').defaultTo(0);
+        table.float('other_stiches').defaultTo(0);
+        table.float('injection').defaultTo(0);
+        table.float('ecg').defaultTo(0);
+        table.float('total').defaultTo(0);
+        table.string('entry_by').notNullable();
+        table.text('remark');
         table.timestamp('created_at').defaultTo(knex.fn.now())
     }).then(() => {
         console.log(`tbl_opd_register created successfully . .`);
