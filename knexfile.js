@@ -8,7 +8,7 @@ module.exports = {
             host:'127.0.0.1',
             port:'3306',
             user: 'root',
-            password: 'root@2022',
+            password: '',
             //for request-ssa.xyz web version
           //  user:'requests_root',
            // password:'Ssaccm@2021',
