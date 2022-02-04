@@ -48,6 +48,10 @@
                               <label for="pname">Patient Name</label>
                               <input type="text" class="form-control" id="patient_name"/>
                           </div>
+                          <div class="form-group">
+                            <label for="pname">Transaction Date</label>
+                            <input type="date" class="form-control" id="transaction_date"/>
+                        </div>
                             </div>
                             <div class="col-md-4 border-right border-dark p-0">
                             <table class="table p-0 m-0">
@@ -183,6 +187,7 @@
               department : "",
               case_number : "",
               patient_name : "",
+              transaction_date:"",
               entry_by : "",
               total : "",
             };
@@ -260,6 +265,7 @@
             updateTotal();
           })
           $('input[type="number"]').on('keyup',async function(){
+            console.log(this);
             updateTotal();
           })
           $(".no_of_weeks").on('change',function(){
@@ -274,8 +280,13 @@
             newEntry.patient_name = $("#patient_name").val()
             newEntry.case_number = $("#case_number").val()
             newEntry.entry_by = $("#entry_by").val()
+            newEntry.transaction_date = $("#transaction_date").val()
             newEntry.total = $("#total").text()
             newEntry.remark = $("#remark").val()
+            $("input[type=number]")
+            .each(function () {
+              newEntry[this.id] = this.value;         
+        });
             console.log(newEntry);
             $.ajax({
                     type: "POST",

@@ -183,13 +183,12 @@
                 data = [{created_at:"",patient_name:"No records found",amount:"",entry_by:""}];
               }
               var length = data.length;
-             
               table.clear();
               for (var i = 0; i < length; i++) {
                 $("#opd_entries")
                   .dataTable()
                   .fnAddData([
-                    data[i].created_at,
+                    data[i].created,
                     data[i].patient_name,
                     data[i].amount,
                     data[i].entry_by,

@@ -4,6 +4,7 @@ exports.up = function(knex) {
         table.increments('id').primary()
         table.string('department').notNullable();
         table.string('case_number').notNullable();
+        table.date('transaction_date').notNullable();
         table.string('patient_name').notNullable();
         table.float('registration').defaultTo(0);
         table.float('consultation').defaultTo(0);
