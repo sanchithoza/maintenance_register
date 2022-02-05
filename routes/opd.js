@@ -27,7 +27,9 @@ async function routes(fastify, options) {
             query += ` where created_at between '${from_date}' and '${to_date}'`
             query += ` and department = '${request.body.department}'`;
         }
+        console.log(query);
         await knex.raw(query).then((result)=>{
+            console.log(result[0]);
             reply.status(200).send(result[0])
         }).catch((error)=>{
             reply.status(400).send(error)
