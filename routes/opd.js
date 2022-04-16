@@ -1,5 +1,5 @@
-const boom = require('boom');
-const { result } = require('lodash');
+
+
 const pdfGenerator = require('pdfkit')
 const knex = require('../knex');
 async function routes(fastify, options) {

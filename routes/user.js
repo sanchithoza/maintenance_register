@@ -1,4 +1,4 @@
-const boom = require('boom')
+
 const knex = require('./../knex');
 async function routes(fastify, options) {
     fastify.post(`/addUser`, (req, res) => {

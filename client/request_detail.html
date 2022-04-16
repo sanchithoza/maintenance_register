@@ -13,9 +13,11 @@
       type="text/css"
       href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css"
     />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/css-loader/3.3.3/css-loader.css" integrity="sha512-HrLBWHEIRcc9ZemiLhR34DVdkr81NVqhOtT1fIZGdcY5UmC5JzJAEwuj9B/fcNA6huJ3NQ8KV67CmdM/3H2H3g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   </head>
 
   <body>
+    <div id="loader" class="loader loader-ball is-active"></div>
     <nav id="navBar" class="navbar navbar-expand-md bg-dark navbar-dark">
       <!-- Nav-Bar Comes From header.js-->
     </nav>
@@ -162,6 +164,7 @@
       charset="utf8"
       src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"
     ></script>
+
     <script type="text/javascript" src="header.js"></script>
 
     <script>
@@ -182,7 +185,7 @@
         $.ajax({
           type: "GET",
           dataType: "application/json",
-          url: `${url}/maintenance/request/getRequest/${request_id}`,
+          url: `${url}/request/getRequest/${request_id}`,
           dataType: "json",
           success: async function (data) {
             console.log(data);
@@ -204,10 +207,10 @@
             } else if (data.status === "completed") {
               $("#completed").attr("checked", true);
             }
-            console.log(data.technician_id);
             if (data.technician_id != "" && data.technician_id != null) {
               $("#assignedTo").hide();
             }
+            $("#loader").removeClass("is-active");  
           },
           error: function (e) {
             alert(e.responseText);
@@ -217,7 +220,7 @@
         $.ajax({
           type: "GET",
           dataType: "application/json",
-          url: `${url}/maintenance/request/getComments/${request_id}`,
+          url: `${url}/request/getComments/${request_id}`,
           dataType: "json",
           success: async function (result) {
             result.forEach((element) => {
@@ -255,6 +258,7 @@
           });
         });
         $("#updateStatus").click(() => {
+          
           let newStatus = {
             status: $('input[name="status"]:checked').val(),
           };
@@ -262,7 +266,7 @@
           $.ajax({
             type: "PATCH",
             contentType: "application/json",
-            url: `${url}/maintenance/request/updateRequest/${request_id}`,
+            url: `${url}/request/updateRequest/${request_id}`,
             data: JSON.stringify(newStatus),
             dataType: "json",
             success: async function (data) {
@@ -286,7 +290,7 @@
           $.ajax({
             type: "PATCH",
             contentType: "application/json",
-            url: `${url}/maintenance/request/updateRequest/${request_id}`,
+            url: `${url}/request/updateRequest/${request_id}`,
             data: JSON.stringify(update),
             dataType: "json",
             success: async function (data) {

@@ -74,8 +74,8 @@
 
     <script>
         $(document).ready(async function() {
-            console.log("ge users",url);
-            let institute_id = sessionStorage.getItem("institute_id")
+            console.log("get users",url);
+          
             $.get(`${url}/user/getUsers`, function(data) {
                 console.log("get users");
                 var length = data.length;

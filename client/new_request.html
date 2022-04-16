@@ -109,7 +109,7 @@
             $.ajax({
                     type: "POST",
                     contentType: "application/json",
-                    url: `${url}/maintenance/request/makeRequest`,
+                    url: `${url}/request/makeRequest`,
                     data: JSON.stringify(newRequest),
                     dataType: 'json',
                     success: async function(data) {

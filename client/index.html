@@ -77,30 +77,30 @@
     <script>
         $(document).ready(async() => {
                 let url= 'http://localhost:9000/maintenance';
-                $("#login").click(() => {
+                $("#login").click(async() => {
                 let loginCredential = {
                     "user_name": $("#user_name").val(),
                     "password": $("#password").val()
                 }
                 try {
-                    $.ajax({
+                    await $.ajax({
                         type: "POST",
                         dataType: "application/json",
                         url: `${url}/user/login`,
                         data: loginCredential,
                         dataType: 'json',
                         success: async function(data) {
-                            sessionStorage.setItem("user_id", data[0].id);
-                            sessionStorage.setItem("user_name", data[0].name);
-                            sessionStorage.setItem("institute_id", data[0].institute_id);
-                            sessionStorage.setItem("role", data[0].role);
-                            window.location.replace("./request_list.html");
+                            await sessionStorage.setItem("user_id", data[0].id);
+                            await sessionStorage.setItem("user_name", data[0].name);
+                            await sessionStorage.setItem("institute_id", data[0].institute_id);
+                            await sessionStorage.setItem("role", data[0].role);
+                            await window.location.replace("./request_list.html");
                             
                         },
-                        error: function(e) {
-                            alert(e.responseText)
-                            alert(JSON.stringify(e))
-                            console.log("Add user Ajax ERROR: ", e);
+                        error: async function(e) {
+                           await alert(e.responseText)
+                            await alert(JSON.stringify(e))
+                            await console.log("Add user Ajax ERROR: ", e);
                         }
                     });
                 } catch (error) {

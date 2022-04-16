@@ -1,5 +1,4 @@
-const boom = require('boom');
-const { result } = require('lodash');
+
 const knex = require('../knex');
 async function routes(fastify, options) {
     fastify.get('/getInstitute',async(request,reply)=>{
