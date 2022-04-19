@@ -54,40 +54,55 @@ async function routes(fastify, options) {
   //report route
   fastify.post("/getReport", async (request, reply) => {
     //return newpost
-    const records = [];
+    
     console.log(request.body);
-    knex
-      .select()
-      .table("tbl_maintenance_request")
-      .then(async (result) => {
-        if (result.length) {
-          for (i = 0; i < result.length; i++) {
-            if (
-              result[i].technician_id != "" &&
-              result[i].technician_id != null
-            ) {
-              result[i].technician_name = await get_user_name(result[i].technician_id);
-            } else {
-              result[i].technician_name = "Not Assigned";
-            }
-            if (result[i].user_id != "" && result[i].user_id != null) {
-              result[i].user_name = await get_user_name(result[i].user_id);
-            }
-            result[i].created_at = (await getFormetedDate(result[i].created_at)).toString();
+    let institute_id = request.body.institute_id;
+    let from_date = request.body.from_date;
+    let to_date = request.body.to_date;
+    let status = request.body.status;
+    let sql =`select id,DATE_FORMAT(created_at, '%Y-%m-%d') as created_at,user_id,request_for,technician_id,status,institute_id,building_name,floor_number,discription,room_identification from tbl_maintenance_request where created_at between '${from_date}' and '${to_date}'`;
+    if(institute_id != ''){
+          sql+=` and institute_id = '${institute_id}'`
+    }
+    if(status != 'all'){
+      sql+=` and status = '${status}'`
+    }
+
+    knex.raw(sql).then(async(data)=>{
+      
+      let result = data[0];
+      console.log(result);
+      if (result.length) {
+        for (i = 0; i < result.length; i++) {
+          if (
+            result[i].technician_id != "" &&
+            result[i].technician_id != null
+          ) {
+            result[i].technician_name = await get_user_name(result[i].technician_id);
+          } else {
+            result[i].technician_name = "Not Assigned";
           }
-          //console.log(records);
-          reply.status(200).send(result);
-        } else {
-          reply.status(200).send({ result: "No Record Available" });
+          if (result[i].user_id != "" && result[i].user_id != null) {
+            result[i].user_name = await get_user_name(result[i].user_id);
+          }
+          if (result[i].user_id != "" && result[i].user_id != null) {
+            result[i].institute_name = await get_institute_name(result[i].institute_id);
+          }
+          result[i].created_at = (await getFormetedDate(result[i].created_at)).toString();
         }
-      })
-      .catch((error) => {
-        console.log(error);
-        reply.status(400).send(error);
-      });
+       
+        reply.status(200).send(result);
+      } else {
+        reply.status(200).send({ result: "No Record Available" });
+      }
+    }).catch((error)=>{
+      console.log(error);
+      reply.status(400).send(error);
+    })
   });
   //get request detail
   fastify.get("/getRequest/:id", async (request, reply) => {
+    
     await knex
       .select("*")
       .table("tbl_maintenance_request")

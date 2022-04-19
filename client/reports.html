@@ -18,9 +18,15 @@
       type="text/css"
       href="https://cdn.datatables.net/buttons/2.1.0/css/buttons.dataTables.min.css"
     />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/css-loader/3.3.3/css-loader.css" integrity="sha512-HrLBWHEIRcc9ZemiLhR34DVdkr81NVqhOtT1fIZGdcY5UmC5JzJAEwuj9B/fcNA6huJ3NQ8KV67CmdM/3H2H3g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/css-loader/3.3.3/css-loader.css"
+      integrity="sha512-HrLBWHEIRcc9ZemiLhR34DVdkr81NVqhOtT1fIZGdcY5UmC5JzJAEwuj9B/fcNA6huJ3NQ8KV67CmdM/3H2H3g=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
     <style>
-      .form-group{
+      .form-group {
         margin: 5px;
       }
     </style>
@@ -37,7 +43,7 @@
           <div class="card overflow-auto">
             <div class="card-header">
               <h3 id="">Reports</h3>
-              <div class="col-md-12 border border-dark" >
+              <div class="col-md-12 border border-dark">
                 <h4>Filter By</h4>
                 <form class="form-row">
                   <div class="form-group text-center">
@@ -58,6 +64,15 @@
                       class="form-control institute_id"
                       id="institute_id"
                     ></select>
+                  </div>
+                  <div class="form-group">
+                    <label for="status">Request Status</label>
+                    <select class="form-control" id="status">
+                      <option value="all">All</option>
+                      <option value="pending">Pending</option>
+                      <option value="completed">Completed</option>
+                      <option value="in progress">In Progress</option>
+                    </select>
                   </div>
 
                   <div class="form-group">
@@ -92,11 +107,15 @@
                     <thead>
                       <tr>
                         <th>Record Id</th>
-                        <th>RequestDate</th>
-                        <th>Request By</th>
-                        <th>Request for</th>
-                        <th>Assigned To</th>
+                        <th>Request Date</th>
+                        <th>Institute</th>
+                        <th>Building Name</th>
+                        <th>Floor Number</th>
+                        <th>Room Number/Name</th>
+                        <th>Request For</th>
+                        <th>Discription</th>
                         <th>Current Status</th>
+                        <th>Assigned To</th>
                       </tr>
                     </thead>
                     <tbody></tbody>
@@ -164,7 +183,8 @@
         var day = ("0" + now.getDate()).slice(-2);
         var month = ("0" + (now.getMonth() + 1)).slice(-2);
         var today = now.getFullYear() + "-" + month + "-" + day;
-        $("#from_date").val(today);
+        var from_date = now.getFullYear() + "-" + month + "-01";
+        $("#from_date").val(from_date);
         $("#to_date").val(today);
         $("#loading").hide();
         $("#generate_report").click(async function () {
@@ -172,10 +192,15 @@
           $("#report_div").removeAttr("hidden");
           let finalTotal = 0;
           let institute_id = $("#institute_id").val() || "";
+          if ($("#is_all").is(":checked")) {
+            institute_id = "";
+          }
           let from_date = $("#from_date").val() || "";
           let to_date = $("#to_date").val() || "";
+          let status = $("#status").val() || "";
           let filter = {
             institute_id,
+            status,
             from_date,
             to_date,
           };
@@ -204,10 +229,14 @@
                 columns: [
                   { data: "id" },
                   { data: "created_at" },
-                  { data: "user_name" },
+                  { data: "institute_name" },
+                  { data: "building_name" },
+                  { data: "floor_number" },
+                  { data: "room_identification" },
                   { data: "request_for" },
-                  { data: "technician_name" },
+                  { data: "discription" },
                   { data: "status" },
+                  { data: "technician_name" },
                 ],
                 columnDefs: [
                   {
@@ -233,7 +262,6 @@
                 ],
               });
               table.clear().rows.add(data).draw();
-              
             },
             error: function (e) {
               alert(`Unable to Create Request ${e}`);
