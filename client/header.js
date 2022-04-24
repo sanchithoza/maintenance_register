@@ -1,5 +1,6 @@
 let url = "http://localhost:9000/maintenance";
 console.log("here", url);
+console.log(window.location.origin);
 if (sessionStorage.length <= 0) {
   window.location.href = `index.html`;
   if (alert("only registered users can access this.")) {

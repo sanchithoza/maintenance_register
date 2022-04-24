@@ -33,17 +33,17 @@
   </head>
 
   <body>
-    <div id="loader" class="loader loader-ball"></div>
+    <div id="loader" class="loader loader-ball is-active"></div>
     <nav id="navBar" class="navbar navbar-expand-md bg-dark navbar-dark">
       <!-- Nav-Bar Comes From header.js-->
     </nav>
-    <div class="container">
+    <div class="container-fluid">
       <div class="row">
         <div class="col-md-12">
-          <div class="card overflow-auto">
-            <div class="card-header">
+          <div class="card  overflow-auto">
+            <div class="card-header bg-secondary text-white">
               <h3 id="">Reports</h3>
-              <div class="col-md-12 border border-dark">
+              <div class="col-md-12 bg-light text-dark">
                 <h4>Filter By</h4>
                 <form class="form-row">
                   <div class="form-group text-center">
@@ -186,7 +186,7 @@
         var from_date = now.getFullYear() + "-" + month + "-01";
         $("#from_date").val(from_date);
         $("#to_date").val(today);
-        $("#loading").hide();
+        $("#loader").removeClass("is-active");
         $("#generate_report").click(async function () {
           $("#loader").addClass("is-active");
           $("#report_div").removeAttr("hidden");
@@ -251,29 +251,28 @@
                   {
                     extend: "excelHtml5",
                     footer: true,
-                    title: `A Report of ${$(
-                      "#department"
-                    ).val()} department(s)`,
+                    title: `Maintenance Request Register of Agrawal Education Foundation,Navsari`,
                     messageTop: `Duration : ${$("#from_date").val()} To ${$(
                       "#to_date"
-                    ).val()} of ${$("#report_type").val()} Charges`,
+                    ).val()}`,
                   },
                   { extend: "pdfHtml5", footer: true },
                 ],
               });
               table.clear().rows.add(data).draw();
+              $("#loader").removeClass("is-active");
             },
             error: function (e) {
-              alert(`Unable to Create Request ${e}`);
+              alert(`Unable to Create Request.`);
               console.log("Make Request Ajax ERROR: ", JSON.stringify(e));
+              $("#loader").removeClass("is-active");
             },
           });
-          $("#loader").removeClass("is-active");
+          
         });
         $("#request_report").on("click", "tbody tr", function () {
           let id = $(this).find("td:first").text();
-          window.location.href = `request_detail.html?id=${id}`;
-          //window.open(`./recipt.html?id=${id}`, "_blank");
+          window.open(`request_detail.html?id=${id}`,'_blank');
         });
       });
     </script>
