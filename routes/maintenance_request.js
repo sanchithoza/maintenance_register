@@ -26,6 +26,7 @@ async function routes(fastify, options) {
       .table("tbl_maintenance_request")
       .where('user_id',request.body.user_id)
       .orWhere('technician_id',request.body.user_id)
+      .orderBy('created_at', 'desc')
       .then(async (result) => {
         let prepaired_result = await prepair_response(result)
         console.log(prepaired_result);
@@ -39,6 +40,7 @@ async function routes(fastify, options) {
       knex
       .select()
       .table("tbl_maintenance_request")
+      .orderBy('created_at', 'desc')
       .then(async (result) => {
         let prepaired_result = await prepair_response(result)
         console.log(prepaired_result);
