@@ -84,9 +84,9 @@
     </div>
     <script>
         $(document).ready(async() => {
-                let url= 'http://localhost:9000/maintenance';
+                let url= `${location.protocol}//localhost:9000/maintenance`;
                 //for server
-                //let url = 'https://request-ssa.xyz/maintenance'
+                //let url = `${location.protocol}//request-ssa.xyz/maintenance`
                 $("#login").click(async() => {
                     $("#loader").addClass("is-active");
                 let loginCredential = {
