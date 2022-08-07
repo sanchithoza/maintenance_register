@@ -9,7 +9,7 @@
     "start-dev": "nodemon app.js",
     "migrate": "knex migrate:latest",
     "seed": "knex seed:run"
-   },
+  },
   "engines": {
     "node": "16.13.0"
   },
@@ -24,7 +24,8 @@
     "knex": "^0.95.7",
     "lodash": "^4.17.21",
     "mysql": "^2.18.1",
-    "mysql2": "^2.3.3"
+    "mysql2": "^2.3.3",
+    "ps-node": "^0.1.6"
   },
   "license": "ISC",
   "devDependencies": {

@@ -31,6 +31,10 @@
             <div class="card-body">
               <table class="table">
                 <tr>
+                  <th>Request Id :</th>
+                  <td id="request_id"></td>
+                </tr>
+                <tr>
                   <th>Request Date :</th>
                   <td id="request_date"></td>
                 </tr>
@@ -188,7 +192,7 @@
           url: `${url}/request/getRequest/${request_id}`,
           dataType: "json",
           success: async function (data) {
-            console.log(data);
+            $("#request_id").append(data.id);
             $("#request_date").append(await getFormetedDate(data.created_at));
             $("#institute").append(data.institute);
             $("#building").append(data.building_name);
